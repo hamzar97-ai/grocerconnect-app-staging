@@ -37,10 +37,12 @@ export default function HeroSection() {
     <Box
       sx={{
         position: "relative",
+        zIndex: 3,
         overflow: "hidden",
         bgcolor: slides[activeIndex].bgColor,
         transition: "background-color 600ms ease",
         py: { xs: 6, md: 10 },
+        pb: { xs: 16, md: 24 },
       }}
     >
       {/* DOT BACKGROUND */}
