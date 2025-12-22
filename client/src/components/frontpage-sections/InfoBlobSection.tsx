@@ -1,142 +1,157 @@
 "use client";
 
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 
 interface InfoBlobSectionProps {
   title: string;
   description: string;
   image: string;
-  blobColor?: string;
-  outerBg?: string;
+  bgColor: string;
   reverse?: boolean;
-  overlapTop?: boolean; // 👈 NEW
-  zIndex?: number; // 👈 NEW
+  textColor?: string;
 }
 
 export default function InfoBlobSection({
   title,
   description,
   image,
-  blobColor = "#FFF176",
-  outerBg = "#E53935",
+  bgColor,
   reverse = false,
-  overlapTop = false,
-  zIndex = 1,
+  textColor = "#000",
 }: InfoBlobSectionProps) {
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const [isActive, setIsActive] = useState(false);
+
+  /* ---------- Active card detection (focus + sharpness) ---------- */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsActive(entry.intersectionRatio > 0.6);
+      },
+      { threshold: [0.6] }
+    );
+
+    if (cardRef.current) observer.observe(cardRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
+    /* STICKY STACK SECTION (unchanged behavior) */
     <Box
       sx={{
-        position: "relative",
-        bgcolor: outerBg,
-        py: { xs: 10, md: 14 },
+        height: "100vh",
+        position: "sticky",
+        top: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        px: { xs: 2, md: 6 },
 
-        mt: overlapTop ? { xs: -10, md: -14 } : 0,
-        pt: overlapTop ? { xs: 10, md: 14 } : 0,
-
-        zIndex: overlapTop ? 2 : 1,
-        overflow: "hidden",
-
-        /* dotted background */
-        backgroundImage: `
-          radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)
-        `,
+        /* background parallax feel */
+        backgroundImage:
+          "radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)",
         backgroundSize: "20px 20px",
+        backgroundPosition: isActive ? "50% 40%" : "50% 50%",
+        transition: "background-position 600ms ease",
       }}
     >
-      <Container maxWidth="lg">
-        {/* INNER BLOB CARD */}
+      {/* CARD */}
+      <Box
+        ref={cardRef}
+        sx={{
+          width: "100%",
+          maxWidth: 1200,
+          bgcolor: bgColor,
+          borderRadius: "48px",
+          p: { xs: 4, md: 8 },
+
+          display: "flex",
+          flexDirection: {
+            xs: "column",
+            md: reverse ? "row-reverse" : "row",
+          },
+          alignItems: "center",
+          gap: { xs: 4, md: 6 },
+
+          /* focus / depth */
+          boxShadow: isActive
+            ? "0 28px 80px rgba(0,0,0,0.45)"
+            : "0 18px 40px rgba(0,0,0,0.25)",
+
+          opacity: isActive ? 1 : 0.75,
+          filter: isActive ? "blur(0)" : "blur(0.4px)",
+          transform: isActive ? "scale(1)" : "scale(0.97)",
+
+          transition:
+            "transform 500ms ease, box-shadow 500ms ease, opacity 400ms ease, filter 400ms ease",
+
+          /* hover tilt micro-interaction */
+          "&:hover": {
+            transform: "scale(1.02)",
+          },
+        }}
+      >
+        {/* IMAGE */}
         <Box
+          component="img"
+          src={image}
+          alt={title}
           sx={{
-            bgcolor: blobColor,
-            borderRadius: "56px",
-            px: { xs: 3, md: 8 },
-            py: { xs: 5, md: 7 },
-            boxShadow: "0 20px 50px rgba(0,0,0,0.35)",
+            width: { xs: 220, md: 320 },
+            aspectRatio: "1 / 1",
+            objectFit: "cover",
+            flexShrink: 0,
+
+            borderRadius: "50% 45% 55% 50% / 55% 50% 50% 45%",
+            boxShadow: "0 18px 40px rgba(0,0,0,0.35)",
+
+            /* image parallax + hover lift */
+            transform: isActive ? "translateY(-6px)" : "translateY(0)",
+
+            transition: "transform 500ms ease",
+
+            "&:hover": {
+              transform: "translateY(-12px) scale(1.04)",
+            },
           }}
-        >
-          <Box
+        />
+
+        {/* TEXT */}
+        <Box>
+          <Typography
+            component="h2"
             sx={{
-              display: "grid",
-              gridTemplateColumns: {
-                xs: "1fr",
-                md: reverse ? "1.1fr 0.9fr" : "0.9fr 1.1fr",
-              },
-              gap: { xs: 4, md: 6 },
-              alignItems: "center",
+              fontFamily: "var(--font-fredoka)",
+              fontSize: { xs: "2.2rem", md: "3rem" },
+              fontWeight: 900,
+              mb: 2,
+              color: "#000",
+
+              textShadow: `
+                -2px -2px 0 #fff,
+                 2px -2px 0 #fff,
+                -2px  2px 0 #fff,
+                 2px  2px 0 #fff,
+                 0px  6px 14px rgba(0,0,0,0.3)
+              `,
             }}
           >
-            {/* IMAGE */}
-            <Box
-              sx={{
-                order: { xs: 1, md: reverse ? 2 : 1 },
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Box
-                component="img"
-                src={image}
-                alt={title}
-                sx={{
-                  width: { xs: 240, sm: 280, md: 320 },
-                  aspectRatio: "1 / 1",
-                  objectFit: "cover",
+            {title}
+          </Typography>
 
-                  /* organic blob */
-                  borderRadius: "50% 45% 55% 50% / 55% 50% 50% 45%",
-                  boxShadow: "0 18px 40px rgba(0,0,0,0.35)",
-
-                  transition: "transform 400ms ease",
-
-                  "&:hover": {
-                    transform: "scale(1.05) rotate(-1deg)",
-                  },
-                }}
-              />
-            </Box>
-
-            {/* TEXT */}
-            <Box sx={{ order: { xs: 2, md: reverse ? 1 : 2 } }}>
-              <Typography
-                component="h2"
-                sx={{
-                  fontFamily: "var(--font-fredoka)",
-                  fontSize: {
-                    xs: "2.4rem",
-                    sm: "2.8rem",
-                    md: "3.2rem",
-                  },
-                  fontWeight: 900,
-                  lineHeight: 1.1,
-                  mb: 2,
-                  color: "#000",
-                  textShadow: `
-                    -2px -2px 0 #ffffff,
-                     2px -2px 0 #ffffff,
-                    -2px  2px 0 #ffffff,
-                     2px  2px 0 #ffffff,
-                     0px  6px 14px rgba(0,0,0,0.3)
-                  `,
-                }}
-              >
-                {title}
-              </Typography>
-
-              <Typography
-                sx={{
-                  fontSize: { xs: "1rem", md: "1.05rem" },
-                  lineHeight: 1.7,
-                  fontWeight: 500,
-                  color: "#111",
-                  maxWidth: 520,
-                }}
-              >
-                {description}
-              </Typography>
-            </Box>
-          </Box>
+          <Typography
+            sx={{
+              fontSize: { xs: "1rem", md: "1.05rem" },
+              lineHeight: 1.7,
+              maxWidth: 520,
+              color: textColor,
+            }}
+          >
+            {description}
+          </Typography>
         </Box>
-      </Container>
+      </Box>
     </Box>
   );
 }

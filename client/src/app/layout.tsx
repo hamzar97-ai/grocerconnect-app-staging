@@ -5,6 +5,7 @@ import { Fredoka } from "next/font/google";
 
 import ThemeRegistry from "@/components/ThemeRegistry";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "GrocerConnect",
@@ -28,6 +29,7 @@ export default function RootLayout({
         <ThemeRegistry>
           <Header />
           {children}
+          <Footer />
         </ThemeRegistry>
       </body>
     </html>
