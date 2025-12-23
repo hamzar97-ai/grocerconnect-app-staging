@@ -6,6 +6,7 @@ import { Fredoka, Passion_One } from "next/font/google";
 import ThemeRegistry from "@/components/ThemeRegistry";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const metadata: Metadata = {
   title: "GrocerConnect",
@@ -36,6 +37,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <ScrollToTop />
         </ThemeRegistry>
       </body>
     </html>
