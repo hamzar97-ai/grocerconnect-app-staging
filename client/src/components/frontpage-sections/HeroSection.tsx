@@ -82,28 +82,31 @@ export default function HeroSection() {
           component="h1"
           textAlign="center"
           sx={{
-            fontFamily: "var(--font-baloo)",
-            fontSize: {
-              xs: "2.8rem",
-              sm: "3.6rem",
-              md: "4.6rem",
-            },
-            fontWeight: 800,
-            lineHeight: 1.05,
-            letterSpacing: "-0.01em",
+            position: "relative",
+
+            fontFamily: "var(--font-passion)",
+            fontWeight: 700,
             color: "#000",
 
-            /* Sticker outline + depth */
-            textShadow: `
-      -3px -3px 0 #ffffff,
-       3px -3px 0 #ffffff,
-      -3px  3px 0 #ffffff,
-       3px  3px 0 #ffffff,
-       0px  8px 0 rgba(0,0,0,0.35)
-    `,
+            fontSize: {
+              xs: "2.8rem",
+              sm: "3.8rem",
+              md: "5rem",
+            },
+
+            /* REAL outline (this is the key) */
+            WebkitTextStroke: "0.18em #fff",
+            paintOrder: "stroke fill",
+
+            /* Drop shadow like MiCha */
+            filter:
+              "drop-shadow(0px clamp(2px, 1vw, 10px) clamp(1px, 0.2vw, 5px) rgba(0,0,0,0.55))",
+
+            padding: "0 0.25em",
+            lineHeight: 1.05,
           }}
         >
-          AT THE HEART OF THE COMMUNITY
+          At the Heart of the Community
         </Typography>
 
         {/* ================= SLIDER AREA ================= */}

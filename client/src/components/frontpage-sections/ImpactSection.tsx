@@ -51,7 +51,7 @@ export default function ImpactSection() {
         <Typography
           sx={{
             fontFamily: "var(--font-fredoka)",
-            fontSize: { xs: "2.6rem", md: "3.2rem" },
+            fontSize: { xs: "2.6rem", md: "4rem" },
             fontWeight: 900,
             color: "#fff",
             letterSpacing: "0.04em",
@@ -147,7 +147,7 @@ export default function ImpactSection() {
             py: 1.6,
             borderRadius: "999px",
             fontWeight: 700,
-            fontSize: "1rem",
+            fontSize: "1.1rem",
             textTransform: "none",
 
             "&:hover": {

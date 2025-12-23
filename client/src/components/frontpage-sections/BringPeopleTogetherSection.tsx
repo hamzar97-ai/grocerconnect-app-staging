@@ -30,7 +30,7 @@ export default function BringPeopleTogetherSection() {
           <Typography
             sx={{
               fontSize: { xs: "3.4rem", md: "5.2rem" },
-              fontWeight: 900,
+              fontFamily: "var(--font-passion)",
               letterSpacing: "-0.02em",
               color: "#E53935",
               transform: "rotate(-2deg)",
@@ -42,7 +42,7 @@ export default function BringPeopleTogetherSection() {
               mb: 0,
             }}
           >
-            Add Your Heading
+            Grocer Connect Brings
           </Typography>
 
           <br />
@@ -50,7 +50,7 @@ export default function BringPeopleTogetherSection() {
           <Typography
             sx={{
               fontSize: { xs: "3.8rem", md: "6.4rem" },
-              fontWeight: 900,
+              fontFamily: "var(--font-passion)",
               mt: { xs: -2, md: -4 },
               letterSpacing: "-0.02em",
               color: "#7E57C2",
@@ -62,7 +62,7 @@ export default function BringPeopleTogetherSection() {
       `,
             }}
           >
-            Text Here
+            People Together
           </Typography>
         </Box>
 

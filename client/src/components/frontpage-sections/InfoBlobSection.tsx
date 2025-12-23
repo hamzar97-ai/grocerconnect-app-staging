@@ -22,7 +22,7 @@ export default function InfoBlobSection({
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [isActive, setIsActive] = useState(false);
 
-  /* ---------- Active card detection (focus + sharpness) ---------- */
+  /* ---------- Active card detection ---------- */
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -30,6 +30,7 @@ export default function InfoBlobSection({
       },
       { threshold: [0.6] }
     );
+
     if (cardRef.current) observer.observe(cardRef.current);
     return () => observer.disconnect();
   }, []);
@@ -45,7 +46,7 @@ export default function InfoBlobSection({
         alignItems: "center",
         justifyContent: "center",
         px: { xs: 2, md: 6 },
-        /* background parallax feel */
+
         backgroundImage:
           "radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)",
         backgroundSize: "20px 20px",
@@ -53,7 +54,7 @@ export default function InfoBlobSection({
         transition: "background-position 600ms ease",
       }}
     >
-      {/* CARD WITH SVG MASK WAVES */}
+      {/* CARD */}
       <Box
         ref={cardRef}
         sx={{
@@ -62,6 +63,7 @@ export default function InfoBlobSection({
           minHeight: "calc(90vh - 96px)",
           bgcolor: bgColor,
           p: { xs: 4, md: 8 },
+
           display: "flex",
           flexDirection: {
             xs: "column",
@@ -70,20 +72,29 @@ export default function InfoBlobSection({
           alignItems: "center",
           justifyContent: "center",
           gap: { xs: 4, md: 6 },
-          /* focus / depth */
+
+          /* 🔥 STACKING MAGIC */
+          transform: isActive
+            ? "translateY(0) rotate(0deg) scale(1)"
+            : "translateY(22px) rotate(-2.2deg) scale(0.96)",
+
           boxShadow: isActive
             ? "0 28px 80px rgba(0,0,0,0.45)"
             : "0 18px 40px rgba(0,0,0,0.25)",
-          opacity: isActive ? 1 : 0.75,
-          filter: isActive ? "blur(0)" : "blur(0.4px)",
-          transform: isActive ? "scale(1)" : "scale(0.97)",
+
+          opacity: isActive ? 1 : 0.85,
+          filter: isActive ? "blur(0)" : "blur(0.3px)",
+
           transition:
-            "transform 500ms ease, box-shadow 500ms ease, opacity 400ms ease, filter 400ms ease",
-          /* hover tilt micro-interaction */
+            "transform 600ms cubic-bezier(.22,.61,.36,1), box-shadow 500ms ease, opacity 400ms ease, filter 400ms ease",
+
           "&:hover": {
-            transform: "scale(1.02)",
+            transform: isActive
+              ? "scale(1.02)"
+              : "translateY(18px) rotate(-2deg) scale(0.98)",
           },
-          /* SVG MASK IMAGE FOR WAVY BORDERS */
+
+          /* WAVY MASK (UNCHANGED) */
           maskImage: "url(/assets/images/micha-about-card-mask.svg)",
           maskRepeat: "no-repeat",
           maskPosition: "center",
@@ -104,11 +115,13 @@ export default function InfoBlobSection({
             aspectRatio: "1 / 1",
             objectFit: "cover",
             flexShrink: 0,
+
             borderRadius: "50% 45% 55% 50% / 55% 50% 50% 45%",
             boxShadow: "0 18px 40px rgba(0,0,0,0.35)",
-            /* image parallax + hover lift */
+
             transform: isActive ? "translateY(-6px)" : "translateY(0)",
             transition: "transform 500ms ease",
+
             "&:hover": {
               transform: "translateY(-12px) scale(1.04)",
             },
@@ -116,32 +129,42 @@ export default function InfoBlobSection({
         />
 
         {/* TEXT */}
-        <Box>
+        <Box sx={{ maxWidth: 560 }}>
           <Typography
             component="h2"
             sx={{
-              fontFamily: "var(--font-fredoka)",
-              fontSize: { xs: "2.2rem", md: "3rem" },
-              fontWeight: 900,
-              mb: 2,
+              fontFamily: "var(--font-passion)",
+              fontWeight: 700,
               color: "#000",
-              textShadow: `
-                -2px -2px 0 #fff,
-                 2px -2px 0 #fff,
-                -2px  2px 0 #fff,
-                 2px  2px 0 #fff,
-                 0px  6px 14px rgba(0,0,0,0.3)
-              `,
+
+              fontSize: {
+                xs: "3.2rem",
+                sm: "3.8rem",
+                md: "4.6rem",
+              },
+
+              lineHeight: 1.05,
+
+              WebkitTextStroke: "0.18em #fff",
+              paintOrder: "stroke fill",
+
+              filter:
+                "drop-shadow(0px clamp(2px, 0.8vw, 8px) clamp(1px, 0.2vw, 4px) rgba(0,0,0,0.45))",
+
+              padding: "0 0.2em",
+              mb: { xs: 2.5, md: 3 },
             }}
           >
             {title}
           </Typography>
+
           <Typography
             sx={{
-              fontSize: { xs: "1rem", md: "1.05rem" },
-              lineHeight: 1.7,
-              maxWidth: 520,
+              fontSize: { xs: "1.15rem", md: "1.25rem" },
+              lineHeight: 1.6,
+              fontWeight: 500,
               color: textColor,
+              maxWidth: 520,
             }}
           >
             {description}

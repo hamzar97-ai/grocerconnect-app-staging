@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { Fredoka, Baloo_2 } from "next/font/google";
+import { Fredoka, Passion_One } from "next/font/google";
 
 import ThemeRegistry from "@/components/ThemeRegistry";
 import Header from "@/components/Header";
@@ -18,10 +18,10 @@ const fredoka = Fredoka({
   variable: "--font-fredoka",
 });
 
-const baloo = Baloo_2({
+const passion = Passion_One({
   subsets: ["latin"],
-  weight: ["700", "800"],
-  variable: "--font-baloo",
+  weight: ["700"],
+  variable: "--font-passion",
 });
 
 export default function RootLayout({
@@ -31,7 +31,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${fredoka.variable} ${baloo.variable}`}>
+      <body className={`${fredoka.variable} ${passion.variable}`}>
         <ThemeRegistry>
           <Header />
           {children}

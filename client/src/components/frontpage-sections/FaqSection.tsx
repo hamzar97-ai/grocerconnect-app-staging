@@ -47,8 +47,8 @@ export default function FaqSection() {
       <Box sx={{ textAlign: "center", mb: { xs: 8, md: 10 } }}>
         <Typography
           sx={{
-            fontSize: { xs: "2.4rem", md: "3.4rem" },
-            fontWeight: 900,
+            fontSize: { xs: "2.4rem", md: "3.6rem" },
+            fontFamily: "var(--font-passion)",
             backgroundColor: "#fff",
             color: "#000",
             display: "inline-block",
@@ -56,6 +56,7 @@ export default function FaqSection() {
             py: { xs: 1.5, md: 2 },
             borderRadius: "28px",
             boxShadow: "0 6px 0 rgba(0,0,0,0.25)",
+            letterSpacing: "1px",
           }}
         >
           Frequently Asked Questions
