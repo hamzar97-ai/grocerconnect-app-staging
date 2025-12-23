@@ -42,6 +42,14 @@ export default function Home() {
           textColor="#fff"
           reverse
         />
+
+        <InfoBlobSection
+          title="Our Mission"
+          description="Our mission is to empower independent grocers by strengthening their ability to compete..."
+          image="/assets/images/2152003889.jpg"
+          bgColor="#2F9E44"
+          textColor="#111"
+        />
       </Box>
 
       <FlavorStripSection />

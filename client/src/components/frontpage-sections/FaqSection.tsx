@@ -3,51 +3,43 @@
 import { Box, Typography, IconButton } from "@mui/material";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import { useState } from "react";
+import { useTheme } from "@mui/material/styles";
 
+/* Dummy FAQ content */
 const faqs = [
   {
-    question: "What exactly is this product?",
+    question: "What is this product, exactly?",
     answer:
-      "This is dummy text for now. Our product is crafted with care, packed with good vibes, and designed to make you feel great from the inside out.",
-    bg: "#7E57C2",
-    color: "#FFF176",
+      "This is placeholder text. The product is thoughtfully made and designed to fit easily into everyday routines.",
   },
   {
-    question: "Is it good for everyday use?",
+    question: "What is actually inside the product?",
     answer:
-      "Absolutely. Dummy content here — it’s made to be enjoyed daily as part of a balanced and happy routine.",
-    bg: "#FFF176",
-    color: "#D32F2F",
+      "Dummy content here. Ingredients are selected carefully with balance and quality in mind.",
   },
   {
-    question: "Does it contain artificial ingredients?",
+    question: "Do you offer wholesale or bulk pricing?",
     answer:
-      "Nope! This placeholder text says it’s all about keeping things simple, honest, and naturally enjoyable.",
-    bg: "#43A047",
-    color: "#E8F5E9",
+      "Yes — placeholder answer. Wholesale and partnership options are available upon request.",
   },
   {
-    question: "Where is it made?",
+    question: "What makes this different from similar products?",
     answer:
-      "Dummy answer goes here. Crafted with love, care, and a lot of attention to quality.",
-    bg: "#E53935",
-    color: "#FFF",
+      "This is sample text. The focus is on simplicity, consistency, and a great overall experience.",
   },
 ];
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const theme = useTheme();
 
   return (
     <Box
       sx={{
-        backgroundColor: "#FFEDEA", // 🌟 warm cream
-        backgroundImage: `
-      radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px),
-      radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px)
-    `,
-        backgroundSize: "18px 18px, 36px 36px",
-        backgroundPosition: "0 0, 9px 9px",
+        backgroundColor: theme.palette.error.main,
+        backgroundImage:
+          "radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px)",
+        backgroundSize: "20px 20px",
         py: { xs: 12, md: 16 },
       }}
     >
@@ -55,34 +47,18 @@ export default function FaqSection() {
       <Box sx={{ textAlign: "center", mb: { xs: 8, md: 10 } }}>
         <Typography
           sx={{
-            fontSize: { xs: "2.8rem", md: "4.2rem" },
+            fontSize: { xs: "2.4rem", md: "3.4rem" },
             fontWeight: 900,
-            color: "#e53935",
-            letterSpacing: 2,
-            textTransform: "uppercase",
-            display: "inline-block",
-            transform: "rotate(-2deg)",
-            textShadow: "0 6px 0 rgba(0,0,0,0.25)",
-          }}
-        >
-          Frequently Asked
-        </Typography>
-        <br />
-        <Typography
-          sx={{
-            fontSize: { xs: "3rem", md: "4.6rem" },
-            fontWeight: 900,
+            backgroundColor: "#fff",
             color: "#000",
-            backgroundColor: "#FFF176",
-            px: 3,
-            py: 1,
             display: "inline-block",
-            borderRadius: "16px",
-            transform: "rotate(1deg)",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
+            px: { xs: 3, md: 5 },
+            py: { xs: 1.5, md: 2 },
+            borderRadius: "28px",
+            boxShadow: "0 6px 0 rgba(0,0,0,0.25)",
           }}
         >
-          Questions
+          Frequently Asked Questions
         </Typography>
       </Box>
 
@@ -93,7 +69,7 @@ export default function FaqSection() {
           mx: "auto",
           display: "flex",
           flexDirection: "column",
-          gap: 4,
+          gap: 3,
           px: { xs: 2, md: 0 },
         }}
       >
@@ -103,32 +79,42 @@ export default function FaqSection() {
           return (
             <Box
               key={index}
+              onClick={() => setOpenIndex(isOpen ? null : index)}
               sx={{
-                backgroundColor: faq.bg,
-                color: faq.color,
-                borderRadius: "28px",
-                p: { xs: 3, md: 4 },
-                boxShadow: "0 20px 45px rgba(0,0,0,0.35)",
-                transition: "transform 300ms ease",
-                "&:hover": {
-                  transform: "translateY(-4px)",
-                },
+                cursor: "pointer",
+
+                /* CARD BEHAVIOR */
+                backgroundColor: isOpen
+                  ? theme.palette.info.main
+                  : theme.palette.warning.main,
+
+                borderRadius: "32px",
+                px: { xs: 3, md: 5 },
+                py: isOpen ? { xs: 3, md: 4 } : { xs: 2.5, md: 1.5 },
+
+                boxShadow: "0 6px 0 rgba(0,0,0,0.25)",
+                transition: "background-color 300ms ease, padding 300ms ease",
+
+                display: "flex",
+                flexDirection: "column",
+                gap: isOpen ? 2 : 0,
               }}
             >
-              {/* QUESTION */}
+              {/* QUESTION ROW */}
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  cursor: "pointer",
                 }}
-                onClick={() => setOpenIndex(isOpen ? null : index)}
               >
                 <Typography
                   sx={{
-                    fontSize: { xs: "1.2rem", md: "1.4rem" },
+                    fontSize: { xs: "1.05rem", md: "1.2rem" },
                     fontWeight: 900,
+                    color: isOpen
+                      ? theme.palette.warning.main
+                      : theme.palette.error.main,
                   }}
                 >
                   {faq.question}
@@ -136,29 +122,31 @@ export default function FaqSection() {
 
                 <IconButton
                   sx={{
-                    color: faq.color,
+                    color: isOpen
+                      ? theme.palette.warning.main
+                      : theme.palette.error.main,
                     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
                     transition: "transform 300ms ease",
                   }}
                 >
-                  <KeyboardArrowDownRoundedIcon fontSize="large" />
+                  <KeyboardArrowDownRoundedIcon />
                 </IconButton>
               </Box>
 
-              {/* ANSWER */}
+              {/* ANSWER (INSIDE SAME CARD) */}
               <Box
                 sx={{
                   maxHeight: isOpen ? 300 : 0,
                   opacity: isOpen ? 1 : 0,
                   overflow: "hidden",
                   transition: "max-height 400ms ease, opacity 300ms ease",
-                  mt: isOpen ? 2 : 0,
                 }}
               >
                 <Typography
                   sx={{
-                    fontSize: "1rem",
+                    fontSize: "0.95rem",
                     lineHeight: 1.7,
+                    color: theme.palette.warning.main,
                     fontWeight: 500,
                   }}
                 >

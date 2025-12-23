@@ -24,13 +24,28 @@ const slides = [
 
 export default function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    if (isAnimating) return;
+
+    setIsAnimating(true);
+
+    setTimeout(() => {
+      setActiveIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+      setIsAnimating(false);
+    }, 500);
   };
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+    if (isAnimating) return;
+
+    setIsAnimating(true);
+
+    setTimeout(() => {
+      setActiveIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+      setIsAnimating(false);
+    }, 500);
   };
 
   return (
@@ -67,30 +82,28 @@ export default function HeroSection() {
           component="h1"
           textAlign="center"
           sx={{
-            mb: { xs: 2, md: 0 },
-
-            fontFamily: "var(--font-fredoka)",
+            fontFamily: "var(--font-baloo)",
             fontSize: {
               xs: "2.8rem",
-              sm: "3.4rem",
-              md: "4.2rem",
+              sm: "3.6rem",
+              md: "4.6rem",
             },
-            fontWeight: 900,
-            lineHeight: 1.1,
-            letterSpacing: "-0.015em",
-            color: "#2b2b2b",
+            fontWeight: 800,
+            lineHeight: 1.05,
+            letterSpacing: "-0.01em",
+            color: "#000",
 
-            /* Outline + depth (refined) */
+            /* Sticker outline + depth */
             textShadow: `
-      -2px -2px 0 #ffffff,
-       2px -2px 0 #ffffff,
-      -2px  2px 0 #ffffff,
-       2px  2px 0 #ffffff,
-       0px  6px 14px rgba(0,0,0,0.3)
+      -3px -3px 0 #ffffff,
+       3px -3px 0 #ffffff,
+      -3px  3px 0 #ffffff,
+       3px  3px 0 #ffffff,
+       0px  8px 0 rgba(0,0,0,0.35)
     `,
           }}
         >
-          At the Heart of the Community
+          AT THE HEART OF THE COMMUNITY
         </Typography>
 
         {/* ================= SLIDER AREA ================= */}
@@ -132,7 +145,6 @@ export default function HeroSection() {
 
           {/* IMAGE WRAPPER */}
           <Box
-            key={slides[activeIndex].image}
             component="img"
             src={slides[activeIndex].image}
             alt="Community spotlight"
@@ -142,14 +154,20 @@ export default function HeroSection() {
               borderRadius: 4,
               zIndex: 1,
 
-              /* Base look */
+              transformStyle: "preserve-3d",
+              backfaceVisibility: "hidden",
+
+              /* 🔥 FLIP ANIMATION */
+              transform: isAnimating
+                ? "rotateY(90deg) scale(0.95)"
+                : "rotateY(0deg) scale(1)",
+
+              opacity: isAnimating ? 0 : 1,
+
+              transition: "transform 500ms ease, opacity 500ms ease",
+
               boxShadow: "0 20px 40px rgba(0,0,0,0.25)",
-              transition: "transform 400ms ease, box-shadow 400ms ease",
 
-              /* Slide animation */
-              animation: "fadeSlide 600ms ease",
-
-              /* Hover effects (desktop only) */
               "&:hover": {
                 transform: "scale(1.05) rotate(-1deg)",
                 boxShadow: "0 30px 60px rgba(0,0,0,0.35)",

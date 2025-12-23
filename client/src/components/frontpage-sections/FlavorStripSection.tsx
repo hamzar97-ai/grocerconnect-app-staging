@@ -4,25 +4,25 @@ import { Box, Typography } from "@mui/material";
 
 const flavors = [
   {
-    title: "Heading text\nHere",
+    title: "HERBAL INFUSIONS",
     bg: "#7E57C2",
     hoverBg: "#6A4CB3",
     color: "#FFEB3B",
   },
   {
-    title: "Heading text\nHere",
+    title: "FRESH & FRUITY",
     bg: "#F8A1A4",
     hoverBg: "#F48B90",
     color: "#D32F2F",
   },
   {
-    title: "Heading text\nHere",
+    title: "CITRUS KICKS",
     bg: "#F9A825",
     hoverBg: "#F57F17",
     color: "#1B5E20",
   },
   {
-    title: "Heading text\nHere",
+    title: "EVERYDAY GOODNESS",
     bg: "#FFF176",
     hoverBg: "#FFEE58",
     color: "#E91E63",

@@ -67,7 +67,7 @@ export default function TestimonialMarqueeSection() {
             sx={{
               minWidth: 300,
               mx: 2,
-              p: 4,
+              p: 8,
               borderRadius: "20px",
               backgroundColor: item.bg,
               color: item.color,
