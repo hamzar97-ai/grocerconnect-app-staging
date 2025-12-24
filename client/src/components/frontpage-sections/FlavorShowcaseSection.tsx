@@ -3,10 +3,26 @@
 import { Box, Typography } from "@mui/material";
 
 const flavors = [
-  { title: "Yuzu Lavender", color: "#7E57C2" },
-  { title: "Jasmine Hibiscus", color: "#E53935" },
-  { title: "Citra Spark", color: "#43A047" },
-  { title: "Lychee Rose", color: "#FBC02D" },
+  {
+    title: "Basmati Rice",
+    color: "#6D4C41",
+    image: "/assets/images/8251404.jpg",
+  },
+  {
+    title: "Olive Oil",
+    color: "#2E7D32",
+    image: "/assets/images/25745503.jpg",
+  },
+  {
+    title: "Pure Honey",
+    color: "#F9A825",
+    image: "/assets/images/11284590.jpg",
+  },
+  {
+    title: "Green Tea",
+    color: "#33691E",
+    image: "/assets/images/5501118.jpg",
+  },
 ];
 
 export default function FlavorShowcaseSection() {
@@ -53,19 +69,29 @@ export default function FlavorShowcaseSection() {
               },
             }}
           >
-            {/* IMAGE */}
+            {/* IMAGE WRAPPER */}
             <Box
-              component="img"
-              src="/assets/images/5645049.jpg"
-              alt={flavor.title}
               sx={{
-                width: "100%",
-                maxWidth: 240,
+                width: 250,
+                height: 380, // same height for all
                 mx: "auto",
-                display: "block",
+                borderRadius: 4,
+                overflow: "hidden",
                 filter: "drop-shadow(0 22px 45px rgba(0,0,0,0.35))",
               }}
-            />
+            >
+              <Box
+                component="img"
+                src={flavor.image}
+                alt={flavor.title}
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                }}
+              />
+            </Box>
 
             {/* TITLE */}
             <Typography

@@ -23,7 +23,7 @@ const slides = [
 ];
 
 export default function HeroSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
 
   const handleNext = () => {

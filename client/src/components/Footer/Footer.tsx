@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Typography, Link, Stack } from "@mui/material";
+import NextLink from "next/link";
 
 export default function Footer() {
   return (
@@ -34,15 +35,25 @@ export default function Footer() {
       >
         {/* LOGO COLUMN */}
         <Box>
-          <Box
-            component="img"
-            src="/assets/images/NGA-logo.png"
-            alt="National Grocers Association"
-            sx={{
-              width: 180,
-              mb: 3,
-            }}
-          />
+          <NextLink href="/" passHref>
+            <Box
+              component="a"
+              sx={{
+                display: "inline-block",
+                cursor: "pointer",
+              }}
+            >
+              <Box
+                component="img"
+                src="/assets/images/NGA-logo.png"
+                alt="National Grocers Association"
+                sx={{
+                  width: 180,
+                  mb: 3,
+                }}
+              />
+            </Box>
+          </NextLink>
 
           <Typography
             sx={{
@@ -67,7 +78,7 @@ export default function Footer() {
         {/* HOME */}
         <FooterColumn
           title="Home"
-          links={["About MiCha", "Our Flavours", "Testimonial", "FAQ"]}
+          links={["About Grocer Connect", "Our Flavours", "Testimonial", "FAQ"]}
         />
 
         {/* CONNECT */}
@@ -119,12 +130,13 @@ function FooterColumn({ title, links }: { title: string; links: string[] }) {
         {links.map((link) => (
           <Link
             key={link}
-            href="#"
+            component="span"
             underline="none"
             sx={{
               fontSize: "1.05rem",
               fontWeight: 700,
               color: "#111",
+              cursor: "pointer",
               transition: "all 250ms ease",
               "&:hover": {
                 color: "#E53935",

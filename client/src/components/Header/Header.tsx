@@ -46,7 +46,15 @@ export default function Header() {
   return (
     <>
       {/* ================= TOP BAR ================= */}
-      <AppBar position="static" color="inherit" elevation={0}>
+      <AppBar
+        position="static"
+        sx={{
+          top: 0,
+          zIndex: (theme) => theme.zIndex.drawer + 10,
+        }}
+        color="inherit"
+        elevation={0}
+      >
         <Container maxWidth="xl">
           <Toolbar
             sx={{
