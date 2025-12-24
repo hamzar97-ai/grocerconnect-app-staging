@@ -7,6 +7,7 @@ import ThemeRegistry from "@/components/ThemeRegistry";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import PageLoader from "../components/PageLoader";
 
 export const metadata: Metadata = {
   title: "GrocerConnect",
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${fredoka.variable} ${passion.variable}`}>
         <ThemeRegistry>
+          <PageLoader />
           <Header />
           {children}
           <Footer />
