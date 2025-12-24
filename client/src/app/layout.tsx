@@ -36,8 +36,11 @@ export default function RootLayout({
       <body className={`${fredoka.variable} ${passion.variable}`}>
         <ThemeRegistry>
           <PageLoader />
+
           <Header />
-          {children}
+
+          <main>{children}</main>
+
           <Footer />
           <ScrollToTop />
         </ThemeRegistry>
