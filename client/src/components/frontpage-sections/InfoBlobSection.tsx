@@ -39,10 +39,10 @@ export default function InfoBlobSection({
     /* STICKY STACK SECTION */
     <Box
       sx={{
-        minHeight: { xs: "auto", md: "100vh" },
-        height: { xs: "auto", md: "100vh" },
-        position: { xs: "relative", md: "sticky" },
-        top: { md: 0 },
+        minHeight: "100vh",
+        height: "100vh",
+        position: "sticky",
+        top: 0,
 
         display: "flex",
         alignItems: "center",
@@ -78,13 +78,10 @@ export default function InfoBlobSection({
           justifyContent: "center",
           gap: { xs: 4, md: 6 },
 
-          /* 🔥 STACKING MAGIC (DESKTOP ONLY) */
-          transform: {
-            xs: "none",
-            md: isActive
-              ? "translateY(0) rotate(0deg) scale(1)"
-              : "translateY(22px) rotate(-2.2deg) scale(0.96)",
-          },
+          /* 🔥 STACKING MAGIC (NOW ON ALL DEVICES) */
+          transform: isActive
+            ? "translateY(0) rotate(0deg) scale(1)"
+            : "translateY(22px) rotate(-2.2deg) scale(0.96)",
 
           boxShadow: isActive
             ? "0 28px 80px rgba(0,0,0,0.45)"
@@ -92,21 +89,15 @@ export default function InfoBlobSection({
 
           opacity: isActive ? 1 : 0.85,
 
-          filter: {
-            xs: "none",
-            md: isActive ? "blur(0)" : "blur(0.3px)",
-          },
+          filter: isActive ? "blur(0)" : "blur(0.3px)",
 
           transition:
             "transform 600ms cubic-bezier(.22,.61,.36,1), box-shadow 500ms ease, opacity 400ms ease, filter 400ms ease",
 
           "&:hover": {
-            transform: {
-              xs: "none",
-              md: isActive
-                ? "scale(1.02)"
-                : "translateY(18px) rotate(-2deg) scale(0.98)",
-            },
+            transform: isActive
+              ? "scale(1.02)"
+              : "translateY(18px) rotate(-2deg) scale(0.98)",
           },
 
           /* WAVY MASK (DISABLED ON MOBILE FOR PERFORMANCE) */
@@ -144,10 +135,7 @@ export default function InfoBlobSection({
             borderRadius: "50% 45% 55% 50% / 55% 50% 50% 45%",
             boxShadow: "0 18px 40px rgba(0,0,0,0.35)",
 
-            transform: {
-              xs: "none",
-              md: isActive ? "translateY(-6px)" : "translateY(0)",
-            },
+            transform: isActive ? "translateY(-6px)" : "translateY(0)",
             transition: "transform 500ms ease",
 
             "&:hover": {
