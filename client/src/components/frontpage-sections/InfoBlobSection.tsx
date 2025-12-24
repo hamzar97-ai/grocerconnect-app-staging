@@ -9,6 +9,8 @@ interface InfoBlobSectionProps {
   bgColor: string;
   reverse?: boolean;
   textColor?: string;
+
+  showHeadingDecor?: boolean; // 👈 ADD
 }
 
 export default function InfoBlobSection({
@@ -18,6 +20,7 @@ export default function InfoBlobSection({
   bgColor,
   reverse = false,
   textColor = "#000",
+  showHeadingDecor = false,
 }: InfoBlobSectionProps) {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [isActive, setIsActive] = useState(false);
@@ -56,6 +59,12 @@ export default function InfoBlobSection({
         backgroundSize: "20px 20px",
         backgroundPosition: isActive ? "50% 40%" : "50% 50%",
         transition: "background-position 600ms ease",
+
+        /* 🌸 ADD: slow spin keyframes */
+        "@keyframes slowSpin": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       }}
     >
       {/* CARD */}
@@ -78,7 +87,6 @@ export default function InfoBlobSection({
           justifyContent: "center",
           gap: { xs: 4, md: 6 },
 
-          /* 🔥 STACKING MAGIC (NOW ON ALL DEVICES) */
           transform: isActive
             ? "translateY(0) rotate(0deg) scale(1)"
             : "translateY(22px) rotate(-2.2deg) scale(0.96)",
@@ -100,7 +108,6 @@ export default function InfoBlobSection({
               : "translateY(18px) rotate(-2deg) scale(0.98)",
           },
 
-          /* WAVY MASK (DISABLED ON MOBILE FOR PERFORMANCE) */
           maskImage: {
             xs: "none",
             md: "url(/assets/images/micha-about-card-mask.svg)",
@@ -146,36 +153,67 @@ export default function InfoBlobSection({
 
         {/* TEXT */}
         <Box sx={{ maxWidth: 560 }}>
-          <Typography
-            component="h2"
-            sx={{
-              fontFamily: "var(--font-passion)",
-              fontWeight: 700,
-              color: "#000",
+          {/* 🔒 Heading wrapper added (NO removal) */}
+          <Box sx={{ position: "relative", display: "inline-block" }}>
+            {/* 🌸 SVG BEHIND HEADING */}
+            {showHeadingDecor && (
+              <Box
+                component="img"
+                src="/assets/images/flowers-svgrepo-com.svg"
+                alt=""
+                sx={{
+                  position: "absolute",
 
-              fontSize: {
-                xs: "2.1rem",
-                sm: "2.6rem",
-                md: "4.6rem",
-              },
+                  /* 🎯 POSITION: BEHIND RIGHT SIDE OF HEADING */
+                  top: "-50%",
+                  right: "-18%",
 
-              lineHeight: 1.05,
+                  width: { xs: 80, sm: 110, md: 150 },
+                  opacity: 0.8,
 
-              WebkitTextStroke: {
-                xs: "0.1em #fff",
-                md: "0.18em #fff",
-              },
-              paintOrder: "stroke fill",
+                  transform: "translateY(-60%)",
+                  animation: "slowSpin 15s linear infinite",
 
-              filter:
-                "drop-shadow(0px clamp(2px, 0.8vw, 8px) clamp(1px, 0.2vw, 4px) rgba(0,0,0,0.45))",
+                  pointerEvents: "none",
+                  zIndex: 0,
+                }}
+              />
+            )}
 
-              padding: "0 0.2em",
-              mb: { xs: 2, md: 3 },
-            }}
-          >
-            {title}
-          </Typography>
+            <Typography
+              component="h2"
+              sx={{
+                position: "relative",
+                zIndex: 1,
+
+                fontFamily: "var(--font-passion)",
+                fontWeight: 700,
+                color: "#000",
+
+                fontSize: {
+                  xs: "2.1rem",
+                  sm: "2.6rem",
+                  md: "4.6rem",
+                },
+
+                lineHeight: 1.05,
+
+                WebkitTextStroke: {
+                  xs: "0.1em #fff",
+                  md: "0.18em #fff",
+                },
+                paintOrder: "stroke fill",
+
+                filter:
+                  "drop-shadow(0px clamp(2px, 0.8vw, 8px) clamp(1px, 0.2vw, 4px) rgba(0,0,0,0.45))",
+
+                padding: "0 0.2em",
+                mb: { xs: 2, md: 3 },
+              }}
+            >
+              {title}
+            </Typography>
+          </Box>
 
           <Typography
             sx={{
