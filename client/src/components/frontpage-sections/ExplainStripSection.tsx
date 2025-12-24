@@ -56,12 +56,13 @@ export default function ExplainStripSection() {
               textTransform: "capitalize",
               textShadow: "0 6px 0 rgba(0,0,0,0.15)",
               fontSize: {
-                xs: "2.4rem", // mobile
+                xs: "1.6rem", // mobile
                 sm: "3.4rem", // tablets
                 md: "4.8rem", // desktop
                 lg: "5.6rem", // large screens
               },
               lineHeight: 1.05,
+              px: { xs: 1, md: 0 },
             }}
           >
             {row.text}

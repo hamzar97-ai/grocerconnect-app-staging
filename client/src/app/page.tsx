@@ -45,7 +45,7 @@ export default function Home() {
 
         <InfoBlobSection
           title="Our Mission"
-          description="Our mission is to empower independent grocers by strengthening their ability to compete..."
+          description="Our mission is to empower independent grocers by strengthening their ability to compete. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
           image="/assets/images/2152003889.jpg"
           bgColor="#2F9E44"
           textColor="#111"

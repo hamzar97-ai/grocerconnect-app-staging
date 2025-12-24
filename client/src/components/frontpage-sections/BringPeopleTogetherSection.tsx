@@ -29,7 +29,7 @@ export default function BringPeopleTogetherSection() {
         <Box sx={{ textAlign: "center", mb: 0 }}>
           <Typography
             sx={{
-              fontSize: { xs: "3.4rem", md: "5.2rem" },
+              fontSize: { xs: "3rem", md: "5.2rem" },
               fontFamily: "var(--font-passion)",
               letterSpacing: "-0.02em",
               color: "#E53935",
@@ -49,7 +49,7 @@ export default function BringPeopleTogetherSection() {
 
           <Typography
             sx={{
-              fontSize: { xs: "3.8rem", md: "6.4rem" },
+              fontSize: { xs: "3rem", md: "6.4rem" },
               fontFamily: "var(--font-passion)",
               mt: { xs: -2, md: -4 },
               letterSpacing: "-0.02em",

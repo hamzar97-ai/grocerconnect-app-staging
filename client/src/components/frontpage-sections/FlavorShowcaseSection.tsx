@@ -46,7 +46,7 @@ export default function FlavorShowcaseSection() {
           mx: "auto",
           display: "grid",
           gridTemplateColumns: { xs: "1fr", md: "repeat(4, 1fr)" },
-          gap: { xs: 6, md: 4 },
+          gap: { xs: 4, md: 4 },
           alignItems: "flex-end",
         }}
       >
@@ -116,11 +116,15 @@ export default function FlavorShowcaseSection() {
                 mx: "auto",
                 color: "#333",
 
-                opacity: 0,
-                transform: "translateY(10px)",
-                transition: "opacity 280ms ease, transform 280ms ease",
+                // 👇 Mobile: always visible
+                opacity: { xs: 1, md: 0 },
+                transform: { xs: "none", md: "translateY(10px)" },
 
-                minHeight: 70, // prevents layout shift
+                transition: {
+                  md: "opacity 280ms ease, transform 280ms ease",
+                },
+
+                minHeight: 70,
                 pointerEvents: "none",
               }}
             >

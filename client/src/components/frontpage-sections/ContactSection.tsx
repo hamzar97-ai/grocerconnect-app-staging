@@ -11,7 +11,6 @@ export default function ContactSection() {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
 
-  /* 👀 SCROLL OBSERVER */
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -28,6 +27,7 @@ export default function ContactSection() {
   }, []);
 
   return (
+    /* 🔴 RED BACKGROUND SECTION */
     <Box
       ref={sectionRef}
       sx={{
@@ -39,13 +39,19 @@ export default function ContactSection() {
         backgroundSize: "16px 16px, 32px 32px",
         backgroundPosition: "0 0, 8px 8px",
         py: { xs: 12, md: 16 },
-        overflow: "hidden",
+        overflowX: "hidden",
+        width: "100%",
       }}
     >
+      {/* 🟡 GRID CONTAINER */}
       <Box
         sx={{
           maxWidth: 1400,
           mx: "auto",
+          width: "100%",
+          boxSizing: "border-box",
+          overflowX: "hidden",
+
           display: "grid",
           gridTemplateColumns: { xs: "1fr", md: "1.1fr 0.9fr" },
           gap: { xs: 6, md: 8 },
@@ -53,24 +59,30 @@ export default function ContactSection() {
           alignItems: "stretch",
         }}
       >
-        {/* LEFT COLUMN */}
+        {/* 🟢 LEFT CARD */}
         <Box
           sx={{
+            width: "100%",
+            maxWidth: "calc(100vw - 32px)",
+            boxSizing: "border-box",
+
             backgroundColor: "#43A047 !important",
             color: "#fff",
-            borderRadius: "32px",
-            p: { xs: 5, md: 7 },
+            borderRadius: { xs: "20px", sm: "32px" },
+            p: { xs: 3, sm: 5, md: 7 },
             boxShadow: "0 30px 70px rgba(0,0,0,0.25)",
 
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateX(0)" : "translateX(-80px)",
+            transform: visible
+              ? "translate(0)"
+              : { xs: "translateY(40px)", md: "translateX(-80px)" },
             transition:
               "opacity 900ms ease, transform 900ms cubic-bezier(.22,.61,.36,1)",
           }}
         >
           <Typography
             sx={{
-              fontSize: { xs: "2.6rem", md: "3.4rem" },
+              fontSize: { xs: "2.2rem", sm: "2.6rem", md: "3.4rem" },
               fontWeight: 900,
               mb: 3,
               textShadow: "0 4px 0 rgba(0,0,0,0.25)",
@@ -107,7 +119,7 @@ export default function ContactSection() {
                 display: "flex",
                 gap: 2,
                 alignItems: "flex-start",
-                p: 2.8,
+                p: 2.5,
                 mb: 2,
                 borderRadius: "18px",
                 backgroundColor: "rgba(255,255,255,0.08)",
@@ -122,12 +134,16 @@ export default function ContactSection() {
           ))}
         </Box>
 
-        {/* RIGHT COLUMN */}
+        {/* ⚪ RIGHT CARD */}
         <Box
           sx={{
+            width: "100%",
+            maxWidth: "calc(100vw - 32px)",
+            boxSizing: "border-box",
+
             backgroundColor: "#fff",
-            borderRadius: "32px",
-            p: { xs: 5, md: 6 },
+            borderRadius: { xs: "20px", sm: "32px" },
+            p: { xs: 3, sm: 5, md: 6 },
             boxShadow: "0 30px 80px rgba(0,0,0,0.18)",
 
             display: "flex",
@@ -135,7 +151,9 @@ export default function ContactSection() {
             justifyContent: "space-between",
 
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateX(0)" : "translateX(80px)",
+            transform: visible
+              ? "translate(0)"
+              : { xs: "translateY(40px)", md: "translateX(80px)" },
             transition:
               "opacity 900ms ease 120ms, transform 900ms cubic-bezier(.22,.61,.36,1)",
           }}
@@ -155,10 +173,8 @@ export default function ContactSection() {
             sx={{
               color: "#666",
               fontSize: "0.95rem",
-              mt: {
-                xs: -1,
-                sm: -4,
-              },
+              mt: { xs: 0, sm: -2 },
+              mb: 2,
             }}
           >
             Fill out the form and our team will get back to you shortly.
@@ -186,10 +202,10 @@ export default function ContactSection() {
           <Button
             fullWidth
             sx={{
-              mt: 3,
-              py: 1.8,
+              mt: 2,
+              py: 1.6,
               borderRadius: "20px",
-              fontSize: "1.15rem",
+              fontSize: "1.1rem",
               fontWeight: 900,
               textTransform: "uppercase",
               backgroundColor: "#E53935",
