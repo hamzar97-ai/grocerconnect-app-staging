@@ -32,6 +32,7 @@ export default function Home() {
           image="/assets/images/369.jpg"
           bgColor="#FFF176"
           textColor="#111"
+          showHeadingDecor
         />
 
         <InfoBlobSection
