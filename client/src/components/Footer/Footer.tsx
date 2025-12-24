@@ -35,25 +35,24 @@ export default function Footer() {
       >
         {/* LOGO COLUMN */}
         <Box>
-          <NextLink href="/" passHref>
+          <Box
+            component={NextLink}
+            href="/"
+            sx={{
+              display: "inline-block",
+              cursor: "pointer",
+            }}
+          >
             <Box
-              component="a"
+              component="img"
+              src="/assets/images/NGA-logo.png"
+              alt="National Grocers Association"
               sx={{
-                display: "inline-block",
-                cursor: "pointer",
+                width: 180,
+                mb: 3,
               }}
-            >
-              <Box
-                component="img"
-                src="/assets/images/NGA-logo.png"
-                alt="National Grocers Association"
-                sx={{
-                  width: 180,
-                  mb: 3,
-                }}
-              />
-            </Box>
-          </NextLink>
+            />
+          </Box>
 
           <Typography
             sx={{
