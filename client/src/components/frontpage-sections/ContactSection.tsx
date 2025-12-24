@@ -151,7 +151,16 @@ export default function ContactSection() {
             Send Us a Message
           </Typography>
 
-          <Typography sx={{ color: "#666", fontSize: "0.95rem", mt: -4 }}>
+          <Typography
+            sx={{
+              color: "#666",
+              fontSize: "0.95rem",
+              mt: {
+                xs: -1,
+                sm: -4,
+              },
+            }}
+          >
             Fill out the form and our team will get back to you shortly.
           </Typography>
 
