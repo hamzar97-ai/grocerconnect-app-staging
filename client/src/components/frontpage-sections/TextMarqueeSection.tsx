@@ -3,12 +3,18 @@
 import { Box, Typography } from "@mui/material";
 
 const TEXT = "National Grocers Association";
+const WORDS = TEXT.split(" ");
+
+const gifStyle = {
+  width: { xs: 40, md: 64 },
+  height: "auto",
+  borderRadius: "12px",
+};
 
 export default function TextMarqueeSection() {
   return (
     <Box
       sx={{
-        /* SAME AS FAQ BACKGROUND */
         backgroundColor: "#FDECEC",
         backgroundImage: `
           radial-gradient(rgba(0,0,0,0.09) 1px, transparent 1px),
@@ -16,7 +22,6 @@ export default function TextMarqueeSection() {
         `,
         backgroundSize: "16px 16px, 32px 32px",
         backgroundPosition: "0 0, 8px 8px",
-
         overflow: "hidden",
         py: { xs: 4, md: 6 },
       }}
@@ -35,26 +40,51 @@ export default function TextMarqueeSection() {
         }}
       >
         {[...Array(2)].map((_, i) => (
-          <Box key={i} sx={{ display: "flex" }}>
+          <Box key={i} sx={{ display: "flex", alignItems: "center" }}>
             {[...Array(8)].map((_, j) => (
-              <Typography
+              <Box
                 key={j}
                 sx={{
-                  fontSize: { xs: "2.2rem", md: "8rem" },
-                  fontWeight: 900,
-                  textTransform: "uppercase",
-                  whiteSpace: "nowrap",
+                  display: "flex",
+                  alignItems: "center",
                   px: { xs: 3, md: 5 },
-
-                  /* THEME COLOR (NOT BACKGROUND) */
-                  color: "#E53935",
-
-                  letterSpacing: "0.1em",
-                  opacity: 0.9,
+                  gap: { xs: 2, md: 3 },
                 }}
               >
-                {TEXT}
-              </Typography>
+                {WORDS.map((word, index) => (
+                  <Box
+                    key={index}
+                    sx={{ display: "flex", alignItems: "center", gap: 1.5 }}
+                  >
+                    {/* WORD */}
+                    <Typography
+                      sx={{
+                        fontSize: { xs: "2.2rem", md: "8rem" },
+                        fontWeight: 900,
+                        textTransform: "uppercase",
+                        whiteSpace: "nowrap",
+                        color: "#E53935",
+                        letterSpacing: "0.1em",
+                        opacity: 0.9,
+                      }}
+                    >
+                      {word}
+                    </Typography>
+
+                    {/* GIF AFTER EACH WORD */}
+                    <Box
+                      component="img"
+                      src={
+                        index % 2 === 0
+                          ? "/assets/images/shopping-cart.gif"
+                          : "/assets/images/grocery.gif"
+                      }
+                      alt="icon"
+                      sx={gifStyle}
+                    />
+                  </Box>
+                ))}
+              </Box>
             ))}
           </Box>
         ))}

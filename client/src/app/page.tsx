@@ -37,7 +37,7 @@ export default function Home() {
 
         <InfoBlobSection
           title="Independent Community Grocer Definition"
-          description="Independent community grocers are the true entrepreneurs of the grocery industry, passionately committed to their customers, their associates and the markets they serve. Privately owned by families, or by employees, these retailers operate a variety of retail formats, and while most are serviced by wholesale distributors, others may be partially or fully self-distributing. Independents differentiate in the marketplace based on the needs of the local community, while showing a strong commitment to civic life and providing their neighbors quality goods and nourishing foods."
+          description="Independent community grocers are the true entrepreneurs of the grocery industry, passionately committed to their customers, their associates and the markets they serve. Privately owned by families, or by employees, these retailers operate a variety of retail formats."
           image="/assets/images/2152003889.jpg"
           bgColor="#7E57C2"
           textColor="#fff"
@@ -46,7 +46,7 @@ export default function Home() {
 
         <InfoBlobSection
           title="Our Mission"
-          description="Our mission is to empower independent grocers by strengthening their ability to compete. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+          description="Our mission is to empower independent grocers by strengthening their ability to compete. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit nulla pariatur."
           image="/assets/images/2152003889.jpg"
           bgColor="#2F9E44"
           textColor="#111"
