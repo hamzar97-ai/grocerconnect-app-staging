@@ -308,21 +308,43 @@ export default function AboutPage() {
           >
             {missionCards.map((item, i) => (
               <Fade in timeout={600 + i * 200} key={i}>
-                <Card
+                {/* 🔥 HOVER WRAPPER (handles motion smoothly) */}
+                <Box
                   sx={{
-                    backgroundColor: item.bg,
-                    color: "#fff",
-                    borderRadius: 4,
+                    height: "100%",
+                    transition: "transform 400ms cubic-bezier(0.4,0,0.2,1)",
+                    willChange: "transform",
+                    "&:hover": {
+                      transform: "translateY(-8px)",
+                    },
                   }}
                 >
-                  <CardContent>
-                    {item.icon}
-                    <Typography variant="h5" fontWeight={700} mt={2}>
-                      {item.title}
-                    </Typography>
-                    <Typography>{item.text}</Typography>
-                  </CardContent>
-                </Card>
+                  <Card
+                    sx={{
+                      height: "100%",
+                      backgroundColor: item.bg,
+                      color: "#fff",
+                      borderRadius: 4,
+                      boxShadow: "0 10px 24px rgba(0,0,0,0.18)",
+                      transition: "box-shadow 300ms ease",
+                      "&:hover": {
+                        boxShadow: "0 22px 48px rgba(0,0,0,0.35)",
+                      },
+                    }}
+                  >
+                    <CardContent>
+                      {item.icon}
+
+                      <Typography variant="h5" fontWeight={700} mt={2}>
+                        {item.title}
+                      </Typography>
+
+                      <Typography sx={{ opacity: 0.95 }}>
+                        {item.text}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Box>
               </Fade>
             ))}
           </Box>
