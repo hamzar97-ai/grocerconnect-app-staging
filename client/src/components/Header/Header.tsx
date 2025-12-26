@@ -24,17 +24,18 @@ import { useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import Link from "next/link";
 
 const topBarLinks = ["Technical Assistance Center", "Foundation"];
 
 const navLinks = [
-  "About",
-  "Join",
-  "Advocacy",
-  "Education",
-  "Partnerships",
-  "News & Events",
-  "Programs",
+  { label: "About", href: "/about" },
+  { label: "Join", href: "#" },
+  { label: "Advocacy", href: "#" },
+  { label: "Education", href: "#" },
+  { label: "Partnerships", href: "#" },
+  { label: "News & Events", href: "#" },
+  { label: "Programs", href: "#" },
 ];
 
 export default function Header() {
@@ -95,7 +96,17 @@ export default function Header() {
         <Container maxWidth="xl">
           <Toolbar sx={{ justifyContent: "space-between" }}>
             {/* LOGO */}
-            <Typography variant="h6" fontWeight={700}>
+            <Typography
+              variant="h6"
+              fontWeight={700}
+              component={Link}
+              href="/"
+              sx={{
+                color: "inherit",
+                textDecoration: "none",
+                cursor: "pointer",
+              }}
+            >
               GrocerConnect
             </Typography>
 
@@ -103,8 +114,14 @@ export default function Header() {
             {!isMobile && (
               <Box display="flex" alignItems="center" gap={3}>
                 {navLinks.map((link) => (
-                  <Button key={link} color="inherit" sx={{ fontWeight: 600 }}>
-                    {link}
+                  <Button
+                    key={link.label}
+                    component={Link}
+                    href={link.href}
+                    color="inherit"
+                    sx={{ fontWeight: 600 }}
+                  >
+                    {link.label}
                   </Button>
                 ))}
                 <IconButton
@@ -154,10 +171,14 @@ export default function Header() {
                       <Box sx={{ my: 1, borderBottom: "1px solid #e0e0e0" }} />
 
                       {/* MAIN NAV LINKS */}
-                      {navLinks.map((text) => (
-                        <ListItem key={text} disablePadding>
-                          <ListItemButton onClick={() => setOpen(false)}>
-                            <ListItemText primary={text} />
+                      {navLinks.map((link) => (
+                        <ListItem key={link.label} disablePadding>
+                          <ListItemButton
+                            component={Link}
+                            href={link.href}
+                            onClick={() => setOpen(false)}
+                          >
+                            <ListItemText primary={link.label} />
                           </ListItemButton>
                         </ListItem>
                       ))}
@@ -202,8 +223,14 @@ export default function Header() {
             </IconButton>
 
             {/* Title */}
-            <Typography variant="h6" fontWeight={700} sx={{ mb: 0.5 }}>
-              Search GrocerConnect
+            <Typography
+              variant="h6"
+              fontWeight={700}
+              component={Link}
+              href="/"
+              sx={{ color: "inherit", textDecoration: "none" }}
+            >
+              GrocerConnect
             </Typography>
 
             {/* Helper text */}

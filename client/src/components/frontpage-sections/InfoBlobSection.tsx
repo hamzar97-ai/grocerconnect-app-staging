@@ -24,6 +24,7 @@ export default function InfoBlobSection({
 }: InfoBlobSectionProps) {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [isActive, setIsActive] = useState(false);
+  const [overlapProgress, setOverlapProgress] = useState(0);
 
   /* ---------- Active card detection ---------- */
   useEffect(() => {
@@ -36,6 +37,31 @@ export default function InfoBlobSection({
 
     if (cardRef.current) observer.observe(cardRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!cardRef.current) return;
+
+      const rect = cardRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      /**
+       * Progress starts when card is in sticky position
+       * and increases as next card overlaps it
+       */
+      const progress = Math.min(
+        Math.max((windowHeight * 0.5 - rect.top) / (windowHeight * 0.5), 0),
+        1
+      );
+
+      setOverlapProgress(progress);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -52,7 +78,9 @@ export default function InfoBlobSection({
         justifyContent: "center",
 
         px: { xs: 2, md: 6 },
-        py: { xs: 6, md: 0 },
+        // py: { xs: 6, md: 0 },
+        pb: { xs: 25, md: 8 },
+        pt: { xs: 18, md: 0 },
 
         backgroundImage:
           "radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)",
@@ -76,7 +104,7 @@ export default function InfoBlobSection({
           minHeight: { xs: "auto", md: "calc(90vh - 96px)" },
           bgcolor: bgColor,
 
-          p: { xs: 3, sm: 4, md: 8 },
+          p: { xs: 5, sm: 4, md: 8 },
 
           display: "flex",
           flexDirection: {
@@ -88,7 +116,11 @@ export default function InfoBlobSection({
           gap: { xs: 4, md: 6 },
 
           transform: isActive
-            ? "translateY(0) rotate(0deg) scale(1)"
+            ? `
+    translateY(${overlapProgress * 6}px)
+    rotate(${overlapProgress * -3}deg)
+    scale(${1 - overlapProgress * 0.03})
+  `
             : "translateY(22px) rotate(-2.2deg) scale(0.96)",
 
           boxShadow: isActive
@@ -109,7 +141,7 @@ export default function InfoBlobSection({
           },
 
           maskImage: {
-            xs: "none",
+            xs: "url(/assets/images/micha-about-card-mask.svg)",
             md: "url(/assets/images/micha-about-card-mask.svg)",
           },
           maskRepeat: "no-repeat",
@@ -117,7 +149,7 @@ export default function InfoBlobSection({
           maskSize: "cover",
 
           WebkitMaskImage: {
-            xs: "none",
+            xs: "url(/assets/images/micha-about-card-mask.svg)",
             md: "url(/assets/images/micha-about-card-mask.svg)",
           },
           WebkitMaskRepeat: "no-repeat",

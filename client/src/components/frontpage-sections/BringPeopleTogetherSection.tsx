@@ -14,7 +14,7 @@ export default function BringPeopleTogetherSection() {
         backgroundSize: "16px 16px, 32px 32px",
         backgroundPosition: "0 0, 8px 8px",
         pt: { xs: 4, md: 6 },
-        pb: { xs: 20, md: 24 },
+        pb: { xs: 10, md: 24 },
         overflow: "hidden",
       }}
     >
