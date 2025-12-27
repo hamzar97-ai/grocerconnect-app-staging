@@ -26,6 +26,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "swiper/css";
 import "swiper/css/navigation";
+import { keyframes } from "@mui/system";
 
 import { Slide } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
@@ -239,6 +240,12 @@ export default function AboutPage() {
     return () => observer.disconnect();
   }, []);
 
+  const float = keyframes`
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+`;
+
   return (
     <Box>
       {/* ================= HERO ================= */}
@@ -275,53 +282,68 @@ export default function AboutPage() {
               gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
               gap: 6,
               alignItems: "center",
-              overflow: "hidden", // prevents slide overflow
             }}
           >
-            {/* LEFT: TEXT (slide from left) */}
+            {/* LEFT: TEXT */}
             <Slide
               direction="right"
               in={whoWeAreVisible}
               timeout={800}
               mountOnEnter
             >
-              <Box
-                sx={{
-                  backgroundColor: "error.main",
-                  color: "#fff",
-                  p: { xs: 3, md: 4 },
-                  borderRadius: 4,
-                  boxShadow: "0 14px 34px rgba(224,49,49,0.35)",
-                }}
-              >
-                <Typography variant="h4" gutterBottom>
-                  Who We Are
-                </Typography>
+              <Box sx={{ perspective: "1200px" }}>
+                <Box
+                  sx={{
+                    backgroundColor: "error.main",
+                    color: "#fff",
+                    p: { xs: 3, md: 4 },
+                    borderRadius: 4,
 
-                <Typography sx={{ lineHeight: 1.8, opacity: 0.95 }}>
-                  The National Grocers Association (NGA) represents independent
-                  grocers, wholesalers, and suppliers nationwide. We advocate
-                  for fair competition, support industry growth, and help local
-                  grocery businesses thrive through education, resources, and
-                  connection.
-                </Typography>
+                    boxShadow: "0 14px 34px rgba(224,49,49,0.35)",
 
-                <Typography sx={{ lineHeight: 1.8, opacity: 0.95, pt: 2 }}>
-                  Independent community grocers are the true entrepreneurs of
-                  the grocery industry, passionately committed to their
-                  customers, their associates and the markets they serve.
-                  Privately owned by families, or by employees, these retailers
-                  operate a variety of retail formats, and while most are
-                  serviced by wholesale distributors, others may be partially or
-                  fully self-distributing. Independents differentiate in the
-                  marketplace based on the needs of the local community, while
-                  showing a strong commitment to civic life and providing their
-                  neighbors quality goods and nourishing foods.
-                </Typography>
+                    transform: "rotateX(0deg) rotateY(0deg) scale(1)",
+                    transition:
+                      "transform 500ms cubic-bezier(.4,0,.2,1), box-shadow 400ms ease",
+                    willChange: "transform",
+
+                    "@media (hover: hover)": {
+                      "&:hover": {
+                        transform: "rotateX(4deg) rotateY(-4deg) scale(1.03)",
+                        boxShadow: "0 30px 70px rgba(224,49,49,0.55)",
+                      },
+                    },
+                  }}
+                >
+                  <Typography variant="h4" gutterBottom>
+                    Who We Are
+                  </Typography>
+
+                  <Typography sx={{ lineHeight: 1.8, opacity: 0.95 }}>
+                    The National Grocers Association (NGA) represents
+                    independent grocers, wholesalers, and suppliers nationwide.
+                    We advocate for fair competition, support industry growth,
+                    and help local grocery businesses thrive through education,
+                    resources, and connection.
+                  </Typography>
+
+                  <Typography sx={{ lineHeight: 1.8, opacity: 0.95, pt: 2 }}>
+                    Independent community grocers are the true entrepreneurs of
+                    the grocery industry, passionately committed to their
+                    customers, their associates and the markets they serve.
+                    Privately owned by families, or by employees, these
+                    retailers operate a variety of retail formats, and while
+                    most are serviced by wholesale distributors, others may be
+                    partially or fully self-distributing. Independents
+                    differentiate in the marketplace based on the needs of the
+                    local community, while showing a strong commitment to civic
+                    life and providing their neighbors quality goods and
+                    nourishing foods.
+                  </Typography>
+                </Box>
               </Box>
             </Slide>
 
-            {/* RIGHT: IMAGE (slide from right) */}
+            {/* RIGHT: IMAGE */}
             <Slide
               direction="left"
               in={whoWeAreVisible}
@@ -335,6 +357,7 @@ export default function AboutPage() {
                   height: 430,
                   borderRadius: 4,
                   overflow: "hidden",
+                  boxShadow: "0 18px 40px rgba(0,0,0,0.25)",
                 }}
               >
                 <Image
@@ -348,7 +371,7 @@ export default function AboutPage() {
           </Box>
         </Container>
 
-        {/* ================= MISSION ================= */}
+        {/* ================= MISSION / VISION / VALUES ================= */}
         <Container maxWidth="xl" sx={{ py: { xs: 6, md: 10 } }}>
           <Box
             sx={{
@@ -357,30 +380,43 @@ export default function AboutPage() {
               gap: 4,
             }}
           >
-            {missionCards.map((item, i) => (
-              <Fade in timeout={600 + i * 200} key={i}>
-                {/* 🔥 HOVER WRAPPER (handles motion smoothly) */}
-                <Box
-                  sx={{
-                    height: "100%",
-                    transition: "transform 400ms cubic-bezier(0.4,0,0.2,1)",
-                    willChange: "transform",
-                    "&:hover": {
-                      transform: "translateY(-8px)",
-                    },
-                  }}
-                >
+            {missionCards.map((item, i) => {
+              const hoverTransforms = [
+                "scale(1.04) rotateX(4deg) rotateY(-4deg)",
+                "scale(1.04) rotateX(-4deg) rotateY(0deg)",
+                "scale(1.04) rotateX(4deg) rotateY(4deg)",
+              ];
+
+              return (
+                <Fade in timeout={600 + i * 200} key={i}>
                   <Card
                     sx={{
                       height: "100%",
                       backgroundColor: item.bg,
                       color: "#fff",
                       borderRadius: 4,
-                      boxShadow: "0 10px 24px rgba(0,0,0,0.18)",
-                      transition: "box-shadow 300ms ease",
-                      "&:hover": {
-                        boxShadow: "0 22px 48px rgba(0,0,0,0.35)",
+
+                      boxShadow: "0 12px 28px rgba(0,0,0,0.2)",
+
+                      /* 🌊 Idle float (different speed per card) */
+                      animation: `${float} ${
+                        4 + i * 0.7
+                      }s ease-in-out infinite`,
+
+                      transform: "scale(1) rotateX(0deg) rotateY(0deg)",
+                      transition:
+                        "transform 500ms cubic-bezier(.4,0,.2,1), box-shadow 400ms ease",
+
+                      willChange: "transform",
+
+                      "@media (hover: hover)": {
+                        "&:hover": {
+                          animationPlayState: "paused",
+                          transform: hoverTransforms[i],
+                          boxShadow: "0 32px 70px rgba(0,0,0,0.45)",
+                        },
                       },
+
                       px: { xs: 1, sm: 2 },
                       py: { xs: 2, sm: 4 },
                     }}
@@ -397,9 +433,9 @@ export default function AboutPage() {
                       </Typography>
                     </CardContent>
                   </Card>
-                </Box>
-              </Fade>
-            ))}
+                </Fade>
+              );
+            })}
           </Box>
         </Container>
 
