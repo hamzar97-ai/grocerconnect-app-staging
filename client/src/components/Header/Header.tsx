@@ -45,6 +45,7 @@ const navLinks = [
   { label: "Partnerships", href: "#" },
   { label: "News & Events", href: "#" },
   { label: "Programs", href: "#" },
+  { label: "Contact", href: "/contact" },
 ];
 
 // Styled components - KEEPING 0.8 opacity
