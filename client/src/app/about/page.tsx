@@ -27,6 +27,9 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "swiper/css";
 import "swiper/css/navigation";
 
+import { Slide } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+
 /* ================= TEAM DATA ================= */
 const teamMembers = [
   {
@@ -197,13 +200,13 @@ export default function AboutPage() {
   const missionCards = [
     {
       title: "Our Mission",
-      text: "To empower independent grocers by strengthening their ability to compete, grow, and serve their communities effectively.",
+      text: "Champion the independent grocery industry through advocacy, collaboration, education, services, and connections.",
       bg: "secondary.main",
       icon: <TrackChangesIcon fontSize="large" />,
     },
     {
       title: "Our Vision",
-      text: "A future where independent grocery stores thrive as essential, sustainable, and innovative pillars of local communities.",
+      text: "A nation where the independent grocer thrives at the heart of the community",
       bg: "info.main",
       icon: <VisibilityIcon fontSize="large" />,
     },
@@ -214,6 +217,27 @@ export default function AboutPage() {
       icon: <FavoriteIcon fontSize="large" />,
     },
   ];
+
+  const whoWeAreRef = useRef<HTMLDivElement | null>(null);
+  const [whoWeAreVisible, setWhoWeAreVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setWhoWeAreVisible(true);
+          observer.disconnect(); // animate once
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (whoWeAreRef.current) {
+      observer.observe(whoWeAreRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <Box>
@@ -243,15 +267,23 @@ export default function AboutPage() {
 
       <DottedSection>
         {/* ================= WHO WE ARE ================= */}
-        <Container sx={{ py: { xs: 6, md: 10 } }}>
-          <Fade in timeout={800}>
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
-                gap: 6,
-                alignItems: "center",
-              }}
+        <Container maxWidth="xl" sx={{ py: { xs: 6, md: 10 } }}>
+          <Box
+            ref={whoWeAreRef}
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+              gap: 6,
+              alignItems: "center",
+              overflow: "hidden", // prevents slide overflow
+            }}
+          >
+            {/* LEFT: TEXT (slide from left) */}
+            <Slide
+              direction="right"
+              in={whoWeAreVisible}
+              timeout={800}
+              mountOnEnter
             >
               <Box
                 sx={{
@@ -267,21 +299,40 @@ export default function AboutPage() {
                 </Typography>
 
                 <Typography sx={{ lineHeight: 1.8, opacity: 0.95 }}>
-                  {" "}
-                  GrocerConnect is a platform designed to support independent
-                  community grocers by providing access to tools, resources,
-                  partnerships, and insights that help them compete in an
-                  ever-changing retail landscape. <br /> <br /> We believe local
-                  grocers are the backbone of neighborhoods — offering fresh
-                  food, personal service, and strong community ties.
+                  The National Grocers Association (NGA) represents independent
+                  grocers, wholesalers, and suppliers nationwide. We advocate
+                  for fair competition, support industry growth, and help local
+                  grocery businesses thrive through education, resources, and
+                  connection.
+                </Typography>
+
+                <Typography sx={{ lineHeight: 1.8, opacity: 0.95, pt: 2 }}>
+                  Independent community grocers are the true entrepreneurs of
+                  the grocery industry, passionately committed to their
+                  customers, their associates and the markets they serve.
+                  Privately owned by families, or by employees, these retailers
+                  operate a variety of retail formats, and while most are
+                  serviced by wholesale distributors, others may be partially or
+                  fully self-distributing. Independents differentiate in the
+                  marketplace based on the needs of the local community, while
+                  showing a strong commitment to civic life and providing their
+                  neighbors quality goods and nourishing foods.
                 </Typography>
               </Box>
+            </Slide>
 
+            {/* RIGHT: IMAGE (slide from right) */}
+            <Slide
+              direction="left"
+              in={whoWeAreVisible}
+              timeout={800}
+              mountOnEnter
+            >
               <Box
                 sx={{
                   position: "relative",
                   width: "100%",
-                  height: 300,
+                  height: 430,
                   borderRadius: 4,
                   overflow: "hidden",
                 }}
@@ -293,12 +344,12 @@ export default function AboutPage() {
                   style={{ objectFit: "cover" }}
                 />
               </Box>
-            </Box>
-          </Fade>
+            </Slide>
+          </Box>
         </Container>
 
         {/* ================= MISSION ================= */}
-        <Container sx={{ py: { xs: 6, md: 10 } }}>
+        <Container maxWidth="xl" sx={{ py: { xs: 6, md: 10 } }}>
           <Box
             sx={{
               display: "grid",
@@ -330,6 +381,8 @@ export default function AboutPage() {
                       "&:hover": {
                         boxShadow: "0 22px 48px rgba(0,0,0,0.35)",
                       },
+                      px: { xs: 1, sm: 2 },
+                      py: { xs: 2, sm: 4 },
                     }}
                   >
                     <CardContent>
