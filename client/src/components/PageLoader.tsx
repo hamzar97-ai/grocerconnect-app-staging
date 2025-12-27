@@ -13,6 +13,9 @@ export default function PageLoader() {
 
     const timer = setTimeout(() => {
       setVisible(false);
+
+      // 🔥 Notify pages that loader is done
+      document.dispatchEvent(new Event("page:ready"));
     }, 1400);
 
     return () => clearTimeout(timer);

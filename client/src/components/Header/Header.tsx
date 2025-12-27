@@ -39,7 +39,7 @@ const topBarLinks = ["Technical Assistance Center", "Foundation"];
 
 const navLinks = [
   { label: "About", href: "/about" },
-  { label: "Join", href: "#" },
+  { label: "Membership", href: "/membership" },
   { label: "Advocacy", href: "#" },
   { label: "Education", href: "#" },
   { label: "Partnerships", href: "#" },
