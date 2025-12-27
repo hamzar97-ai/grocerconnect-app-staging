@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 export default function PageLoader() {
   const pathname = usePathname();
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     setVisible(true);
