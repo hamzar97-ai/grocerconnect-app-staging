@@ -221,123 +221,131 @@ export default function MembershipPage() {
                 timeout={600 + i * 200}
                 mountOnEnter
               >
-                {/* 🔥 HOVER WRAPPER (handles scale) */}
-                <Box
-                  sx={{
-                    height: "100%",
-                    transition: "transform 350ms cubic-bezier(.4,0,.2,1)",
-                    willChange: "transform",
-
-                    "@media (hover: hover)": {
-                      "&:hover": {
-                        transform: "scale(1.03)",
-                      },
-                    },
-                  }}
-                >
-                  <Paper
+                {/* NON-TRANSFORM WRAPPER (prevents Slide conflict) */}
+                <Box sx={{ height: "100%" }}>
+                  {/* HOVER SCALE WRAPPER */}
+                  <Box
                     sx={{
-                      p: 4,
                       height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      borderRadius: 4,
-                      position: "relative",
-
-                      bgcolor: plan.highlight
-                        ? "secondary.main"
-                        : "background.paper",
-
-                      color: plan.highlight ? "#fff" : "text.primary",
-
-                      boxShadow: plan.highlight
-                        ? "0 16px 40px rgba(240,140,0,0.4)"
-                        : "0 12px 30px rgba(0,0,0,0.12)",
-
-                      transition: "box-shadow 350ms cubic-bezier(.4,0,.2,1)",
+                      transition: "transform 350ms cubic-bezier(.4,0,.2,1)",
+                      willChange: "transform",
+                      transformOrigin: "center",
 
                       "@media (hover: hover)": {
                         "&:hover": {
-                          boxShadow: plan.highlight
-                            ? "0 30px 70px rgba(240,140,0,0.55)"
-                            : "0 24px 60px rgba(0,0,0,0.28)",
+                          transform: "scale(1.03)",
                         },
                       },
                     }}
                   >
-                    {plan.highlight && (
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          top: -14,
-                          right: 20,
-                          bgcolor: "warning.main",
-                          color: "#000",
-                          px: 2,
-                          py: 0.5,
-                          borderRadius: 2,
-                          fontSize: "0.75rem",
-                          fontWeight: 700,
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 0.5,
-                        }}
-                      >
-                        <StarIcon fontSize="small" />
-                        Most Popular
-                      </Box>
-                    )}
-
-                    <Typography variant="h4" fontWeight={700} mb={1}>
-                      {plan.title}
-                    </Typography>
-
-                    <Typography sx={{ opacity: 0.9, mb: 2 }}>
-                      {plan.description}
-                    </Typography>
-
-                    <Typography variant="h5" fontWeight={700} mb={3}>
-                      {plan.custom
-                        ? "Custom Pricing"
-                        : billing === "monthly"
-                        ? `$${plan.priceMonthly!} / month`
-                        : `$${Math.round(plan.priceAnnual!)} / year`}
-                    </Typography>
-
-                    {/* FEATURES */}
-                    <Box sx={{ flexGrow: 1 }}>
-                      {plan.features.map((feature) => (
-                        <Box
-                          key={feature}
-                          sx={{
-                            display: "flex",
-                            gap: 1.5,
-                            mb: 1.2,
-                            alignItems: "center",
-                          }}
-                        >
-                          <CheckCircleIcon fontSize="small" />
-                          <Typography>{feature}</Typography>
-                        </Box>
-                      ))}
-                    </Box>
-
-                    {/* CTA */}
-                    <Button
-                      fullWidth
-                      size="large"
-                      variant={plan.highlight ? "contained" : "outlined"}
+                    <Paper
                       sx={{
-                        mt: 3,
-                        borderRadius: 3,
-                        py: 1.4,
-                        fontWeight: 600,
-                        textTransform: "none",
+                        p: 4,
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        borderRadius: 4,
+                        position: "relative",
+
+                        bgcolor: plan.highlight
+                          ? "secondary.main"
+                          : "background.paper",
+
+                        color: plan.highlight ? "#fff" : "text.primary",
+
+                        boxShadow: plan.highlight
+                          ? "0 16px 40px rgba(240,140,0,0.4)"
+                          : "0 12px 30px rgba(0,0,0,0.12)",
+
+                        transition: "box-shadow 350ms cubic-bezier(.4,0,.2,1)",
+
+                        "@media (hover: hover)": {
+                          "&:hover": {
+                            boxShadow: plan.highlight
+                              ? "0 30px 70px rgba(240,140,0,0.55)"
+                              : "0 24px 60px rgba(0,0,0,0.28)",
+                          },
+                        },
                       }}
                     >
-                      {plan.cta}
-                    </Button>
-                  </Paper>
+                      {/* POPULAR BADGE */}
+                      {plan.highlight && (
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            top: -14,
+                            right: 20,
+                            bgcolor: "warning.main",
+                            color: "#000",
+                            px: 2,
+                            py: 0.5,
+                            borderRadius: 2,
+                            fontSize: "0.75rem",
+                            fontWeight: 700,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 0.5,
+                          }}
+                        >
+                          <StarIcon fontSize="small" />
+                          Most Popular
+                        </Box>
+                      )}
+
+                      {/* TITLE */}
+                      <Typography variant="h4" fontWeight={700} mb={1}>
+                        {plan.title}
+                      </Typography>
+
+                      {/* DESCRIPTION */}
+                      <Typography sx={{ opacity: 0.9, mb: 2 }}>
+                        {plan.description}
+                      </Typography>
+
+                      {/* PRICE */}
+                      <Typography variant="h5" fontWeight={700} mb={3}>
+                        {plan.custom
+                          ? "Custom Pricing"
+                          : billing === "monthly"
+                          ? `$${plan.priceMonthly} / month`
+                          : `$${Math.round(plan.priceAnnual ?? 0)} / year`}
+                      </Typography>
+
+                      {/* FEATURES */}
+                      <Box sx={{ flexGrow: 1 }}>
+                        {plan.features.map((feature) => (
+                          <Box
+                            key={feature}
+                            sx={{
+                              display: "flex",
+                              gap: 1.5,
+                              mb: 1.2,
+                              alignItems: "center",
+                            }}
+                          >
+                            <CheckCircleIcon fontSize="small" />
+                            <Typography>{feature}</Typography>
+                          </Box>
+                        ))}
+                      </Box>
+
+                      {/* CTA */}
+                      <Button
+                        fullWidth
+                        size="large"
+                        variant={plan.highlight ? "contained" : "outlined"}
+                        sx={{
+                          mt: 3,
+                          borderRadius: 3,
+                          py: 1.4,
+                          fontWeight: 600,
+                          textTransform: "none",
+                        }}
+                      >
+                        {plan.cta}
+                      </Button>
+                    </Paper>
+                  </Box>
                 </Box>
               </Slide>
             ))}
