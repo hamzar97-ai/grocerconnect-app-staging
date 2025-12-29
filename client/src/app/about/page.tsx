@@ -198,6 +198,19 @@ function TeamFlipCard({ member }: any) {
 }
 
 export default function AboutPage() {
+  const [pageReady, setPageReady] = useState(false);
+  const missionRef = useRef<HTMLDivElement | null>(null);
+  const [missionVisible, setMissionVisible] = useState(false);
+
+  useEffect(() => {
+    const onReady = () => setPageReady(true);
+    document.addEventListener("page:ready", onReady);
+
+    return () => {
+      document.removeEventListener("page:ready", onReady);
+    };
+  }, []);
+
   const missionCards = [
     {
       title: "Our Mission",
@@ -223,11 +236,13 @@ export default function AboutPage() {
   const [whoWeAreVisible, setWhoWeAreVisible] = useState(false);
 
   useEffect(() => {
+    if (!pageReady) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setWhoWeAreVisible(true);
-          observer.disconnect(); // animate once
+          observer.disconnect();
         }
       },
       { threshold: 0.3 }
@@ -238,7 +253,25 @@ export default function AboutPage() {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [pageReady]);
+
+  useEffect(() => {
+    if (!pageReady) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMissionVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (missionRef.current) observer.observe(missionRef.current);
+
+    return () => observer.disconnect();
+  }, [pageReady]);
 
   const float = keyframes`
   0% { transform: translateY(0px); }
@@ -287,7 +320,7 @@ export default function AboutPage() {
             {/* LEFT: TEXT */}
             <Slide
               direction="right"
-              in={whoWeAreVisible}
+              in={pageReady && whoWeAreVisible}
               timeout={800}
               mountOnEnter
             >
@@ -346,33 +379,53 @@ export default function AboutPage() {
             {/* RIGHT: IMAGE */}
             <Slide
               direction="left"
-              in={whoWeAreVisible}
+              in={pageReady && whoWeAreVisible}
               timeout={800}
               mountOnEnter
             >
-              <Box
-                sx={{
-                  position: "relative",
-                  width: "100%",
-                  height: 430,
-                  borderRadius: 4,
-                  overflow: "hidden",
-                  boxShadow: "0 18px 40px rgba(0,0,0,0.25)",
-                }}
-              >
-                <Image
-                  src="/assets/images/15866.jpg"
-                  alt="Independent grocers"
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
+              <Box sx={{ perspective: "1200px" }}>
+                <Box
+                  sx={{
+                    position: "relative",
+                    width: "100%",
+                    height: 430,
+                    borderRadius: 4,
+                    overflow: "hidden",
+
+                    boxShadow: "0 18px 40px rgba(0,0,0,0.25)",
+
+                    transform: "rotateX(0deg) rotateY(0deg) scale(1)",
+                    transition:
+                      "transform 500ms cubic-bezier(.4,0,.2,1), box-shadow 400ms ease",
+
+                    willChange: "transform",
+
+                    "@media (hover: hover)": {
+                      "&:hover": {
+                        transform: "rotateX(-4deg) rotateY(4deg) scale(1.04)",
+                        boxShadow: "0 34px 80px rgba(0,0,0,0.45)",
+                      },
+                    },
+                  }}
+                >
+                  <Image
+                    src="/assets/images/15866.jpg"
+                    alt="Independent grocers"
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
+                </Box>
               </Box>
             </Slide>
           </Box>
         </Container>
 
         {/* ================= MISSION / VISION / VALUES ================= */}
-        <Container maxWidth="xl" sx={{ py: { xs: 6, md: 10 } }}>
+        <Container
+          ref={missionRef}
+          maxWidth="xl"
+          sx={{ py: { xs: 6, md: 10 } }}
+        >
           <Box
             sx={{
               display: "grid",
@@ -388,7 +441,13 @@ export default function AboutPage() {
               ];
 
               return (
-                <Fade in timeout={600 + i * 200} key={i}>
+                <Slide
+                  direction="up"
+                  in={pageReady && missionVisible}
+                  timeout={600 + i * 200}
+                  mountOnEnter
+                  key={i}
+                >
                   <Card
                     sx={{
                       height: "100%",
@@ -433,7 +492,7 @@ export default function AboutPage() {
                       </Typography>
                     </CardContent>
                   </Card>
-                </Fade>
+                </Slide>
               );
             })}
           </Box>
