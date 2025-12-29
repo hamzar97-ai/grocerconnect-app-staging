@@ -35,22 +35,12 @@ export default function Footer() {
       >
         {/* LOGO COLUMN */}
         <Box>
-          <Box
-            component={NextLink}
-            href="/"
-            sx={{
-              display: "inline-block",
-              cursor: "pointer",
-            }}
-          >
+          <Box component={NextLink} href="/" sx={{ display: "inline-block" }}>
             <Box
               component="img"
               src="/assets/images/NGA-logo.png"
               alt="National Grocers Association"
-              sx={{
-                width: 180,
-                mb: 3,
-              }}
+              sx={{ width: 180, mb: 3 }}
             />
           </Box>
 
@@ -71,29 +61,37 @@ export default function Footer() {
         {/* COMPANY */}
         <FooterColumn
           title="Company"
-          links={["Privacy Policy", "Terms of Service"]}
+          links={[
+            { label: "Privacy Policy", href: "" },
+            { label: "Terms of Service", href: "" },
+          ]}
         />
 
         {/* HOME */}
         <FooterColumn
           title="Home"
-          links={["About Grocer Connect", "Our Flavours", "Testimonial", "FAQ"]}
+          links={[
+            { label: "About Grocer Connect", href: "/about" },
+            { label: "Membership", href: "/membership" },
+            { label: "Join GrocerConnect", href: "/onboarding" },
+            { label: "Login", href: "/login" },
+            { label: "Contact", href: "/contact" },
+          ]}
         />
 
         {/* CONNECT */}
         <FooterColumn
           title="Connect"
-          links={["Collaborate", "Instagram", "LinkedIn", "Facebook"]}
+          links={[
+            { label: "Instagram", href: "#" },
+            { label: "LinkedIn", href: "#" },
+            { label: "Facebook", href: "#" },
+          ]}
         />
       </Box>
 
       {/* BOTTOM BAR */}
-      <Box
-        sx={{
-          backgroundColor: "#E53935",
-          py: 2.5,
-        }}
-      >
+      <Box sx={{ backgroundColor: "#E53935", py: 2.5 }}>
         <Typography
           sx={{
             textAlign: "center",
@@ -111,7 +109,13 @@ export default function Footer() {
 
 /* ---------------- HELPERS ---------------- */
 
-function FooterColumn({ title, links }: { title: string; links: string[] }) {
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+}) {
   return (
     <Box>
       <Typography
@@ -128,14 +132,14 @@ function FooterColumn({ title, links }: { title: string; links: string[] }) {
       <Stack spacing={1.8}>
         {links.map((link) => (
           <Link
-            key={link}
-            component="span"
+            key={link.label}
+            component={NextLink}
+            href={link.href}
             underline="none"
             sx={{
               fontSize: "1.05rem",
               fontWeight: 700,
               color: "#111",
-              cursor: "pointer",
               transition: "all 250ms ease",
               "&:hover": {
                 color: "#E53935",
@@ -143,7 +147,7 @@ function FooterColumn({ title, links }: { title: string; links: string[] }) {
               },
             }}
           >
-            {link}
+            {link.label}
           </Link>
         ))}
       </Stack>

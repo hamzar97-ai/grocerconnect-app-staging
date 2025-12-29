@@ -37,8 +37,12 @@ export default function StepTwo({
       newErrors.email = "That doesn’t look like a valid email";
     }
 
-    if (!data.phone?.trim()) {
+    const cleanedPhone = data.phone.replace(/\s/g, "");
+
+    if (!cleanedPhone) {
       newErrors.phone = "A phone number helps if we need to reach you quickly";
+    } else if (!/^\+?\d{8,15}$/.test(cleanedPhone)) {
+      newErrors.phone = "Enter a valid international phone number";
     }
 
     if (!data.role) {
@@ -108,7 +112,18 @@ export default function StepTwo({
             value={data.phone}
             error={Boolean(errors.phone)}
             helperText={errors.phone}
-            onChange={(e) => setData({ ...data, phone: e.target.value })}
+            inputProps={{
+              inputMode: "tel", // mobile numeric keypad
+              maxLength: 16, // + + 15 digits
+            }}
+            onChange={(e) => {
+              const value = e.target.value;
+
+              // Allow only +, digits, and spaces
+              if (/^[+\d\s]*$/.test(value)) {
+                setData({ ...data, phone: value });
+              }
+            }}
           />
 
           <TextField

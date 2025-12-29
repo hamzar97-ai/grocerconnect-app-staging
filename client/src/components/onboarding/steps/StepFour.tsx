@@ -31,7 +31,7 @@ export default function StepFour({ email }: StepFourProps) {
         <CheckCircleRoundedIcon
           sx={{
             fontSize: 90,
-            color: "success.main",
+            color: "primary.main",
           }}
         />
       </Box>

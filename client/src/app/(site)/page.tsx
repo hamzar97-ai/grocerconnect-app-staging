@@ -38,7 +38,7 @@ export default function Home() {
         <InfoBlobSection
           title="Independent Community Grocer Definition"
           description="Independent community grocers are the true entrepreneurs of the grocery industry, passionately committed to their customers, their associates and the markets they serve. Privately owned by families, or by employees, these retailers operate a variety of retail formats."
-          image="/assets/images/2152003889.jpg"
+          image="/assets/images/868110.jpg"
           bgColor="#7E57C2"
           textColor="#fff"
           reverse
@@ -47,7 +47,7 @@ export default function Home() {
         <InfoBlobSection
           title="Our Mission"
           description="Our mission is to empower independent grocers by strengthening their ability to compete. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit nulla pariatur."
-          image="/assets/images/2152003889.jpg"
+          image="/assets/images/3184418.jpg"
           bgColor="#2F9E44"
           textColor="#111"
         />
