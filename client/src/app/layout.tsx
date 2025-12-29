@@ -2,12 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { Fredoka, Passion_One } from "next/font/google";
-
 import ThemeRegistry from "@/components/ThemeRegistry";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
-import PageLoader from "../components/PageLoader";
+import PageLoader from "@/components/PageLoader";
 
 export const metadata: Metadata = {
   title: "GrocerConnect",
@@ -36,13 +32,7 @@ export default function RootLayout({
       <body className={`${fredoka.variable} ${passion.variable}`}>
         <ThemeRegistry>
           <PageLoader />
-
-          <Header />
-
-          <main>{children}</main>
-
-          <Footer />
-          <ScrollToTop />
+          {children}
         </ThemeRegistry>
       </body>
     </html>

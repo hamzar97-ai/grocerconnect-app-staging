@@ -4,21 +4,21 @@ import { Box, Typography } from "@mui/material";
 
 const rows = [
   {
-    text: "Add Your Heading Text Here",
+    text: "Not Just Stores",
     bg: "#EF3A3A",
     color: "#FFFFFF",
     hoverBg: "#C62828",
     hoverColor: "#FFF176",
   },
   {
-    text: "Add Your Heading Text Here",
+    text: "A Connected Grocery Network",
     bg: "#7E57C2",
     color: "#FFF176",
     hoverBg: "#5E35B1",
     hoverColor: "#FFFFFF",
   },
   {
-    text: "Add Your Heading Text Here",
+    text: "Built to Grow Together",
     bg: "#7CB342",
     color: "#2E7D32",
     hoverBg: "#558B2F",
