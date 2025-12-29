@@ -135,7 +135,7 @@ export default function OnboardingPage() {
                   {STEPS.map((s, i) => (
                     <Typography
                       key={s.id}
-                      fontSize={13}
+                      fontSize={15}
                       fontWeight={i <= currentIndex ? 600 : 400}
                       color={
                         i <= currentIndex ? "primary.main" : "text.secondary"
@@ -173,8 +173,8 @@ export default function OnboardingPage() {
                     <Box
                       key={i}
                       sx={{
-                        width: 12,
-                        height: 12,
+                        width: 14,
+                        height: 14,
                         borderRadius: "50%",
                         backgroundColor:
                           i <= currentIndex

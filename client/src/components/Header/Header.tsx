@@ -33,18 +33,14 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const TOP_BAR_HEIGHT = 48;
-
 const topBarLinks = ["Technical Assistance Center", "Foundation"];
 
 const navLinks = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Membership", href: "/membership" },
-  { label: "Advocacy", href: "#" },
-  { label: "Education", href: "#" },
-  { label: "Partnerships", href: "#" },
-  { label: "News & Events", href: "#" },
-  { label: "Programs", href: "#" },
+  { label: "Join GrocerConnect", href: "/onboarding" },
+  { label: "Login", href: "/login" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -115,7 +111,7 @@ export default function Header() {
   /* ================= SCROLL DETECTION ================= */
   useEffect(() => {
     const onScroll = () => {
-      setIsFixed(window.scrollY > TOP_BAR_HEIGHT);
+      setIsFixed(window.scrollY > 0);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -131,242 +127,200 @@ export default function Header() {
 
   return (
     <>
-      {/* ================= TOP BAR ================= */}
-      <AppBar
-        position="static"
-        color="inherit"
-        elevation={0}
-        sx={{ height: TOP_BAR_HEIGHT }}
-      >
-        <Container maxWidth="xl">
-          <Toolbar
-            sx={{
-              justifyContent: "flex-end",
-              gap: 1,
-              minHeight: TOP_BAR_HEIGHT,
-            }}
-          >
-            {!isMobile &&
-              topBarLinks.map((text) => (
-                <Button key={text} size="small">
-                  {text}
-                </Button>
-              ))}
-
-            <Button variant="contained" color="secondary" size="small">
-              Join NGA
-            </Button>
-
-            <Button variant="outlined" size="small">
-              Member Login
-            </Button>
-          </Toolbar>
-        </Container>
-      </AppBar>
-
       {/* ================= MAIN NAV ================= */}
-      <Box
+      <AppBar
+        position="fixed"
+        color="primary"
         sx={{
-          height: 70,
-          transition: "height 300ms ease",
+          top: 0,
+          height: 64,
+          boxShadow: isFixed ? 4 : 0,
+          transition: "box-shadow 300ms ease",
+          zIndex: theme.zIndex.drawer,
         }}
       >
-        <AppBar
-          position={isFixed ? "fixed" : "static"}
-          color="primary"
-          sx={{
-            top: isFixed ? 0 : "auto",
-            height: 64,
-            transform: isFixed ? "translateY(0)" : "translateY(6px)",
-            opacity: isFixed ? 1 : 0.98,
-            transition:
-              "transform 250ms ease, opacity 200ms ease, box-shadow 300ms ease",
-            boxShadow: isFixed ? 4 : 0,
-            zIndex: theme.zIndex.drawer + 1,
-          }}
-        >
-          <Container maxWidth="xl">
-            <Toolbar sx={{ justifyContent: "space-between", minHeight: 64 }}>
-              {/* LOGO - Already has homepage link ✅ */}
-              <Typography
-                variant="h6"
-                fontWeight={700}
-                component={Link}
-                href="/"
-                sx={{
-                  color: "inherit",
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  fontFamily: "var(--font-fredoka)",
-                  fontSize: "1.5rem",
-                }}
-              >
-                GrocerConnect
-              </Typography>
+        <Container maxWidth="xl">
+          <Toolbar sx={{ justifyContent: "space-between", minHeight: 64 }}>
+            {/* LOGO - Already has homepage link ✅ */}
+            <Typography
+              variant="h6"
+              fontWeight={700}
+              component={Link}
+              href="/"
+              sx={{
+                color: "inherit",
+                textDecoration: "none",
+                cursor: "pointer",
+                fontFamily: "var(--font-fredoka)",
+                fontSize: { xs: "1.2rem", md: "2.2rem" },
+              }}
+            >
+              GrocerConnect
+            </Typography>
 
-              {/* DESKTOP NAV */}
-              {!isMobile && (
-                <Box display="flex" alignItems="center" gap={3}>
-                  {navLinks.map((link) => (
-                    <Button
-                      key={link.label}
+            {/* DESKTOP NAV */}
+            {!isMobile && (
+              <Box display="flex" alignItems="center" gap={3}>
+                {navLinks.map((link) => (
+                  <Button
+                    key={link.label}
+                    component={Link}
+                    href={link.href}
+                    color="inherit"
+                    sx={{
+                      fontWeight: 600,
+                      fontFamily: "var(--font-fredoka)",
+                      fontSize: { xs: "0.9rem", md: "1.1rem", lg: "1.15rem" },
+                      position: "relative",
+                      "&::after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: 0,
+                        left: "50%",
+                        width: 0,
+                        height: "2px",
+                        backgroundColor: theme.palette.secondary.main,
+                        transition: "all 0.3s ease",
+                        transform: "translateX(-50%)",
+                      },
+                      "&:hover::after": {
+                        width: "100%",
+                      },
+                    }}
+                  >
+                    {link.label}
+                  </Button>
+                ))}
+                <IconButton
+                  color="secondary"
+                  onClick={() => setSearchOpen(true)}
+                  sx={{
+                    transition: "transform 0.3s ease",
+                    "&:hover": {
+                      transform: "scale(1.1)",
+                      backgroundColor: alpha(theme.palette.secondary.main, 0.1),
+                    },
+                  }}
+                >
+                  <SearchIcon
+                    sx={{
+                      fontSize: { xs: "1.2rem", md: "1.6rem", lg: "1.7rem" },
+                    }}
+                  />
+                </IconButton>
+              </Box>
+            )}
+
+            {/* MOBILE NAV */}
+            {isMobile && (
+              <>
+                <IconButton
+                  color="inherit"
+                  onClick={() => setOpen(true)}
+                  sx={{
+                    transition: "transform 0.3s ease",
+                    "&:hover": {
+                      transform: "scale(1.1)",
+                      backgroundColor: alpha(theme.palette.common.white, 0.1),
+                    },
+                  }}
+                >
+                  <MenuIcon />
+                </IconButton>
+
+                <AnimatedDrawer
+                  anchor="right"
+                  open={open}
+                  onClose={handleDrawerClose}
+                >
+                  {/* Menu Header with Logo - Now with homepage link */}
+                  <MenuHeader sx={{ pb: 9, pt: 2 }}>
+                    <Box
                       component={Link}
-                      href={link.href}
-                      color="inherit"
+                      href="/"
+                      onClick={handleDrawerClose}
                       sx={{
-                        fontWeight: 600,
-                        fontFamily: "var(--font-fredoka)",
+                        textDecoration: "none",
+                        display: "block",
                         position: "relative",
-                        "&::after": {
-                          content: '""',
-                          position: "absolute",
-                          bottom: 0,
-                          left: "50%",
-                          width: 0,
-                          height: "2px",
-                          backgroundColor: theme.palette.secondary.main,
-                          transition: "all 0.3s ease",
-                          transform: "translateX(-50%)",
-                        },
-                        "&:hover::after": {
-                          width: "100%",
-                        },
+                        zIndex: 1,
                       }}
                     >
-                      {link.label}
-                    </Button>
-                  ))}
-                  <IconButton
-                    color="secondary"
-                    onClick={() => setSearchOpen(true)}
-                    sx={{
-                      transition: "transform 0.3s ease",
-                      "&:hover": {
-                        transform: "scale(1.1)",
-                        backgroundColor: alpha(
-                          theme.palette.secondary.main,
-                          0.1
-                        ),
-                      },
-                    }}
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </Box>
-              )}
-
-              {/* MOBILE NAV */}
-              {isMobile && (
-                <>
-                  <IconButton
-                    color="inherit"
-                    onClick={() => setOpen(true)}
-                    sx={{
-                      transition: "transform 0.3s ease",
-                      "&:hover": {
-                        transform: "scale(1.1)",
-                        backgroundColor: alpha(theme.palette.common.white, 0.1),
-                      },
-                    }}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-
-                  <AnimatedDrawer
-                    anchor="right"
-                    open={open}
-                    onClose={handleDrawerClose}
-                  >
-                    {/* Menu Header with Logo - Now with homepage link */}
-                    <MenuHeader sx={{ pb: 9, pt: 2 }}>
-                      <Box
-                        component={Link}
-                        href="/"
-                        onClick={handleDrawerClose}
-                        sx={{
-                          textDecoration: "none",
-                          display: "block",
-                          position: "relative",
-                          zIndex: 1,
-                        }}
-                      >
-                        <Typography
-                          variant="h5"
-                          fontWeight={700}
-                          sx={{
-                            color: theme.palette.common.white,
-                            fontFamily: "var(--font-fredoka)",
-                            "&:hover": {
-                              opacity: 0.9,
-                            },
-                            transition: "opacity 0.2s ease",
-                          }}
-                        >
-                          GrocerConnect
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            color: alpha(theme.palette.common.white, 0.9),
-                          }}
-                        >
-                          National Grocers Association
-                        </Typography>
-                      </Box>
-
-                      <IconButton
-                        onClick={handleDrawerClose}
-                        sx={{
-                          position: "absolute",
-                          top: 8,
-                          right: 8,
-                          color: theme.palette.common.white,
-                          backgroundColor: alpha(
-                            theme.palette.common.black,
-                            0.2
-                          ),
-                          "&:hover": {
-                            backgroundColor: alpha(
-                              theme.palette.common.black,
-                              0.3
-                            ),
-                            transform: "rotate(90deg)",
-                          },
-                          transition: "all 0.3s ease",
-                        }}
-                      >
-                        <CloseIcon />
-                      </IconButton>
-                    </MenuHeader>
-
-                    {/* Add Home link at the top of navigation */}
-                    <Box sx={{ px: 2, mt: 1 }}>
                       <Typography
-                        variant="caption"
+                        variant="h5"
+                        fontWeight={700}
                         sx={{
-                          color: theme.palette.text.secondary,
-                          textTransform: "uppercase",
-                          fontWeight: 800,
-                          letterSpacing: 1,
+                          color: theme.palette.common.white,
+                          fontFamily: "var(--font-fredoka)",
+                          "&:hover": {
+                            opacity: 0.9,
+                          },
+                          transition: "opacity 0.2s ease",
                         }}
                       >
-                        Navigation
+                        GrocerConnect
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: alpha(theme.palette.common.white, 0.9),
+                        }}
+                      >
+                        National Grocers Association
                       </Typography>
                     </Box>
 
-                    <List sx={{ px: 1, pb: 2 }}>
-                      {/* Home Link - Now uses ChevronRightIcon like other links */}
-                      <ListItem disablePadding>
+                    <IconButton
+                      onClick={handleDrawerClose}
+                      sx={{
+                        position: "absolute",
+                        top: 8,
+                        right: 8,
+                        color: theme.palette.common.white,
+                        backgroundColor: alpha(theme.palette.common.black, 0.2),
+                        "&:hover": {
+                          backgroundColor: alpha(
+                            theme.palette.common.black,
+                            0.3
+                          ),
+                          transform: "rotate(90deg)",
+                        },
+                        transition: "all 0.3s ease",
+                      }}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  </MenuHeader>
+
+                  {/* Add Home link at the top of navigation */}
+                  <Box sx={{ px: 2, mt: 1 }}>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: theme.palette.text.secondary,
+                        textTransform: "uppercase",
+                        fontWeight: 800,
+                        letterSpacing: 1,
+                      }}
+                    >
+                      Navigation
+                    </Typography>
+                  </Box>
+
+                  <List sx={{ px: 1, pb: 2 }}>
+                    {/* Other Navigation Links */}
+                    {navLinks.map((link) => (
+                      <ListItem key={link.label} disablePadding>
                         <StyledListItemButton
                           component={Link}
-                          href="/"
+                          href={link.href}
                           onClick={handleDrawerClose}
                         >
                           <ListItemIcon>
                             <ChevronRightIcon />
                           </ListItemIcon>
                           <ListItemText
-                            primary="Home"
+                            primary={link.label}
                             primaryTypographyProps={{
                               fontSize: "1rem",
                               fontWeight: 500,
@@ -374,180 +328,158 @@ export default function Header() {
                           />
                         </StyledListItemButton>
                       </ListItem>
+                    ))}
+                  </List>
 
-                      {/* Other Navigation Links */}
-                      {navLinks.map((link) => (
-                        <ListItem key={link.label} disablePadding>
-                          <StyledListItemButton
-                            component={Link}
-                            href={link.href}
-                            onClick={handleDrawerClose}
-                          >
-                            <ListItemIcon>
-                              <ChevronRightIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                              primary={link.label}
-                              primaryTypographyProps={{
-                                fontSize: "1rem",
-                                fontWeight: 500,
-                              }}
-                            />
-                          </StyledListItemButton>
-                        </ListItem>
-                      ))}
-                    </List>
+                  <Divider sx={{ mx: 2, my: 1 }} />
 
-                    <Divider sx={{ mx: 2, my: 1 }} />
-
-                    {/* Quick Links */}
-                    <Box sx={{ px: 2, mt: 2 }}>
-                      <Typography
-                        variant="caption"
-                        sx={{
-                          color: theme.palette.text.secondary,
-                          textTransform: "uppercase",
-                          fontWeight: 800,
-                          letterSpacing: 1,
-                        }}
-                      >
-                        Quick Links
-                      </Typography>
-                    </Box>
-
-                    <List sx={{ px: 1 }}>
-                      {topBarLinks.map((text) => (
-                        <ListItem key={text} disablePadding>
-                          <StyledListItemButton onClick={handleDrawerClose}>
-                            <ListItemIcon>
-                              <ChevronRightIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                              primary={text}
-                              primaryTypographyProps={{
-                                fontSize: "0.95rem",
-                              }}
-                            />
-                          </StyledListItemButton>
-                        </ListItem>
-                      ))}
-                    </List>
-
-                    {/* Action Buttons - ADDED SOLID BACKGROUNDS */}
-                    <Box sx={{ mt: 2, px: 2 }}>
-                      <Button
-                        fullWidth
-                        variant="contained"
-                        color="secondary"
-                        startIcon={<GroupAddIcon />}
-                        onClick={handleDrawerClose}
-                        sx={{
-                          mb: 1,
-                          borderRadius: 2,
-                          py: 1.5,
-                          fontWeight: 600,
-                          textTransform: "none",
-                          background: `linear-gradient(135deg, ${theme.palette.secondary.main} 0%, ${theme.palette.secondary.dark} 100%)`,
-                          color: theme.palette.common.white,
-                          boxShadow: `0 4px 12px ${alpha(
-                            theme.palette.secondary.main,
-                            0.3
-                          )}`,
-                          transition: "all 0.3s ease",
-                          "&:hover": {
-                            transform: "translateY(-2px)",
-                            boxShadow: `0 8px 20px ${alpha(
-                              theme.palette.secondary.main,
-                              0.5
-                            )}`,
-                            background: `linear-gradient(135deg, ${theme.palette.secondary.dark} 0%, ${theme.palette.secondary.main} 100%)`,
-                          },
-                        }}
-                      >
-                        Join NGA
-                      </Button>
-
-                      <Button
-                        fullWidth
-                        variant="outlined"
-                        startIcon={<PersonOutlineIcon />}
-                        onClick={handleDrawerClose}
-                        sx={{
-                          borderRadius: 2,
-                          py: 1.5,
-                          fontWeight: 600,
-                          textTransform: "none",
-                          border: `2px solid ${theme.palette.primary.dark}`,
-                          color: theme.palette.primary.contrastText,
-                          backgroundColor: theme.palette.primary.main,
-                          boxShadow: `0 4px 12px ${alpha(
-                            theme.palette.primary.main,
-                            0.2
-                          )}`,
-                          transition: "all 0.3s ease",
-                          "&:hover": {
-                            borderColor: theme.palette.primary.dark,
-                            backgroundColor: theme.palette.primary.dark,
-                            transform: "translateY(-2px)",
-                            boxShadow: `0 6px 20px ${alpha(
-                              theme.palette.primary.main,
-                              0.4
-                            )}`,
-                          },
-                        }}
-                      >
-                        Member Login
-                      </Button>
-                    </Box>
-
-                    {/* Search Button at Bottom - ADDED SOLID BACKGROUND */}
-                    <Box
+                  {/* Quick Links */}
+                  <Box sx={{ px: 2, mt: 2 }}>
+                    <Typography
+                      variant="caption"
                       sx={{
-                        p: 2,
-                        borderTop: `1px solid ${theme.palette.divider}`,
+                        color: theme.palette.text.secondary,
+                        textTransform: "uppercase",
+                        fontWeight: 800,
+                        letterSpacing: 1,
                       }}
                     >
-                      <Button
-                        fullWidth
-                        startIcon={<SearchIcon />}
-                        onClick={() => {
-                          handleDrawerClose();
-                          setTimeout(() => setSearchOpen(true), 300);
-                        }}
-                        sx={{
-                          color: theme.palette.common.white,
-                          fontWeight: 600,
-                          textTransform: "none",
-                          borderRadius: 2,
-                          border: `2px solid ${theme.palette.info.main}`,
-                          py: 1.5,
-                          backgroundColor: theme.palette.info.main,
-                          boxShadow: `0 4px 12px ${alpha(
-                            theme.palette.info.main,
-                            0.3
+                      Quick Links
+                    </Typography>
+                  </Box>
+
+                  <List sx={{ px: 1 }}>
+                    {topBarLinks.map((text) => (
+                      <ListItem key={text} disablePadding>
+                        <StyledListItemButton onClick={handleDrawerClose}>
+                          <ListItemIcon>
+                            <ChevronRightIcon />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={text}
+                            primaryTypographyProps={{
+                              fontSize: "0.95rem",
+                            }}
+                          />
+                        </StyledListItemButton>
+                      </ListItem>
+                    ))}
+                  </List>
+
+                  {/* Action Buttons - ADDED SOLID BACKGROUNDS */}
+                  <Box sx={{ mt: 2, px: 2 }}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      color="secondary"
+                      startIcon={<GroupAddIcon />}
+                      onClick={handleDrawerClose}
+                      sx={{
+                        mb: 1,
+                        borderRadius: 2,
+                        py: 1.5,
+                        fontWeight: 600,
+                        textTransform: "none",
+                        background: `linear-gradient(135deg, ${theme.palette.secondary.main} 0%, ${theme.palette.secondary.dark} 100%)`,
+                        color: theme.palette.common.white,
+                        boxShadow: `0 4px 12px ${alpha(
+                          theme.palette.secondary.main,
+                          0.3
+                        )}`,
+                        transition: "all 0.3s ease",
+                        "&:hover": {
+                          transform: "translateY(-2px)",
+                          boxShadow: `0 8px 20px ${alpha(
+                            theme.palette.secondary.main,
+                            0.5
                           )}`,
-                          transition: "all 0.3s ease",
-                          "&:hover": {
-                            border: `2px solid ${theme.palette.info.dark}`,
-                            backgroundColor: theme.palette.info.dark,
-                            transform: "translateY(-2px)",
-                            boxShadow: `0 6px 20px ${alpha(
-                              theme.palette.info.main,
-                              0.5
-                            )}`,
-                          },
-                        }}
-                      >
-                        Search GrocerConnect
-                      </Button>
-                    </Box>
-                  </AnimatedDrawer>
-                </>
-              )}
-            </Toolbar>
-          </Container>
-        </AppBar>
-      </Box>
+                          background: `linear-gradient(135deg, ${theme.palette.secondary.dark} 0%, ${theme.palette.secondary.main} 100%)`,
+                        },
+                      }}
+                    >
+                      Join NGA
+                    </Button>
+
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      startIcon={<PersonOutlineIcon />}
+                      onClick={handleDrawerClose}
+                      sx={{
+                        borderRadius: 2,
+                        py: 1.5,
+                        fontWeight: 600,
+                        textTransform: "none",
+                        border: `2px solid ${theme.palette.primary.dark}`,
+                        color: theme.palette.primary.contrastText,
+                        backgroundColor: theme.palette.primary.main,
+                        boxShadow: `0 4px 12px ${alpha(
+                          theme.palette.primary.main,
+                          0.2
+                        )}`,
+                        transition: "all 0.3s ease",
+                        "&:hover": {
+                          borderColor: theme.palette.primary.dark,
+                          backgroundColor: theme.palette.primary.dark,
+                          transform: "translateY(-2px)",
+                          boxShadow: `0 6px 20px ${alpha(
+                            theme.palette.primary.main,
+                            0.4
+                          )}`,
+                        },
+                      }}
+                    >
+                      Member Login
+                    </Button>
+                  </Box>
+
+                  {/* Search Button at Bottom - ADDED SOLID BACKGROUND */}
+                  <Box
+                    sx={{
+                      p: 2,
+                      borderTop: `1px solid ${theme.palette.divider}`,
+                    }}
+                  >
+                    <Button
+                      fullWidth
+                      startIcon={<SearchIcon />}
+                      onClick={() => {
+                        handleDrawerClose();
+                        setTimeout(() => setSearchOpen(true), 300);
+                      }}
+                      sx={{
+                        color: theme.palette.common.white,
+                        fontWeight: 600,
+                        textTransform: "none",
+                        borderRadius: 2,
+                        border: `2px solid ${theme.palette.info.main}`,
+                        py: 1.5,
+                        backgroundColor: theme.palette.info.main,
+                        boxShadow: `0 4px 12px ${alpha(
+                          theme.palette.info.main,
+                          0.3
+                        )}`,
+                        transition: "all 0.3s ease",
+                        "&:hover": {
+                          border: `2px solid ${theme.palette.info.dark}`,
+                          backgroundColor: theme.palette.info.dark,
+                          transform: "translateY(-2px)",
+                          boxShadow: `0 6px 20px ${alpha(
+                            theme.palette.info.main,
+                            0.5
+                          )}`,
+                        },
+                      }}
+                    >
+                      Search GrocerConnect
+                    </Button>
+                  </Box>
+                </AnimatedDrawer>
+              </>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
 
       {/* ================= SEARCH POPUP ================= */}
       <Dialog
