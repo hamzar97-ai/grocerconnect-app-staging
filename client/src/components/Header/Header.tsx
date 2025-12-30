@@ -107,7 +107,7 @@ const StyledListItemButton = styled(ListItemButton)<any>(({ theme }) => ({
 
 export default function Header() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
@@ -156,7 +156,12 @@ export default function Header() {
                 textDecoration: "none",
                 cursor: "pointer",
                 fontFamily: "var(--font-fredoka)",
-                fontSize: { xs: "1.2rem", md: "2.8rem" },
+                fontSize: {
+                  xs: "1.2rem",
+                  sm: "1.6rem",
+                  md: "2rem", // 900–1199 (includes 1024)
+                  lg: "2.8rem", // ≥1200 (true desktop)
+                },
               }}
             >
               GrocerConnect
@@ -174,7 +179,12 @@ export default function Header() {
                     sx={{
                       fontWeight: 600,
                       fontFamily: "var(--font-jakarta)",
-                      fontSize: { xs: "0.9rem", md: "1.2rem", lg: "1.4rem" },
+                      fontSize: {
+                        xs: "0.9rem",
+                        md: "1rem", // 1024px
+                        lg: "1.2rem",
+                        xl: "1.4rem",
+                      },
                       position: "relative",
                       "&::after": {
                         content: '""',
@@ -209,8 +219,17 @@ export default function Header() {
                     textTransform: "none",
                     borderRadius: 3,
                     fontSize: {
-                      xs: "0.9rem",
-                      md: "1.5rem",
+                      md: "1.1rem",
+                      lg: "1.3rem", // ⬅ reduce slightly
+                      xl: "1.5rem",
+                    },
+                    py: {
+                      lg: 0.75,
+                      xl: 1.2,
+                    },
+                    px: {
+                      lg: 1.5,
+                      xl: 2.5,
                     },
                     boxShadow: `0 4px 12px ${alpha(
                       theme.palette.secondary.main,
@@ -241,8 +260,17 @@ export default function Header() {
                     textTransform: "none",
                     borderRadius: 3,
                     fontSize: {
-                      xs: "0.9rem",
-                      md: "1.5rem",
+                      md: "1.1rem",
+                      lg: "1.3rem",
+                      xl: "1.5rem",
+                    },
+                    py: {
+                      lg: 0.6,
+                      xl: 1,
+                    },
+                    px: {
+                      lg: 1.2,
+                      xl: 2,
                     },
                     borderColor: theme.palette.warning.main,
                     color: theme.palette.warning.main,

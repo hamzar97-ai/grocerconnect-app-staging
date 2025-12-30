@@ -170,7 +170,12 @@ export default function InfoBlobSection({
           src={image}
           alt={title}
           sx={{
-            width: { xs: 160, sm: 200, md: 380 },
+            width: {
+              xs: 160,
+              sm: 200,
+              md: 300, // ⬅ smaller at 900–1024
+              lg: 380,
+            },
             maxWidth: "80vw",
             aspectRatio: "1 / 1",
             objectFit: "cover",
@@ -239,14 +244,17 @@ export default function InfoBlobSection({
                 fontSize: {
                   xs: "2.1rem",
                   sm: "2.6rem",
-                  md: "4.8rem",
+                  md: "3.8rem", // ⬅ 900–1023 (tablet / small laptop)
+                  lg: "4.6rem", // ⬅ 1200+
+                  xl: "4.8rem", // ⬅ large desktop
                 },
 
                 lineHeight: 1.05,
 
                 WebkitTextStroke: {
                   xs: "0.1em #fff",
-                  md: "0.18em #fff",
+                  md: "0.12em #fff", // ⬅ softer at 900–1024
+                  lg: "0.18em #fff",
                 },
                 paintOrder: "stroke fill",
 
@@ -263,8 +271,15 @@ export default function InfoBlobSection({
 
           <Typography
             sx={{
-              fontSize: { xs: "1rem", md: "1.6rem" },
-              lineHeight: 1.6,
+              fontSize: {
+                xs: "1rem",
+                md: "1.25rem", // ⬅ 900–1023
+                lg: "1.5rem", // ⬅ desktop
+              },
+              lineHeight: {
+                xs: 1.6,
+                md: 1.55,
+              },
               fontWeight: 500,
               color: textColor,
               maxWidth: 520,

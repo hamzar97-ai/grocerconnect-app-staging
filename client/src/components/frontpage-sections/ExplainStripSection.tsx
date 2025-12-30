@@ -57,9 +57,10 @@ export default function ExplainStripSection() {
               textShadow: "0 6px 0 rgba(0,0,0,0.15)",
               fontSize: {
                 xs: "1.6rem", // mobile
-                sm: "3.4rem", // tablets
-                md: "4.8rem", // desktop
-                lg: "5.6rem", // large screens
+                sm: "3.2rem", // tablets
+                md: "4.1rem", // ⬅ 900–1023 (compact desktop)
+                lg: "5.2rem", // ⬅ desktop
+                xl: "5.6rem", // ⬅ large screens
               },
               lineHeight: 1.05,
               px: { xs: 1, md: 0 },

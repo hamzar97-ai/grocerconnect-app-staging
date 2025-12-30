@@ -30,7 +30,7 @@ export default function Home() {
           title="Who We Are​"
           description="The National Grocers Association (NGA) represents independent grocers, wholesalers, and suppliers nationwide. We advocate for fair competition, support industry growth, and help local grocery businesses thrive through education, resources, and connection."
           image="/assets/images/369.jpg"
-          bgColor="#FFF176"
+          bgColor="#fbef43"
           textColor="#111"
           showHeadingDecor
           headingDecorSvg="/assets/images/flowers-svgrepo-com.svg"
@@ -40,7 +40,7 @@ export default function Home() {
           title="Independent Community Grocer Definition"
           description="Independent community grocers are the true entrepreneurs of the grocery industry, passionately committed to their customers, their associates and the markets they serve. Privately owned by families, or by employees, these retailers operate a variety of retail formats."
           image="/assets/images/868110.jpg"
-          bgColor="#7E57C2"
+          bgColor="#7F4E9F"
           textColor="#fff"
           reverse
           showHeadingDecor
@@ -52,7 +52,7 @@ export default function Home() {
           title="Our Mission"
           description="Our mission is to empower independent grocers by strengthening their ability to compete. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit nulla pariatur."
           image="/assets/images/3184418.jpg"
-          bgColor="#2F9E44"
+          bgColor="#6db54e"
           textColor="#111"
           showHeadingDecor
           headingDecorSvg="/assets/images/vegetables-diet-svgrepo-com.svg"

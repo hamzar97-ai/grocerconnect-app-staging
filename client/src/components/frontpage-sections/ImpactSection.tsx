@@ -111,7 +111,13 @@ export default function ImpactSection() {
         <Typography
           sx={{
             fontFamily: "var(--font-fredoka)",
-            fontSize: { xs: "2.6rem", md: "5.2rem" },
+            fontSize: {
+              xs: "2.6rem",
+              sm: "3.4rem",
+              md: "4.2rem", // ⬅ 900–1023
+              lg: "5rem", // ⬅ desktop
+              xl: "5.2rem",
+            },
             fontWeight: 900,
             color: "#fff",
             letterSpacing: "0.04em",
@@ -155,9 +161,21 @@ export default function ImpactSection() {
               {/* Icon */}
               <Box
                 sx={{
-                  width: { xs: 110, md: 140 },
-                  height: { xs: 110, md: 140 },
-                  fontSize: { xs: 48, md: 64 },
+                  width: {
+                    xs: 110,
+                    md: 120, // ⬅ compact desktop
+                    lg: 140,
+                  },
+                  height: {
+                    xs: 110,
+                    md: 120,
+                    lg: 140,
+                  },
+                  fontSize: {
+                    xs: 48,
+                    md: 56,
+                    lg: 64,
+                  },
                   mx: "auto",
                   mb: 3,
                   borderRadius: "50%",
@@ -175,7 +193,11 @@ export default function ImpactSection() {
               <Typography
                 sx={{
                   fontFamily: "var(--font-fredoka)",
-                  fontSize: { xs: "2.6rem", md: "4.2rem" },
+                  fontSize: {
+                    xs: "2.6rem",
+                    md: "3.4rem", // ⬅ 900–1023
+                    lg: "4.1rem", // ⬅ desktop
+                  },
                   fontWeight: 900,
                   color: "#fff",
                   mb: 1,
@@ -190,7 +212,11 @@ export default function ImpactSection() {
               <Typography
                 sx={{
                   whiteSpace: "pre-line",
-                  fontSize: { xs: "1rem", md: "1.25rem" },
+                  fontSize: {
+                    xs: "1rem",
+                    md: "1.1rem", // ⬅ compact desktop
+                    lg: "1.25rem",
+                  },
                   lineHeight: 1.5,
                   fontWeight: 600,
                   color: "rgba(255,255,255,0.9)",
@@ -210,9 +236,21 @@ export default function ImpactSection() {
           sx={{
             bgcolor: "#0B2C6F",
             color: "#fff",
-            fontSize: { xs: "1.1rem", md: "1.35rem" },
-            px: { xs: 5, md: 6 },
-            py: { xs: 1.6, md: 1.9 },
+            fontSize: {
+              xs: "1.1rem",
+              md: "1.2rem", // ⬅ 900–1023
+              lg: "1.35rem",
+            },
+            py: {
+              xs: 1.6,
+              md: 1.5,
+              lg: 1.9,
+            },
+            px: {
+              xs: 5,
+              md: 5.5,
+              lg: 6,
+            },
             borderRadius: "999px",
             fontWeight: 700,
             textTransform: "none",
