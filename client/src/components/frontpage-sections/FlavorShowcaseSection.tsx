@@ -45,7 +45,11 @@ export default function FlavorShowcaseSection() {
           maxWidth: 1400,
           mx: "auto",
           display: "grid",
-          gridTemplateColumns: { xs: "1fr", md: "repeat(4, 1fr)" },
+          gridTemplateColumns: {
+            xs: "1fr", // mobile
+            md: "repeat(2, 1fr)", // tablets & 1024px
+            lg: "repeat(4, 1fr)", // large desktop
+          },
           gap: { xs: 4, md: 4 },
           alignItems: "flex-end",
         }}
@@ -72,8 +76,16 @@ export default function FlavorShowcaseSection() {
             {/* IMAGE WRAPPER */}
             <Box
               sx={{
-                width: { xs: 250, md: 300 },
-                height: { xs: 380, md: 460 },
+                width: {
+                  xs: 250,
+                  md: 260, // ⬅ 900–1023
+                  lg: 300, // ⬅ desktop
+                },
+                height: {
+                  xs: 380,
+                  md: 400, // ⬅ compact desktop
+                  lg: 460,
+                },
                 mx: "auto",
                 borderRadius: 4,
                 overflow: "hidden",
@@ -97,9 +109,17 @@ export default function FlavorShowcaseSection() {
             <Typography
               sx={{
                 mt: 3,
-                fontSize: { xs: "1.2rem", md: "1.6rem" }, // ⬅️ desktop only
+                fontSize: {
+                  xs: "1.2rem",
+                  md: "1.4rem", // ⬅ 900–1023
+                  lg: "1.6rem",
+                },
+                letterSpacing: {
+                  xs: "0.06em",
+                  md: "0.08em",
+                  lg: "0.12em",
+                },
                 fontWeight: 900,
-                letterSpacing: { xs: "0.08em", md: "0.12em" },
                 color: flavor.color,
               }}
             >
@@ -111,8 +131,16 @@ export default function FlavorShowcaseSection() {
               className="flavor-desc"
               sx={{
                 mt: 2,
-                fontSize: { xs: "0.9rem", md: "1.1rem" },
-                lineHeight: { xs: 1.6, md: 1.7 },
+                fontSize: {
+                  xs: "0.9rem",
+                  md: "1rem", // ⬅ compact desktop
+                  lg: "1.1rem",
+                },
+                lineHeight: {
+                  xs: 1.6,
+                  md: 1.55,
+                  lg: 1.7,
+                },
                 maxWidth: 260,
                 mx: "auto",
                 color: "#333",

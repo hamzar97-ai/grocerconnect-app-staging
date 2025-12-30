@@ -57,8 +57,8 @@ export default function HeroSection() {
         overflow: "hidden",
         bgcolor: slides[activeIndex].bgColor,
         transition: "background-color 600ms ease",
-        py: { xs: 12, md: 14 },
-        pb: { xs: 10, md: 15 },
+        py: { xs: 12, md: 11, lg: 14 },
+        pb: { xs: 10, md: 12, lg: 15 },
       }}
     >
       {/* DOT BACKGROUND */}
@@ -92,7 +92,9 @@ export default function HeroSection() {
             fontSize: {
               xs: "2.8rem",
               sm: "3.8rem",
-              md: "6.5rem",
+              md: "5.2rem", // ⬅ 900–1023 (smaller & balanced)
+              lg: "6.2rem", // ⬅ 1200+
+              xl: "6.5rem", // ⬅ large desktops
             },
 
             /* REAL outline (this is the key) */

@@ -65,8 +65,16 @@ export default function TestimonialMarqueeSection() {
           <Box
             key={index}
             sx={{
-              minWidth: { xs: 300, md: 380 },
-              p: { xs: 8, md: 10 },
+              minWidth: {
+                xs: 300,
+                md: 330, // ⬅ compact desktop
+                lg: 380,
+              },
+              p: {
+                xs: 8,
+                md: 7, // ⬅ slightly tighter
+                lg: 10,
+              },
               mx: 2,
               borderRadius: "20px",
               backgroundColor: item.bg,
@@ -82,8 +90,16 @@ export default function TestimonialMarqueeSection() {
           >
             <Typography
               sx={{
-                fontSize: { xs: "1.05rem", md: "1.45rem" },
-                lineHeight: { xs: 1.5, md: 1.6 },
+                fontSize: {
+                  xs: "1.05rem",
+                  md: "1.25rem", // ⬅ 900–1023
+                  lg: "1.45rem",
+                },
+                lineHeight: {
+                  xs: 1.5,
+                  md: 1.55,
+                  lg: 1.6,
+                },
                 fontWeight: 700,
                 mb: 3,
               }}
@@ -93,9 +109,17 @@ export default function TestimonialMarqueeSection() {
 
             <Typography
               sx={{
-                fontSize: { xs: "0.9rem", md: "1.1rem" },
+                fontSize: {
+                  xs: "0.9rem",
+                  md: "1rem", // ⬅ compact desktop
+                  lg: "1.1rem",
+                },
+                letterSpacing: {
+                  xs: "0",
+                  md: "0.02em",
+                  lg: "0.04em",
+                },
                 fontWeight: 800,
-                letterSpacing: { xs: "0", md: "0.04em" },
                 opacity: 0.9,
               }}
             >

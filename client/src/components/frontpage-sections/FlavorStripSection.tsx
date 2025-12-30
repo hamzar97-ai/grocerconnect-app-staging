@@ -47,7 +47,12 @@ export default function FlavorStripSection() {
         <Box
           key={index}
           sx={{
-            height: { xs: 120, md: 180 },
+            height: {
+              xs: 120,
+              sm: 140,
+              md: 150, // ⬅ tighter at 900–1024
+              lg: 180, // ⬅ full desktop
+            },
             bgcolor: flavor.bg,
             display: "flex",
             alignItems: "center",
@@ -68,8 +73,17 @@ export default function FlavorStripSection() {
               whiteSpace: "pre-line",
               fontFamily: "var(--font-fredoka)",
               fontWeight: 900,
-              fontSize: { xs: "1.3rem", md: "2.1rem" },
-              letterSpacing: "0.08em",
+              fontSize: {
+                xs: "1.3rem",
+                sm: "1.6rem",
+                md: "1.8rem", // ⬅ 900–1023 (compact)
+                lg: "2.1rem", // ⬅ desktop
+              },
+              letterSpacing: {
+                xs: "0.06em",
+                md: "0.05em",
+                lg: "0.08em",
+              },
               color: flavor.color,
               textTransform: "uppercase",
             }}

@@ -5,7 +5,7 @@ const theme = createTheme({
     mode: "light",
 
     primary: {
-      main: "#2F9E44", // Fresh Green
+      main: "#6db54e", // Fresh Green
       contrastText: "#ffffff",
     },
 
@@ -19,15 +19,15 @@ const theme = createTheme({
     },
 
     warning: {
-      main: "#FFD43B", // Lemon
+      main: "#FBEF43", // Lemon
     },
 
     error: {
-      main: "#E03131", // Berry Red
+      main: "#EB373E", // Berry Red
     },
 
     info: {
-      main: "#7048E8", // Lavender
+      main: "#7F4E9F", // Lavender
     },
 
     background: {
