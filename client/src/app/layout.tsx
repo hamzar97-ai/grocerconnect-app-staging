@@ -4,6 +4,7 @@ import "./globals.css";
 import { Fredoka, Passion_One } from "next/font/google";
 import ThemeRegistry from "@/components/ThemeRegistry";
 import PageLoader from "@/components/PageLoader";
+import { SnackbarProvider } from "@/components/dashboard/common/SnackbarProvider";
 
 export const metadata: Metadata = {
   title: "GrocerConnect",
@@ -31,8 +32,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${fredoka.variable} ${passion.variable}`}>
         <ThemeRegistry>
-          <PageLoader />
-          {children}
+          <SnackbarProvider>
+            <PageLoader />
+            {children}
+          </SnackbarProvider>
         </ThemeRegistry>
       </body>
     </html>
