@@ -37,7 +37,7 @@ export default function FlavorShowcaseSection() {
         backgroundSize: "16px 16px, 32px 32px",
         backgroundPosition: "0 0, 8px 8px",
 
-        py: { xs: 12, md: 16 },
+        py: { xs: 12, md: 18 },
       }}
     >
       <Box
@@ -72,8 +72,8 @@ export default function FlavorShowcaseSection() {
             {/* IMAGE WRAPPER */}
             <Box
               sx={{
-                width: 250,
-                height: 380, // same height for all
+                width: { xs: 250, md: 300 },
+                height: { xs: 380, md: 460 },
                 mx: "auto",
                 borderRadius: 4,
                 overflow: "hidden",
@@ -97,8 +97,9 @@ export default function FlavorShowcaseSection() {
             <Typography
               sx={{
                 mt: 3,
+                fontSize: { xs: "1.2rem", md: "1.6rem" }, // ⬅️ desktop only
                 fontWeight: 900,
-                letterSpacing: 1,
+                letterSpacing: { xs: "0.08em", md: "0.12em" },
                 color: flavor.color,
               }}
             >
@@ -110,8 +111,8 @@ export default function FlavorShowcaseSection() {
               className="flavor-desc"
               sx={{
                 mt: 2,
-                fontSize: "0.9rem",
-                lineHeight: 1.6,
+                fontSize: { xs: "0.9rem", md: "1.1rem" },
+                lineHeight: { xs: 1.6, md: 1.7 },
                 maxWidth: 260,
                 mx: "auto",
                 color: "#333",

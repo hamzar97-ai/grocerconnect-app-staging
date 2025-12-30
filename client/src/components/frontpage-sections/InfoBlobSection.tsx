@@ -87,11 +87,11 @@ export default function InfoBlobSection({
         pb: { xs: 25, md: 8 },
         pt: { xs: 18, md: 0 },
 
-        backgroundImage:
-          "radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)",
-        backgroundSize: "20px 20px",
-        backgroundPosition: isActive ? "50% 40%" : "50% 50%",
-        transition: "background-position 600ms ease",
+        // backgroundImage:
+        //   "radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)",
+        // backgroundSize: "20px 20px",
+        // backgroundPosition: isActive ? "50% 40%" : "50% 50%",
+        // transition: "background-position 600ms ease",
 
         /* 🌸 ADD: slow spin keyframes */
         "@keyframes slowSpin": {
@@ -170,7 +170,7 @@ export default function InfoBlobSection({
           src={image}
           alt={title}
           sx={{
-            width: { xs: 160, sm: 200, md: 320 },
+            width: { xs: 160, sm: 200, md: 380 },
             maxWidth: "80vw",
             aspectRatio: "1 / 1",
             objectFit: "cover",
@@ -239,7 +239,7 @@ export default function InfoBlobSection({
                 fontSize: {
                   xs: "2.1rem",
                   sm: "2.6rem",
-                  md: "4.6rem",
+                  md: "4.8rem",
                 },
 
                 lineHeight: 1.05,
@@ -263,7 +263,7 @@ export default function InfoBlobSection({
 
           <Typography
             sx={{
-              fontSize: { xs: "1rem", md: "1.25rem" },
+              fontSize: { xs: "1rem", md: "1.6rem" },
               lineHeight: 1.6,
               fontWeight: 500,
               color: textColor,

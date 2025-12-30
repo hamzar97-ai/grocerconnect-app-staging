@@ -36,12 +36,10 @@ import Link from "next/link";
 const topBarLinks = ["Technical Assistance Center", "Foundation"];
 
 const navLinks = [
-  { label: "Home", href: "/" },
+  // { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Membership", href: "/membership" },
-  { label: "Join GrocerConnect", href: "/onboarding" },
-  { label: "Login", href: "/login" },
   { label: "Contact", href: "/contact" },
+  { label: "Membership", href: "/membership" },
 ];
 
 // Styled components - KEEPING 0.8 opacity
@@ -78,25 +76,31 @@ const StyledListItemButton = styled(ListItemButton)<any>(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   margin: theme.spacing(0.5, 2),
   transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+
+  "& .MuiListItemText-primary": {
+    fontFamily: "var(--font-jakarta)", // ✅ MOBILE MENU FONT
+    fontWeight: 500,
+    transition: "all 0.3s ease",
+  },
+
   "&:hover": {
     backgroundColor: alpha(theme.palette.primary.main, 0.1),
     transform: "translateX(8px)",
     boxShadow: `0 4px 12px ${alpha(theme.palette.primary.main, 0.15)}`,
+
     "& .MuiListItemIcon-root": {
       color: theme.palette.primary.main,
       transform: "scale(1.1)",
     },
+
     "& .MuiListItemText-primary": {
       color: theme.palette.primary.main,
       fontWeight: 600,
     },
   },
+
   "& .MuiListItemIcon-root": {
     minWidth: 40,
-    transition: "all 0.3s ease",
-  },
-  "& .MuiListItemText-primary": {
-    fontWeight: 500,
     transition: "all 0.3s ease",
   },
 }));
@@ -130,10 +134,10 @@ export default function Header() {
       {/* ================= MAIN NAV ================= */}
       <AppBar
         position="fixed"
-        color="primary"
         sx={{
+          backgroundColor: theme.palette.error.main,
           top: 0,
-          height: 64,
+          height: 72,
           boxShadow: isFixed ? 4 : 0,
           transition: "box-shadow 300ms ease",
           zIndex: theme.zIndex.drawer,
@@ -152,7 +156,7 @@ export default function Header() {
                 textDecoration: "none",
                 cursor: "pointer",
                 fontFamily: "var(--font-fredoka)",
-                fontSize: { xs: "1.2rem", md: "2.2rem" },
+                fontSize: { xs: "1.2rem", md: "2.8rem" },
               }}
             >
               GrocerConnect
@@ -169,8 +173,8 @@ export default function Header() {
                     color="inherit"
                     sx={{
                       fontWeight: 600,
-                      fontFamily: "var(--font-fredoka)",
-                      fontSize: { xs: "0.9rem", md: "1.1rem", lg: "1.15rem" },
+                      fontFamily: "var(--font-jakarta)",
+                      fontSize: { xs: "0.9rem", md: "1.2rem", lg: "1.4rem" },
                       position: "relative",
                       "&::after": {
                         content: '""',
@@ -191,20 +195,80 @@ export default function Header() {
                     {link.label}
                   </Button>
                 ))}
-                <IconButton
+                {/* JOIN GROCERCONNECT BUTTON */}
+                <Button
+                  component={Link}
+                  href="/onboarding"
+                  variant="contained"
                   color="secondary"
+                  startIcon={<GroupAddIcon />}
+                  sx={{
+                    ml: 1,
+                    fontFamily: "var(--font-jakarta)",
+                    fontWeight: 600,
+                    textTransform: "none",
+                    borderRadius: 3,
+                    fontSize: {
+                      xs: "0.9rem",
+                      md: "1.5rem",
+                    },
+                    boxShadow: `0 4px 12px ${alpha(
+                      theme.palette.secondary.main,
+                      0.3
+                    )}`,
+                    "&:hover": {
+                      backgroundColor: theme.palette.secondary.dark,
+                      boxShadow: `0 6px 18px ${alpha(
+                        theme.palette.secondary.main,
+                        0.5
+                      )}`,
+                    },
+                  }}
+                >
+                  Join GrocerConnect
+                </Button>
+
+                {/* LOGIN BUTTON */}
+                <Button
+                  component={Link}
+                  href="/login"
+                  variant="outlined"
+                  startIcon={<PersonOutlineIcon />}
+                  sx={{
+                    ml: 1,
+                    fontFamily: "var(--font-jakarta)",
+                    fontWeight: 600,
+                    textTransform: "none",
+                    borderRadius: 3,
+                    fontSize: {
+                      xs: "0.9rem",
+                      md: "1.5rem",
+                    },
+                    borderColor: theme.palette.warning.main,
+                    color: theme.palette.warning.main,
+                    "&:hover": {
+                      backgroundColor: alpha(theme.palette.warning.main, 0.1),
+                      borderColor: theme.palette.warning.dark,
+                    },
+                  }}
+                >
+                  Login
+                </Button>
+                <IconButton
                   onClick={() => setSearchOpen(true)}
                   sx={{
+                    color: theme.palette.warning.main,
                     transition: "transform 0.3s ease",
                     "&:hover": {
                       transform: "scale(1.1)",
-                      backgroundColor: alpha(theme.palette.secondary.main, 0.1),
+                      backgroundColor: alpha(theme.palette.warning.main, 0.15),
                     },
                   }}
                 >
                   <SearchIcon
                     sx={{
-                      fontSize: { xs: "1.2rem", md: "1.6rem", lg: "1.7rem" },
+                      color: theme.palette.warning.main,
+                      fontSize: { xs: "1.2rem", md: "1.8rem", lg: "2.1rem" },
                     }}
                   />
                 </IconButton>

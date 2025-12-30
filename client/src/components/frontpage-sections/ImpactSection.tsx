@@ -111,7 +111,7 @@ export default function ImpactSection() {
         <Typography
           sx={{
             fontFamily: "var(--font-fredoka)",
-            fontSize: { xs: "2.6rem", md: "4rem" },
+            fontSize: { xs: "2.6rem", md: "5.2rem" },
             fontWeight: 900,
             color: "#fff",
             letterSpacing: "0.04em",
@@ -155,8 +155,9 @@ export default function ImpactSection() {
               {/* Icon */}
               <Box
                 sx={{
-                  width: 110,
-                  height: 110,
+                  width: { xs: 110, md: 140 },
+                  height: { xs: 110, md: 140 },
+                  fontSize: { xs: 48, md: 64 },
                   mx: "auto",
                   mb: 3,
                   borderRadius: "50%",
@@ -164,7 +165,6 @@ export default function ImpactSection() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: 48,
                   color: "#fff",
                 }}
               >
@@ -175,7 +175,7 @@ export default function ImpactSection() {
               <Typography
                 sx={{
                   fontFamily: "var(--font-fredoka)",
-                  fontSize: { xs: "2.6rem", md: "3.2rem" },
+                  fontSize: { xs: "2.6rem", md: "4.2rem" },
                   fontWeight: 900,
                   color: "#fff",
                   mb: 1,
@@ -190,7 +190,8 @@ export default function ImpactSection() {
               <Typography
                 sx={{
                   whiteSpace: "pre-line",
-                  fontSize: "1rem",
+                  fontSize: { xs: "1rem", md: "1.25rem" },
+                  lineHeight: 1.5,
                   fontWeight: 600,
                   color: "rgba(255,255,255,0.9)",
                 }}
@@ -209,11 +210,11 @@ export default function ImpactSection() {
           sx={{
             bgcolor: "#0B2C6F",
             color: "#fff",
-            px: 5,
-            py: 1.6,
+            fontSize: { xs: "1.1rem", md: "1.35rem" },
+            px: { xs: 5, md: 6 },
+            py: { xs: 1.6, md: 1.9 },
             borderRadius: "999px",
             fontWeight: 700,
-            fontSize: "1.1rem",
             textTransform: "none",
             "&:hover": {
               bgcolor: "#08235A",

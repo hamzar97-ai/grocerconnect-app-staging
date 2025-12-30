@@ -82,7 +82,7 @@ export default function ContactSection() {
         >
           <Typography
             sx={{
-              fontSize: { xs: "2.2rem", sm: "2.6rem", md: "3.4rem" },
+              fontSize: { xs: "2.2rem", sm: "2.6rem", md: "4.4rem" },
               fontWeight: 900,
               mb: 3,
               textShadow: "0 4px 0 rgba(0,0,0,0.25)",
@@ -91,7 +91,13 @@ export default function ContactSection() {
             Let’s Connect
           </Typography>
 
-          <Typography sx={{ fontSize: "1.05rem", lineHeight: 1.7, mb: 5 }}>
+          <Typography
+            sx={{
+              fontSize: { xs: "1.05rem", md: "1.3rem" },
+              lineHeight: { xs: 1.7, md: 1.8 },
+              mb: 5,
+            }}
+          >
             Have questions or want to collaborate with the National Grocers
             Association? Reach out — we’d love to hear from you.
           </Typography>
@@ -129,7 +135,14 @@ export default function ContactSection() {
               }}
             >
               {item.icon}
-              <Typography>{item.text}</Typography>
+              <Typography
+                sx={{
+                  fontSize: { xs: "1rem", md: "1.15rem" },
+                  lineHeight: 1.6,
+                }}
+              >
+                {item.text}
+              </Typography>
             </Box>
           ))}
         </Box>
@@ -160,7 +173,7 @@ export default function ContactSection() {
         >
           <Typography
             sx={{
-              fontSize: "2rem",
+              fontSize: { xs: "2rem", md: "2.6rem" },
               fontWeight: 900,
               mb: 1,
               color: "#111",
@@ -172,7 +185,8 @@ export default function ContactSection() {
           <Typography
             sx={{
               color: "#666",
-              fontSize: "0.95rem",
+              fontSize: { xs: "0.95rem", md: "1.1rem" },
+              lineHeight: 1.6,
               mt: { xs: 0, sm: -2 },
               mb: 2,
             }}
@@ -193,6 +207,7 @@ export default function ContactSection() {
                   "& .MuiOutlinedInput-root": {
                     borderRadius: "16px",
                     backgroundColor: "#FFF4F4",
+                    fontSize: { xs: "0.95rem", md: "1.1rem" },
                   },
                 }}
               />
@@ -205,7 +220,7 @@ export default function ContactSection() {
               mt: 2,
               py: 1.6,
               borderRadius: "20px",
-              fontSize: "1.1rem",
+              fontSize: { xs: "1.1rem", md: "1.3rem" },
               fontWeight: 900,
               textTransform: "uppercase",
               backgroundColor: "#E53935",
