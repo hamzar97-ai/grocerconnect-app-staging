@@ -33,6 +33,7 @@ export default function Home() {
           bgColor="#FFF176"
           textColor="#111"
           showHeadingDecor
+          headingDecorSvg="/assets/images/flowers-svgrepo-com.svg"
         />
 
         <InfoBlobSection
@@ -42,6 +43,9 @@ export default function Home() {
           bgColor="#7E57C2"
           textColor="#fff"
           reverse
+          showHeadingDecor
+          headingDecorSvg="/assets/images/store-svgrepo-com.svg"
+          headingDecorPosition="centered"
         />
 
         <InfoBlobSection
@@ -50,6 +54,8 @@ export default function Home() {
           image="/assets/images/3184418.jpg"
           bgColor="#2F9E44"
           textColor="#111"
+          showHeadingDecor
+          headingDecorSvg="/assets/images/vegetables-diet-svgrepo-com.svg"
         />
       </Box>
 
