@@ -47,7 +47,7 @@ export default function FlavorStripSection() {
         <Box
           key={index}
           sx={{
-            height: { xs: 120, md: 140 },
+            height: { xs: 120, md: 180 },
             bgcolor: flavor.bg,
             display: "flex",
             alignItems: "center",
@@ -68,7 +68,7 @@ export default function FlavorStripSection() {
               whiteSpace: "pre-line",
               fontFamily: "var(--font-fredoka)",
               fontWeight: 900,
-              fontSize: { xs: "1.3rem", md: "1.6rem" },
+              fontSize: { xs: "1.3rem", md: "2.1rem" },
               letterSpacing: "0.08em",
               color: flavor.color,
               textTransform: "uppercase",

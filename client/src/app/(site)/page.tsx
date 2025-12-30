@@ -21,9 +21,9 @@ export default function Home() {
         sx={{
           position: "relative",
           backgroundColor: "#E53935",
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
+          // backgroundImage:
+          //   "radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)",
+          // backgroundSize: "20px 20px",
         }}
       >
         <InfoBlobSection

@@ -47,7 +47,7 @@ export default function FaqSection() {
       <Box sx={{ textAlign: "center", mb: { xs: 8, md: 10 } }}>
         <Typography
           sx={{
-            fontSize: { xs: "2.4rem", md: "3.6rem" },
+            fontSize: { xs: "2.4rem", md: "4.6rem" },
             fontFamily: "var(--font-passion)",
             backgroundColor: "#fff",
             color: "#000",
@@ -90,8 +90,8 @@ export default function FaqSection() {
                   : theme.palette.warning.main,
 
                 borderRadius: "32px",
-                px: { xs: 3, md: 5 },
-                py: isOpen ? { xs: 3, md: 4 } : { xs: 2.5, md: 1.5 },
+                px: { xs: 3, md: 6 },
+                py: isOpen ? { xs: 3, md: 4.5 } : { xs: 2.5, md: 2 },
 
                 boxShadow: "0 6px 0 rgba(0,0,0,0.25)",
                 transition: "background-color 300ms ease, padding 300ms ease",
@@ -111,7 +111,7 @@ export default function FaqSection() {
               >
                 <Typography
                   sx={{
-                    fontSize: { xs: "1.05rem", md: "1.2rem" },
+                    fontSize: { xs: "1.05rem", md: "1.45rem" },
                     fontWeight: 900,
                     color: isOpen
                       ? theme.palette.warning.main
@@ -145,8 +145,8 @@ export default function FaqSection() {
               >
                 <Typography
                   sx={{
-                    fontSize: "0.95rem",
-                    lineHeight: 1.7,
+                    fontSize: { xs: "0.95rem", md: "1.15rem" },
+                    lineHeight: { xs: 1.7, md: 1.8 },
                     color: theme.palette.warning.main,
                     fontWeight: 500,
                   }}

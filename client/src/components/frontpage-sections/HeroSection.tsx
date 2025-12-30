@@ -18,7 +18,8 @@ const slides = [
   },
   {
     image: "/assets/images/2152003889.jpg",
-    bgColor: "#C8E6C9", // soft green
+    bgColor: "#FFF176", // soft yellow
+    // bgColor: "#C8E6C9", // soft green
   },
 ];
 
@@ -91,7 +92,7 @@ export default function HeroSection() {
             fontSize: {
               xs: "2.8rem",
               sm: "3.8rem",
-              md: "5rem",
+              md: "6.5rem",
             },
 
             /* REAL outline (this is the key) */
@@ -125,15 +126,15 @@ export default function HeroSection() {
             sx={{
               position: "absolute",
               left: { xs: -12, md: -28 }, // closer to image
-              width: { md: 56 },
-              height: { md: 56 },
-              bgcolor: "primary.main",
+              width: { md: 64 },
+              height: { md: 64 },
+              bgcolor: "info.main",
               color: "#fff",
               boxShadow: 4,
               transition: "all 300ms ease",
 
               "& svg": {
-                fontSize: { md: "1.8rem" },
+                fontSize: { md: "2.4rem" },
               },
 
               "&:hover": {
@@ -184,15 +185,15 @@ export default function HeroSection() {
             sx={{
               position: "absolute",
               right: { xs: -12, md: -28 }, // closer to image
-              width: { md: 56 },
-              height: { md: 56 },
-              bgcolor: "primary.main",
+              width: { md: 64 },
+              height: { md: 64 },
+              bgcolor: "info.main",
               color: "#fff",
               boxShadow: 4,
               transition: "all 300ms ease",
 
               "& svg": {
-                fontSize: { md: "1.8rem" },
+                fontSize: { md: "2.4rem" },
               },
 
               "&:hover": {
@@ -212,13 +213,13 @@ export default function HeroSection() {
             variant="contained"
             sx={{
               mt: 2,
-              px: 6,
-              py: 1.5,
+              px: { xs: 6, md: 7 },
+              py: { xs: 1.5, md: 1.8 },
               borderRadius: 999,
-              fontSize: "1rem",
+              fontSize: { xs: "1rem", md: "1.3rem" },
               fontWeight: 700,
               textTransform: "none",
-              bgcolor: "secondary.main",
+              bgcolor: "info.main",
               color: "primary.contrastText",
               boxShadow: "0 6px 0 rgba(0,0,0,0.15)",
               transition: "all 200ms ease",

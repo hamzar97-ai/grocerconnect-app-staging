@@ -46,9 +46,9 @@ export default function Footer() {
 
           <Typography
             sx={{
-              fontSize: "1.05rem",
+              fontSize: { xs: "1.05rem", md: "1.3rem" },
+              lineHeight: { xs: 1.6, md: 1.7 },
               fontWeight: 700,
-              lineHeight: 1.6,
               color: "#111",
               maxWidth: 260,
             }}
@@ -97,7 +97,7 @@ export default function Footer() {
             textAlign: "center",
             color: "#fff",
             fontWeight: 700,
-            fontSize: "0.95rem",
+            fontSize: { xs: "0.95rem", md: "1.1rem" },
           }}
         >
           © Copyright by Grocer Connect. All rights reserved.
@@ -120,7 +120,7 @@ function FooterColumn({
     <Box>
       <Typography
         sx={{
-          fontSize: "1.2rem",
+          fontSize: { xs: "1.2rem", md: "1.5rem" },
           fontWeight: 900,
           mb: 2.5,
           color: "#111",
@@ -137,7 +137,7 @@ function FooterColumn({
             href={link.href}
             underline="none"
             sx={{
-              fontSize: "1.05rem",
+              fontSize: { xs: "1.05rem", md: "1.25rem" },
               fontWeight: 700,
               color: "#111",
               transition: "all 250ms ease",

@@ -19,8 +19,9 @@ body {
 }
 
 /* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+html,
+body {
+  scroll-behavior: auto;
 }
 
 /* Custom scrollbar */

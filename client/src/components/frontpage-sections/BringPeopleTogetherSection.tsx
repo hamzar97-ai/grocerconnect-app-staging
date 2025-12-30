@@ -29,7 +29,7 @@ export default function BringPeopleTogetherSection() {
         <Box sx={{ textAlign: "center", mb: 0 }}>
           <Typography
             sx={{
-              fontSize: { xs: "3rem", md: "5.2rem" },
+              fontSize: { xs: "3rem", md: "5.8rem" },
               fontFamily: "var(--font-passion)",
               letterSpacing: "-0.02em",
               color: "#E53935",
