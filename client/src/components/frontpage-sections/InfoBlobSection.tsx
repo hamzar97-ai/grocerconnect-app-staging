@@ -2,6 +2,8 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 
+type HeadingDecorPosition = "default" | "centered";
+
 interface InfoBlobSectionProps {
   title: string;
   description: string;
@@ -9,8 +11,9 @@ interface InfoBlobSectionProps {
   bgColor: string;
   reverse?: boolean;
   textColor?: string;
-
-  showHeadingDecor?: boolean; // 👈 ADD
+  showHeadingDecor?: boolean;
+  headingDecorSvg?: string;
+  headingDecorPosition?: HeadingDecorPosition;
 }
 
 export default function InfoBlobSection({
@@ -21,6 +24,8 @@ export default function InfoBlobSection({
   reverse = false,
   textColor = "#000",
   showHeadingDecor = false,
+  headingDecorSvg,
+  headingDecorPosition = "default",
 }: InfoBlobSectionProps) {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [isActive, setIsActive] = useState(false);
@@ -188,22 +193,31 @@ export default function InfoBlobSection({
           {/* 🔒 Heading wrapper added (NO removal) */}
           <Box sx={{ position: "relative", display: "inline-block" }}>
             {/* 🌸 SVG BEHIND HEADING */}
-            {showHeadingDecor && (
+            {showHeadingDecor && headingDecorSvg && (
               <Box
                 component="img"
-                src="/assets/images/flowers-svgrepo-com.svg"
+                src={headingDecorSvg}
                 alt=""
                 sx={{
                   position: "absolute",
 
-                  /* 🎯 POSITION: BEHIND RIGHT SIDE OF HEADING */
-                  top: "-50%",
-                  right: "-18%",
+                  ...(headingDecorPosition === "default"
+                    ? {
+                        /* 🟢 ORIGINAL positioning — first card stays same */
+                        top: "-50%",
+                        right: "-18%",
+                        transform: "translateY(-60%)",
+                      }
+                    : {
+                        /* 🟣 CENTERED positioning — second card fix */
+                        top: "10%",
+                        left: "70%",
+                        transform: "translate(-50%, -50%)",
+                      }),
 
                   width: { xs: 80, sm: 110, md: 150 },
-                  opacity: 0.8,
+                  opacity: 0.85,
 
-                  transform: "translateY(-60%)",
                   animation: "slowSpin 15s linear infinite",
 
                   pointerEvents: "none",

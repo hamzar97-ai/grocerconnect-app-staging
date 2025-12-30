@@ -367,9 +367,56 @@ export default function MembershipPage() {
                     p: { xs: 3, md: 5 },
                     borderRadius: 4,
                     textAlign: "center",
+
                     bgcolor: "info.main",
-                    color: "#fff",
+                    color: "info.contrastText",
+
                     boxShadow: "0 18px 40px rgba(0,0,0,0.3)",
+
+                    transform: "translateZ(0) scale(1)",
+                    willChange: "transform, background-color, box-shadow",
+
+                    transition:
+                      "transform 500ms cubic-bezier(.22,1,.36,1), " +
+                      "background-color 450ms cubic-bezier(.22,1,.36,1), " +
+                      "box-shadow 500ms cubic-bezier(.22,1,.36,1)",
+
+                    "@media (hover: hover)": {
+                      "&:hover": {
+                        transform: "translateZ(0) scale(1.035)",
+                        bgcolor: "secondary.main",
+                        boxShadow: "0 32px 80px rgba(240,140,0,0.5)",
+                      },
+                    },
+
+                    /* TEXT SMOOTHING */
+                    "& h4, & p": {
+                      transition: "color 350ms ease 80ms",
+                    },
+
+                    /* PRIMARY BUTTON */
+                    "& .primary-cta": {
+                      transition:
+                        "background-color 350ms ease, color 350ms ease, transform 350ms ease",
+                    },
+
+                    "&:hover .primary-cta": {
+                      transform: "translateY(-1px)",
+                      bgcolor: "#fff",
+                      color: "secondary.main",
+                    },
+
+                    /* SECONDARY BUTTON */
+                    "& .secondary-cta": {
+                      transition:
+                        "border-color 350ms ease, color 350ms ease, background-color 350ms ease",
+                    },
+
+                    "&:hover .secondary-cta": {
+                      borderColor: "#fff",
+                      color: "#fff",
+                      backgroundColor: "rgba(255,255,255,0.12)",
+                    },
                   }}
                 >
                   <Typography variant="h4" fontWeight={700} mb={2}>
@@ -392,13 +439,16 @@ export default function MembershipPage() {
                     <Button
                       size="large"
                       variant="contained"
-                      color="secondary"
+                      className="primary-cta"
                       sx={{
                         borderRadius: 3,
                         py: 1.4,
                         px: 5,
                         fontWeight: 600,
                         textTransform: "none",
+                        bgcolor: "#fff",
+                        color: "info.main",
+                        transition: "all 300ms ease",
                       }}
                     >
                       Start Onboarding
@@ -407,6 +457,7 @@ export default function MembershipPage() {
                     <Button
                       size="large"
                       variant="outlined"
+                      className="secondary-cta"
                       sx={{
                         borderRadius: 3,
                         py: 1.4,
@@ -415,10 +466,7 @@ export default function MembershipPage() {
                         textTransform: "none",
                         color: "#fff",
                         borderColor: "#fff",
-                        "&:hover": {
-                          borderColor: "#fff",
-                          backgroundColor: "rgba(255,255,255,0.1)",
-                        },
+                        transition: "all 300ms ease",
                       }}
                     >
                       Contact Sales
