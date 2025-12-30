@@ -16,7 +16,8 @@ export default function LoginPage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        px: 2,
+        px: { xs: 0, md: 2 },
+        width: "100%",
       }}
     >
       {/* FIXED BACK BUTTON (TOP-LEFT OF PAGE) */}
@@ -56,11 +57,11 @@ export default function LoginPage() {
       <Box
         sx={{
           width: "100%",
-          maxWidth: 420,
+          maxWidth: { xs: 420, md: 760 }, // 👈 WIDER DESKTOP CARD
           backgroundColor: "background.paper",
-          borderRadius: 4,
-          boxShadow: "0 20px 60px rgba(0,0,0,0.12)",
-          p: { xs: 3, sm: 4 },
+          borderRadius: { xs: 4, md: 6 },
+          boxShadow: "0 35px 100px rgba(0,0,0,0.18)",
+          p: { xs: 3, sm: 4, md: 7 }, // 👈 generous padding
         }}
       >
         <Typography
