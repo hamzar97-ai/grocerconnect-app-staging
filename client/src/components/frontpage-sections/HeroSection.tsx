@@ -77,7 +77,7 @@ export default function HeroSection() {
         overflow: "hidden",
         bgcolor: slides[activeIndex].bg,
         transition: "background-color 600ms ease",
-        py: { xs: 12, md: 11, lg: 14 },
+        py: { xs: 12, md: 12, lg: 18 },
         pb: { xs: 10, md: 12, lg: 15 },
       }}
     >
