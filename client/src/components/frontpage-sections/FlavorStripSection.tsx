@@ -48,10 +48,10 @@ export default function FlavorStripSection() {
           key={index}
           sx={{
             height: {
-              xs: 120,
-              sm: 140,
-              md: 150, // ⬅ tighter at 900–1024
-              lg: 180, // ⬅ full desktop
+              xs: 100,
+              sm: 100,
+              md: 120, // ⬅ tighter at 900–1024
+              lg: 120, // ⬅ full desktop
             },
             bgcolor: flavor.bg,
             display: "flex",
@@ -75,7 +75,7 @@ export default function FlavorStripSection() {
               lineHeight: 1.3,
               textTransform: "uppercase",
               textAlign: "center",
-              fontWeight: 600, // closest match to typical Be Vietnam headings
+              fontWeight: 900, // closest match to typical Be Vietnam headings
               letterSpacing: "0.04em",
               color: flavor.color,
               whiteSpace: "pre-line",
