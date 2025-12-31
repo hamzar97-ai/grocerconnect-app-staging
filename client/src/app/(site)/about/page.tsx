@@ -430,7 +430,7 @@ export default function AboutPage() {
                   sx={{
                     position: "relative",
                     width: "100%",
-                    height: 630,
+                    height: { xs: 250, sm: 350, md: 630 },
                     borderRadius: 4,
                     overflow: "hidden",
 
