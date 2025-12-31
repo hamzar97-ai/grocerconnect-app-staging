@@ -2,8 +2,29 @@
 
 import { Box, Typography, Link, Stack } from "@mui/material";
 import NextLink from "next/link";
+import { useRouter, usePathname } from "next/navigation";
+
+const contactScrollOptions = {
+  offset: -90,
+  duration: 2.6, // 👈 slower, smooth scroll
+  easing: (t: number) => 1 - Math.pow(1 - t, 3), // ease-out
+};
 
 export default function Footer() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleContactClick = () => {
+    if (pathname === "/") {
+      window.lenis?.scrollTo("#contact", contactScrollOptions);
+    } else {
+      router.push("/");
+
+      setTimeout(() => {
+        window.lenis?.scrollTo("#contact", contactScrollOptions);
+      }, 700);
+    }
+  };
   return (
     <Box
       component="footer"
@@ -53,39 +74,46 @@ export default function Footer() {
               maxWidth: 260,
             }}
           >
-            Supporting independent grocers nationwide and strengthening
-            communities through collaboration and advocacy.
+            Power in Numbers – Connecting Retailers and Suppliers
           </Typography>
         </Box>
 
         {/* COMPANY */}
         <FooterColumn
           title="Company"
-          links={[
-            { label: "Privacy Policy", href: "" },
-            { label: "Terms of Service", href: "" },
-          ]}
+          links={[{ label: "Privacy Policy" }, { label: "Terms of Service" }]}
         />
 
         {/* HOME */}
         <FooterColumn
           title="Home"
           links={[
-            { label: "About Grocer Connect", href: "/about" },
-            { label: "Membership", href: "/membership" },
+            { label: "About GrocerConnect", href: "/about" },
+            { label: "Membership", href: "#" },
             { label: "Join GrocerConnect", href: "/onboarding" },
             { label: "Login", href: "/login" },
-            { label: "Contact", href: "/contact" },
+            { label: "Contact" },
           ]}
+          onContactClick={handleContactClick}
         />
 
+        {/* CONNECT */}
         {/* CONNECT */}
         <FooterColumn
           title="Connect"
           links={[
-            { label: "Instagram", href: "#" },
-            { label: "LinkedIn", href: "#" },
-            { label: "Facebook", href: "#" },
+            {
+              label: "Instagram",
+              href: "https://www.instagram.com/GrocerConnectCanada",
+            },
+            {
+              label: "LinkedIn",
+              href: "https://www.linkedin.com/company/grocerconnectcanada",
+            },
+            {
+              label: "Facebook",
+              href: "https://www.facebook.com/GrocerConnectCanada",
+            },
           ]}
         />
       </Box>
@@ -112,9 +140,11 @@ export default function Footer() {
 function FooterColumn({
   title,
   links,
+  onContactClick,
 }: {
   title: string;
-  links: { label: string; href: string }[];
+  links: { label: string; href?: string }[];
+  onContactClick?: () => void;
 }) {
   return (
     <Box>
@@ -129,14 +159,23 @@ function FooterColumn({
         {title}
       </Typography>
 
-      <Stack spacing={1.8}>
+      <Stack spacing={1.8} alignItems="flex-start">
         {links.map((link) => (
           <Link
             key={link.label}
-            component={NextLink}
+            component={link.href ? NextLink : "button"}
             href={link.href}
+            onClick={() => {
+              if (link.label === "Contact") {
+                onContactClick?.();
+              }
+            }}
             underline="none"
             sx={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
               fontSize: { xs: "1.05rem", md: "1.25rem" },
               fontWeight: 700,
               color: "#111",

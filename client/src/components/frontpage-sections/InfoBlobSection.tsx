@@ -5,7 +5,10 @@ import { useEffect, useRef, useState } from "react";
 type HeadingDecorPosition = "default" | "centered";
 
 interface InfoBlobSectionProps {
-  title: string;
+  title: {
+    line1: string;
+    line2: string;
+  };
   description: string;
   image: string;
   bgColor: string;
@@ -69,6 +72,21 @@ export default function InfoBlobSection({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const stickerHeadingSx = {
+    position: "relative",
+    fontFamily: "var(--font-passion)", // Passion One
+    fontWeight: 700,
+    color: "#000",
+
+    WebkitTextStroke: "0.2em #fff",
+    paintOrder: "stroke fill",
+
+    filter:
+      "drop-shadow(0px clamp(2px, 1vw, 10px) clamp(1px, 0.2vw, 5px) rgba(0,0,0,0.55))",
+
+    padding: "0 0.25em",
+  };
+
   return (
     /* STICKY STACK SECTION */
     <Box
@@ -106,10 +124,14 @@ export default function InfoBlobSection({
         sx={{
           width: "100%",
           maxWidth: 1200,
-          minHeight: { xs: "auto", md: "calc(90vh - 96px)" },
+          // minHeight: { xs: "auto", md: "calc(90vh - 96px)" },
           bgcolor: bgColor,
 
-          p: { xs: 5, sm: 4, md: 8 },
+          // p: { xs: 5, sm: 4, md: 8 },
+          padding: {
+            xs: "clamp(30px, 10vw, 150px)",
+            md: "clamp(30px, 4vw, 150px)",
+          },
 
           display: "flex",
           flexDirection: {
@@ -117,7 +139,7 @@ export default function InfoBlobSection({
             md: reverse ? "row-reverse" : "row",
           },
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           gap: { xs: 4, md: 6 },
 
           transform: isActive
@@ -165,33 +187,58 @@ export default function InfoBlobSection({
         }}
       >
         {/* IMAGE */}
+        {/* IMAGE — size locked, no mask */}
         <Box
-          component="img"
-          src={image}
-          alt={title}
           sx={{
             width: {
-              xs: 160,
-              sm: 200,
-              md: 300, // ⬅ smaller at 900–1024
-              lg: 380,
+              xs: "100%",
+              md: "52%", // same layout balance as Micha
             },
-            maxWidth: "80vw",
-            aspectRatio: "1 / 1",
-            objectFit: "cover",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             flexShrink: 0,
-
-            borderRadius: "50% 45% 55% 50% / 55% 50% 50% 45%",
-            boxShadow: "0 18px 40px rgba(0,0,0,0.35)",
-
-            transform: isActive ? "translateY(-6px)" : "translateY(0)",
-            transition: "transform 500ms ease",
-
-            "&:hover": {
-              transform: { md: "translateY(-12px) scale(1.04)" },
-            },
           }}
-        />
+        >
+          {/* Size container (locks zoom behavior) */}
+          <Box
+            sx={{
+              width: {
+                xs: 160,
+                sm: 200,
+                md: 300,
+                lg: 480,
+              },
+              aspectRatio: "1 / 1",
+              position: "relative",
+            }}
+          >
+            <Box
+              component="img"
+              src={image}
+              alt={`${title.line1} ${title.line2}`}
+              sx={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+
+                borderRadius: "50% 45% 55% 50% / 55% 50% 50% 45%",
+                boxShadow: "0 18px 40px rgba(0,0,0,0.35)",
+
+                /* keep your animations */
+                transform: isActive ? "translateY(-6px)" : "translateY(0)",
+                transition: "transform 500ms ease",
+
+                "&:hover": {
+                  transform: { md: "translateY(-12px) scale(1.04)" },
+                },
+              }}
+            />
+          </Box>
+        </Box>
 
         {/* TEXT */}
         <Box sx={{ maxWidth: 560 }}>
@@ -209,13 +256,13 @@ export default function InfoBlobSection({
                   ...(headingDecorPosition === "default"
                     ? {
                         /* 🟢 ORIGINAL positioning — first card stays same */
-                        top: "-50%",
-                        right: "-18%",
+                        top: "-30%",
+                        right: "-0%",
                         transform: "translateY(-60%)",
                       }
                     : {
                         /* 🟣 CENTERED positioning — second card fix */
-                        top: "10%",
+                        top: "0%",
                         left: "70%",
                         transform: "translate(-50%, -50%)",
                       }),
@@ -223,7 +270,7 @@ export default function InfoBlobSection({
                   width: { xs: 80, sm: 110, md: 150 },
                   opacity: 0.85,
 
-                  animation: "slowSpin 15s linear infinite",
+                  animation: "slowSpin 10s linear infinite",
 
                   pointerEvents: "none",
                   zIndex: 0,
@@ -234,47 +281,50 @@ export default function InfoBlobSection({
             <Typography
               component="h2"
               sx={{
-                position: "relative",
-                zIndex: 1,
-
-                fontFamily: "var(--font-passion)",
-                fontWeight: 700,
-                color: "#000",
-
+                ...stickerHeadingSx,
                 fontSize: {
-                  xs: "2.1rem",
-                  sm: "2.6rem",
-                  md: "3.8rem", // ⬅ 900–1023 (tablet / small laptop)
-                  lg: "4.6rem", // ⬅ 1200+
-                  xl: "4.8rem", // ⬅ large desktop
+                  xs: "2.2rem",
+                  sm: "2.8rem",
+                  md: "4rem",
+                  lg: "4.8rem",
                 },
-
-                lineHeight: 1.05,
-
-                WebkitTextStroke: {
-                  xs: "0.1em #fff",
-                  md: "0.12em #fff", // ⬅ softer at 900–1024
-                  lg: "0.18em #fff",
-                },
-                paintOrder: "stroke fill",
-
-                filter:
-                  "drop-shadow(0px clamp(2px, 0.8vw, 8px) clamp(1px, 0.2vw, 4px) rgba(0,0,0,0.45))",
-
-                padding: "0 0.2em",
-                mb: { xs: 2, md: 3 },
+                lineHeight: 1,
+                marginBottom: "0.25em",
+                zIndex: 1,
               }}
             >
-              {title}
+              {/* FIRST LINE */}
+              <Box component="span" sx={{ display: "block" }}>
+                {title.line1}
+              </Box>
+
+              {/* SECOND LINE — tilted */}
+              <Box
+                component="span"
+                sx={{
+                  display: "block",
+                  fontSize: {
+                    xs: "2.6rem",
+                    sm: "3.4rem",
+                    md: "4.8rem",
+                    lg: "5.6rem",
+                  },
+                  transform: "rotate(-6deg) translate(2%, -4%)",
+                  transformOrigin: "top left",
+                }}
+              >
+                {title.line2}
+              </Box>
             </Typography>
           </Box>
 
           <Typography
             sx={{
+              fontFamily: "var(--font-jakarta)",
               fontSize: {
                 xs: "1rem",
-                md: "1.25rem", // ⬅ 900–1023
-                lg: "1.5rem", // ⬅ desktop
+                md: "1.25rem",
+                lg: "1.5rem",
               },
               lineHeight: {
                 xs: 1.6,

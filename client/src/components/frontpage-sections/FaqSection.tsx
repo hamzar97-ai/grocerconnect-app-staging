@@ -5,7 +5,7 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 
-/* Dummy FAQ content */
+/* FAQ CONTENT */
 const faqs = [
   {
     question: "What is this product, exactly?",
@@ -40,30 +40,53 @@ export default function FaqSection() {
         backgroundImage:
           "radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px)",
         backgroundSize: "20px 20px",
-        py: { xs: 12, md: 16 },
+        py: { xs: 12, md: 18 },
       }}
     >
-      {/* HEADING */}
-      <Box sx={{ textAlign: "center", mb: { xs: 8, md: 10 } }}>
+      {/* ================= HEADING ================= */}
+      <Box sx={{ textAlign: "center", mb: { xs: 8, md: 12 } }}>
         <Typography
+          component="div"
           sx={{
-            fontSize: { xs: "2.4rem", md: "4.6rem" },
             fontFamily: "var(--font-passion)",
-            backgroundColor: "#fff",
+            fontWeight: 700,
+            fontSize: { xs: "3rem", md: "6.5rem" },
             color: "#000",
+            WebkitTextStroke: "0.18em #fff",
+            paintOrder: "stroke fill",
+            filter:
+              "drop-shadow(0px clamp(2px,1vw,10px) clamp(1px,0.2vw,5px) rgba(0,0,0,0.55))",
             display: "inline-block",
-            px: { xs: 3, md: 5 },
-            py: { xs: 1.5, md: 2 },
-            borderRadius: "28px",
-            boxShadow: "0 6px 0 rgba(0,0,0,0.25)",
-            letterSpacing: "1px",
+            lineHeight: 0.9,
+            px: 2,
           }}
         >
-          Frequently Asked Questions
+          Frequently Asked
+        </Typography>
+        <br />
+        <Typography
+          component="div"
+          sx={{
+            mt: 1,
+            fontFamily: "var(--font-passion)",
+            fontWeight: 700,
+            fontSize: { xs: "3.2rem", md: "7rem" },
+            color: "#000",
+            WebkitTextStroke: "0.18em #fff",
+            paintOrder: "stroke fill",
+            filter:
+              "drop-shadow(0px clamp(2px,1vw,10px) clamp(1px,0.2vw,5px) rgba(0,0,0,0.55))",
+            display: "inline-block",
+            transform: "rotate(-6deg)",
+            lineHeight: 0.9,
+            px: 2,
+          }}
+        >
+          Questions
         </Typography>
       </Box>
 
-      {/* FAQ LIST */}
+      {/* ================= FAQ LIST ================= */}
       <Box
         sx={{
           maxWidth: 900,
@@ -83,19 +106,14 @@ export default function FaqSection() {
               onClick={() => setOpenIndex(isOpen ? null : index)}
               sx={{
                 cursor: "pointer",
-
-                /* CARD BEHAVIOR */
                 backgroundColor: isOpen
                   ? theme.palette.info.main
-                  : theme.palette.warning.main,
-
-                borderRadius: "32px",
+                  : theme.palette.secondary.main, // YELLOW when inactive
+                borderRadius: "40px",
                 px: { xs: 3, md: 6 },
-                py: isOpen ? { xs: 3, md: 4.5 } : { xs: 2.5, md: 2 },
-
+                py: isOpen ? { xs: 3.5, md: 5 } : { xs: 2.5, md: 3 },
                 boxShadow: "0 6px 0 rgba(0,0,0,0.25)",
                 transition: "background-color 300ms ease, padding 300ms ease",
-
                 display: "flex",
                 flexDirection: "column",
                 gap: isOpen ? 2 : 0,
@@ -112,9 +130,11 @@ export default function FaqSection() {
                 <Typography
                   sx={{
                     fontSize: { xs: "1.05rem", md: "1.45rem" },
-                    fontWeight: 900,
+                    fontFamily: "var(--font-fredoka)",
+                    fontWeight: 700,
+                    letterSpacing: "0.5px",
                     color: isOpen
-                      ? theme.palette.warning.main
+                      ? theme.palette.secondary.main
                       : theme.palette.error.main,
                   }}
                 >
@@ -123,18 +143,26 @@ export default function FaqSection() {
 
                 <IconButton
                   sx={{
-                    color: isOpen
-                      ? theme.palette.warning.main
-                      : theme.palette.error.main,
-                    transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                    transition: "transform 300ms ease",
+                    backgroundColor: isOpen
+                      ? "transparent"
+                      : theme.palette.error.main, // RED arrow bg when inactive
+                    color: "#FFFFFF",
+                    transform: isOpen
+                      ? "rotate(180deg) scale(1.1)"
+                      : "rotate(0deg)",
+                    transition: "all 300ms cubic-bezier(.4,0,.2,1)",
+                    "&:hover": {
+                      backgroundColor: isOpen
+                        ? "transparent"
+                        : theme.palette.error.main,
+                    },
                   }}
                 >
-                  <KeyboardArrowDownRoundedIcon />
+                  <KeyboardArrowDownRoundedIcon fontSize="large" />
                 </IconButton>
               </Box>
 
-              {/* ANSWER (INSIDE SAME CARD) */}
+              {/* ANSWER */}
               <Box
                 sx={{
                   maxHeight: isOpen ? 300 : 0,
@@ -146,8 +174,9 @@ export default function FaqSection() {
                 <Typography
                   sx={{
                     fontSize: { xs: "0.95rem", md: "1.15rem" },
-                    lineHeight: { xs: 1.7, md: 1.8 },
-                    color: theme.palette.warning.main,
+                    lineHeight: 1.8,
+                    fontFamily: "var(--font-jakarta)",
+                    color: theme.palette.secondary.main,
                     fontWeight: 500,
                   }}
                 >

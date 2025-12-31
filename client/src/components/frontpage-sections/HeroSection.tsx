@@ -14,14 +14,34 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 const slides = [
   {
     image: "/assets/images/369.jpg",
-    bgColor: "#FFF176", // soft yellow
+    bg: "secondary.main", // yellow
   },
   {
     image: "/assets/images/2152003889.jpg",
-    bgColor: "#FFF176", // soft yellow
-    // bgColor: "#C8E6C9", // soft green
+    bg: "secondary.main", // yellow
+    // bg: "success.main", // green (future example)
   },
 ];
+
+const stickerStyles = {
+  display: "block",
+  width: "100%",
+  position: "relative",
+
+  fontFamily: "var(--font-passion)", // Passion One
+  fontWeight: 700,
+  color: "#000",
+
+  /* OUTLINE */
+  WebkitTextStroke: "0.2em #fff",
+  paintOrder: "stroke fill",
+
+  /* SHADOW */
+  filter:
+    "drop-shadow(0px clamp(2px, 1vw, 10px) clamp(1px, 0.2vw, 5px) rgba(0,0,0,0.55))",
+
+  padding: "0 0.25em",
+};
 
 export default function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -55,7 +75,7 @@ export default function HeroSection() {
         position: "relative",
         zIndex: 3,
         overflow: "hidden",
-        bgcolor: slides[activeIndex].bgColor,
+        bgcolor: slides[activeIndex].bg,
         transition: "background-color 600ms ease",
         py: { xs: 12, md: 11, lg: 14 },
         pb: { xs: 10, md: 12, lg: 15 },
@@ -83,33 +103,17 @@ export default function HeroSection() {
           component="h1"
           textAlign="center"
           sx={{
-            position: "relative",
-
-            fontFamily: "var(--font-passion)",
-            fontWeight: 700,
-            color: "#000",
-
             fontSize: {
               xs: "2.8rem",
               sm: "3.8rem",
-              md: "5.2rem", // ⬅ 900–1023 (smaller & balanced)
-              lg: "6.2rem", // ⬅ 1200+
-              xl: "6.5rem", // ⬅ large desktops
+              md: "clamp(36px, 6.0vw, 100px)",
             },
-
-            /* REAL outline (this is the key) */
-            WebkitTextStroke: "0.18em #fff",
-            paintOrder: "stroke fill",
-
-            /* Drop shadow like MiCha */
-            filter:
-              "drop-shadow(0px clamp(2px, 1vw, 10px) clamp(1px, 0.2vw, 5px) rgba(0,0,0,0.55))",
-
-            padding: "0 0.25em",
-            lineHeight: 1.05,
+            lineHeight: 0.9,
           }}
         >
-          At the Heart of the Community
+          <Box component="span" sx={stickerStyles}>
+            Grocer, Together We Grow
+          </Box>
         </Typography>
 
         {/* ================= SLIDER AREA ================= */}
@@ -227,13 +231,13 @@ export default function HeroSection() {
               transition: "all 200ms ease",
 
               "&:hover": {
-                bgcolor: "secondary.dark",
+                bgcolor: "success.main",
                 transform: "translateY(-2px)",
                 boxShadow: "0 10px 0 rgba(0,0,0,0.15)",
               },
             }}
           >
-            View More
+            Join as Store
           </Button>
         </Box>
       </Container>
