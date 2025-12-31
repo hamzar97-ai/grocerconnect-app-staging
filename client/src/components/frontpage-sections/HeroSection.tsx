@@ -192,8 +192,8 @@ export default function HeroSection() {
             sx={{
               position: "absolute",
               left: { xs: -12, md: 150 },
-              width: { md: 64 },
-              height: { md: 64 },
+              width: { md: 72 },
+              height: { md: 72 },
               bgcolor: slides[activeIndex].arrowBg,
               color: slides[activeIndex].arrowIcon,
               boxShadow: 4,
@@ -251,8 +251,8 @@ export default function HeroSection() {
             sx={{
               position: "absolute",
               right: { xs: -12, md: 150 },
-              width: { md: 64 },
-              height: { md: 64 },
+              width: { md: 72 },
+              height: { md: 72 },
               bgcolor: slides[activeIndex].arrowBg,
               color: slides[activeIndex].arrowIcon,
               boxShadow: 4,
@@ -274,7 +274,7 @@ export default function HeroSection() {
         </Box>
 
         {/* ================= CTA ================= */}
-        <Box textAlign="center" mt={6}>
+        <Box textAlign="center" mt={3}>
           <Button
             disableRipple
             disableFocusRipple
@@ -295,7 +295,6 @@ export default function HeroSection() {
               /* 🔥 CRITICAL: kill MUI background everywhere */
               "&:hover": {
                 backgroundColor: "transparent",
-                transform: "translateY(-2px)",
               },
               "&:active": {
                 backgroundColor: "transparent",
@@ -314,15 +313,16 @@ export default function HeroSection() {
                 height: "100%",
                 left: "50%",
                 top: "50%",
-                transform: "translate(-50%, -50%)",
+                transform: "translate(-50%, -50%) scaleX(1)", // 👈 important
                 zIndex: -1,
                 pointerEvents: "none",
 
-                /* SVG color only */
                 color: slides[activeIndex].buttonBg,
-                transition: "color 300ms ease",
+
+                transition: "transform 500ms ease, color 300ms ease", // 👈 match sample
 
                 ".MuiButton-root:hover &": {
+                  transform: "translate(-50%, -50%) scaleX(0.85)", // 👈 squeeze
                   color: slides[activeIndex].buttonHover,
                 },
 

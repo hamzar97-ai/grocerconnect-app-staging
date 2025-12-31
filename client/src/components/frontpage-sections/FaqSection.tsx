@@ -41,10 +41,70 @@ export default function FaqSection() {
           "radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px)",
         backgroundSize: "20px 20px",
         py: { xs: 12, md: 18 },
+        position: "relative",
+        overflow: "hidden",
       }}
     >
       {/* ================= HEADING ================= */}
-      <Box sx={{ textAlign: "center", mb: { xs: 8, md: 12 } }}>
+      <Box
+        sx={{
+          textAlign: "center",
+          mb: { xs: 8, md: 12 },
+          position: "relative",
+          width: "fit-content",
+          margin: "auto",
+        }}
+      >
+        {/* First SVG with clockwise rotation */}
+        <Box
+          component="img"
+          src="/assets/images/micha-faq-shape1.svg"
+          alt=""
+          sx={{
+            position: "absolute",
+            top: { xs: "50%", md: "50%" },
+            left: { xs: "0px", md: "5%" },
+            width: { xs: "60px", md: "100px" },
+            height: "auto",
+            animation: "spin 10s linear infinite",
+            "@keyframes spin": {
+              "0%": {
+                transform: "rotate(0deg)",
+              },
+              "100%": {
+                transform: "rotate(360deg)",
+              },
+            },
+            zIndex: 1,
+            opacity: 0.7,
+          }}
+        />
+
+        {/* Second SVG with counter-clockwise rotation */}
+        <Box
+          component="img"
+          src="/assets/images/micha-faq-shape2.svg"
+          alt=""
+          sx={{
+            position: "absolute",
+            bottom: { xs: "0px", md: "70px" },
+            right: { xs: "-40px", md: "0%" },
+            width: { xs: "120px", md: "200px" },
+            height: "auto",
+            animation: "spinReverse 10s linear infinite",
+            "@keyframes spinReverse": {
+              "0%": {
+                transform: "rotate(0deg)",
+              },
+              "100%": {
+                transform: "rotate(-360deg)",
+              },
+            },
+            zIndex: 1,
+            opacity: 0.7,
+          }}
+        />
+
         <Typography
           component="div"
           sx={{
@@ -59,6 +119,8 @@ export default function FaqSection() {
             display: "inline-block",
             lineHeight: 0.9,
             px: 2,
+            position: "relative",
+            zIndex: 2,
           }}
         >
           Frequently Asked
@@ -80,6 +142,8 @@ export default function FaqSection() {
             transform: "rotate(-6deg)",
             lineHeight: 0.9,
             px: 2,
+            position: "relative",
+            zIndex: 2,
           }}
         >
           Questions
@@ -95,6 +159,8 @@ export default function FaqSection() {
           flexDirection: "column",
           gap: 3,
           px: { xs: 2, md: 0 },
+          position: "relative",
+          zIndex: 3,
         }}
       >
         {faqs.map((faq, index) => {
@@ -109,9 +175,9 @@ export default function FaqSection() {
                 backgroundColor: isOpen
                   ? theme.palette.info.main
                   : theme.palette.secondary.main, // YELLOW when inactive
-                borderRadius: "40px",
+                borderRadius: "10px",
                 px: { xs: 3, md: 6 },
-                py: isOpen ? { xs: 3.5, md: 5 } : { xs: 2.5, md: 3 },
+                py: isOpen ? { xs: 3.5, md: 5 } : { xs: 2.5, md: 2 },
                 boxShadow: "0 6px 0 rgba(0,0,0,0.25)",
                 transition: "background-color 300ms ease, padding 300ms ease",
                 display: "flex",

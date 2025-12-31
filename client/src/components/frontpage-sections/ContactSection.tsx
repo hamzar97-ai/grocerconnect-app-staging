@@ -136,12 +136,14 @@ export default function ContactSection() {
               href={item.href || undefined}
               target={item.href?.startsWith("http") ? "_blank" : undefined}
               rel="noopener noreferrer"
-              sx={{
+              sx={(theme) => ({
                 display: "flex",
                 alignItems: "center",
                 gap: 1.3,
+
                 backgroundColor: "#fff",
-                color: "#000",
+                color: theme.palette.text.primary,
+
                 px: 3,
                 py: 1.4,
                 borderRadius: "999px",
@@ -155,8 +157,23 @@ export default function ContactSection() {
                 fontWeight: 700,
                 fontSize: { xs: "0.9rem", md: "1.2rem" },
                 textDecoration: "none",
+
                 cursor: item.href ? "pointer" : "default",
-              }}
+
+                transition: "color 0.25s ease",
+
+                "& svg": {
+                  transition: "color 0.25s ease",
+                },
+
+                /* 🔴 Hover for ALL rows (including working hours) */
+                "&:hover": {
+                  color: theme.palette.primary.main,
+                  "& svg": {
+                    color: theme.palette.primary.main,
+                  },
+                },
+              })}
             >
               {item.icon}
               {item.text}
