@@ -214,19 +214,19 @@ export default function AboutPage() {
   const missionCards = [
     {
       title: "Our Mission",
-      text: "Champion the independent grocery industry through advocacy, collaboration, education, services, and connections.",
-      bg: "secondary.main",
+      text: "A membership platform that aggregates orders, negotiates pricing, and simplifies supplier access for local retailers.",
+      bg: "primary.main",
       icon: <TrackChangesIcon fontSize="large" />,
     },
     {
       title: "Our Vision",
-      text: "A nation where the independent grocer thrives at the heart of the community",
+      text: "Built and operated in Canada, connecting local retailers and suppliers starting in Albert and Western Canada.",
       bg: "info.main",
       icon: <VisibilityIcon fontSize="large" />,
     },
     {
       title: "Our Values",
-      text: "Community first, fairness in competition, collaboration, transparency, and long-term sustainability.",
+      text: "GrocerConnect provides real-time insights that support smarter procurement decisions\nand improved profitability.",
       bg: "success.main",
       icon: <FavoriteIcon fontSize="large" />,
     },
@@ -286,21 +286,35 @@ export default function AboutPage() {
         sx={{
           backgroundColor: "primary.main",
           color: "#fff",
-          py: { xs: 8, md: 12 },
+          py: { xs: 8, md: 16 },
           textAlign: "center",
         }}
       >
         <Container>
           <Typography
             variant="h2"
-            sx={{ fontFamily: "var(--font-passion)", mb: 2 }}
+            sx={{
+              fontFamily: "var(--font-passion)",
+              mb: 2,
+              fontSize: { xs: "2.5rem", md: "4.5rem" },
+              letterSpacing: "0.02em",
+            }}
           >
             About GrocerConnect
           </Typography>
 
-          <Typography sx={{ maxWidth: 700, mx: "auto", fontSize: "1.1rem" }}>
-            Connecting independent grocers, strengthening communities, and
-            empowering local businesses to thrive together.
+          <Typography
+            sx={{
+              maxWidth: 750,
+              mx: "auto",
+              fontSize: { xs: "1.1rem", md: "1.25rem" },
+              fontFamily: "var(--font-jakarta)",
+            }}
+          >
+            Helping independent grocery/corner stores gain collective buying
+            power by bringing them together on one digital platform to negotiate
+            better pricing, simplify ordering, and strengthen supplier
+            relationships.
           </Typography>
         </Container>
       </Box>
@@ -327,9 +341,9 @@ export default function AboutPage() {
               <Box sx={{ perspective: "1200px" }}>
                 <Box
                   sx={{
-                    backgroundColor: "error.main",
+                    backgroundColor: "primary.main",
                     color: "#fff",
-                    p: { xs: 3, md: 4 },
+                    p: { xs: 3, md: 5 },
                     borderRadius: 4,
 
                     boxShadow: "0 14px 34px rgba(224,49,49,0.35)",
@@ -347,30 +361,58 @@ export default function AboutPage() {
                     },
                   }}
                 >
-                  <Typography variant="h4" gutterBottom>
-                    Who We Are
+                  <Typography
+                    sx={{
+                      fontSize: { sm: "1.5rem", md: "2.6rem" },
+                      fontFamily: "var(--font-passion)",
+                      letterSpacing: "0.02em",
+                    }}
+                    variant="h4"
+                    gutterBottom
+                  >
+                    Understanding GrocerConnect
                   </Typography>
 
-                  <Typography sx={{ lineHeight: 1.8, opacity: 0.95 }}>
-                    The National Grocers Association (NGA) represents
-                    independent grocers, wholesalers, and suppliers nationwide.
-                    We advocate for fair competition, support industry growth,
-                    and help local grocery businesses thrive through education,
-                    resources, and connection.
+                  <Typography
+                    sx={{
+                      lineHeight: 1.8,
+                      opacity: 0.95,
+                      fontSize: { xs: "0.9rem", sm: "0.9rem", md: "1.1rem" },
+                      fontFamily: "var(--font-jakarta)",
+                    }}
+                  >
+                    GrocerConnect is an innovative digital platform built to
+                    modernize how small and independent grocery stores across
+                    Canada and North America engage with suppliers. Anchored in
+                    the principles of collective purchasing power, operational
+                    efficiency, and community empowerment, the platform
+                    addresses the longstanding challenges faced by smaller
+                    retailers such as limited bargaining leverage, fragmented
+                    supplier networks, and high overhead costs. Through
+                    GrocerConnect, store owners gain access to an intuitive,
+                    centralized platform that enables them to negotiate better
+                    deals, diversify their supply options, and streamline
+                    inventory operations.
                   </Typography>
 
-                  <Typography sx={{ lineHeight: 1.8, opacity: 0.95, pt: 2 }}>
-                    Independent community grocers are the true entrepreneurs of
-                    the grocery industry, passionately committed to their
-                    customers, their associates and the markets they serve.
-                    Privately owned by families, or by employees, these
-                    retailers operate a variety of retail formats, and while
-                    most are serviced by wholesale distributors, others may be
-                    partially or fully self-distributing. Independents
-                    differentiate in the marketplace based on the needs of the
-                    local community, while showing a strong commitment to civic
-                    life and providing their neighbors quality goods and
-                    nourishing foods.
+                  <Typography
+                    sx={{
+                      lineHeight: 1.8,
+                      opacity: 0.95,
+                      pt: 2,
+                      fontSize: { xs: "0.9rem", sm: "0.9rem", md: "1.1rem" },
+                      fontFamily: "var(--font-jakarta)",
+                    }}
+                  >
+                    At the core of GrocerConnect is a dynamic group-buying model
+                    that allows multiple small-format retailers to pool their
+                    purchasing power, unlocking bulk discounts and preferential
+                    terms typically reserved for large chains. Through a
+                    user-friendly interface, grocers can place orders, monitor
+                    fulfillment, compare suppliers, and collaborate with peer
+                    stores in real time. The system also fosters community
+                    through digital forums and data-sharing features that
+                    promote knowledge exchange and peer-driven solutions.
                   </Typography>
                 </Box>
               </Box>
@@ -388,7 +430,7 @@ export default function AboutPage() {
                   sx={{
                     position: "relative",
                     width: "100%",
-                    height: 430,
+                    height: 630,
                     borderRadius: 4,
                     overflow: "hidden",
 
@@ -483,11 +525,26 @@ export default function AboutPage() {
                     <CardContent>
                       {item.icon}
 
-                      <Typography variant="h5" fontWeight={700} mt={2}>
+                      <Typography
+                        variant="h5"
+                        sx={{
+                          fontFamily: "var(--font-passion)",
+                          fontSize: { xs: "1.5rem", md: "2.2rem" },
+                          letterSpacing: "0.02em",
+                        }}
+                        fontWeight={700}
+                        mt={2}
+                      >
                         {item.title}
                       </Typography>
 
-                      <Typography sx={{ opacity: 0.95 }}>
+                      <Typography
+                        sx={{
+                          opacity: 0.95,
+                          fontSize: { xs: "0.9rem", md: "1.1rem" },
+                          fontFamily: "var(--font-jakarta)",
+                        }}
+                      >
                         {item.text}
                       </Typography>
                     </CardContent>
@@ -504,9 +561,8 @@ export default function AboutPage() {
             textAlign="center"
             sx={{
               fontFamily: "var(--font-passion)",
-              fontSize: { xs: "2.2rem", md: "3rem" },
+              fontSize: { xs: "2.2rem", md: "3.5rem" },
               color: "info.main",
-              mb: 1,
             }}
           >
             Meet Our Team
@@ -519,7 +575,7 @@ export default function AboutPage() {
               mb: 6,
               maxWidth: 700,
               mx: "auto",
-              fontSize: { xs: "1rem", sm: "1.05rem", md: "1.15rem" },
+              fontSize: { xs: "1rem", sm: "1.05rem", md: "1.4rem" },
             }}
           >
             The people behind GrocerConnect.

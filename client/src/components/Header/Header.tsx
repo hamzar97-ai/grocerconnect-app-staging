@@ -145,7 +145,7 @@ export default function Header() {
       <AppBar
         position="fixed"
         sx={{
-          backgroundColor: theme.palette.error.main,
+          backgroundColor: theme.palette.primary.main,
           top: 0,
           py: { lg: 1.5, xl: 2 },
           boxShadow: isFixed ? 4 : 0,
