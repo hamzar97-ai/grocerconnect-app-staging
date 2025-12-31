@@ -56,14 +56,28 @@ export default function Footer() {
       >
         {/* LOGO COLUMN */}
         <Box>
-          <Box component={NextLink} href="/" sx={{ display: "inline-block" }}>
-            <Box
-              component="img"
-              src="/assets/images/NGA-logo.png"
-              alt="National Grocers Association"
-              sx={{ width: 180, mb: 3 }}
-            />
-          </Box>
+          {/* LOGO - Already has homepage link ✅ */}
+          <Typography
+            variant="h6"
+            fontWeight={700}
+            component={Link}
+            href="/"
+            sx={{
+              color: "inherit",
+              textDecoration: "none",
+              cursor: "pointer",
+              fontFamily: "var(--font-fredoka)",
+              fontSize: {
+                xs: "1.2rem",
+                sm: "1.5rem",
+                md: "1.8rem",
+                lg: "2rem", // 👈 compact desktop
+                xl: "2.6rem", // 👈 big screens only
+              },
+            }}
+          >
+            GrocerConnect
+          </Typography>
 
           <Typography
             sx={{
@@ -150,10 +164,13 @@ function FooterColumn({
     <Box>
       <Typography
         sx={{
-          fontSize: { xs: "1.2rem", md: "1.5rem" },
+          fontSize: { xs: "1.2rem", md: "1.9rem" },
+          fontFamily: "var(--font-passion)",
+          letterSpacing: "0.03em",
           fontWeight: 900,
           mb: 2.5,
           color: "#111",
+          mt: { xs: 0, md: 2 },
         }}
       >
         {title}
@@ -176,6 +193,7 @@ function FooterColumn({
               border: "none",
               padding: 0,
               cursor: "pointer",
+              fontFamily: { xs: "var(--font-jakarta)" },
               fontSize: { xs: "1.05rem", md: "1.25rem" },
               fontWeight: 700,
               color: "#111",

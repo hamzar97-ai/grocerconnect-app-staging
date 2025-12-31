@@ -13,13 +13,24 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
  */
 const slides = [
   {
-    image: "/assets/images/369.jpg",
-    bg: "secondary.main", // yellow
+    image: "/assets/images/2152003889.jpg",
+    bg: "secondary.main", // Yellow background
+    arrowBg: "success.main", // Green circle
+    arrowIcon: "success.contrastText", // 👈 OR use "success.main" if you want green icon
+    arrowHover: "info.main",
+    buttonBg: "success.main", // Green ribbon
+    buttonText: "success.contrastText",
+    buttonHover: "info.main",
   },
   {
-    image: "/assets/images/2152003889.jpg",
-    bg: "secondary.main", // yellow
-    // bg: "success.main", // green (future example)
+    image: "/assets/images/369.jpg",
+    bg: "success.main",
+    arrowBg: "secondary.main",
+    arrowIcon: "success.main",
+    arrowHover: "info.main",
+    buttonBg: "secondary.main",
+    buttonText: "success.main",
+    buttonHover: "info.main",
   },
 ];
 
@@ -44,7 +55,7 @@ const stickerStyles = {
 };
 
 export default function HeroSection() {
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
   const handleNext = () => {
@@ -131,11 +142,11 @@ export default function HeroSection() {
             onClick={handlePrev}
             sx={{
               position: "absolute",
-              left: { xs: -12, md: -28 }, // closer to image
+              left: { xs: -12, md: -28 },
               width: { md: 64 },
               height: { md: 64 },
-              bgcolor: "info.main",
-              color: "#fff",
+              bgcolor: slides[activeIndex].arrowBg,
+              color: slides[activeIndex].arrowIcon,
               boxShadow: 4,
               transition: "all 300ms ease",
 
@@ -144,10 +155,9 @@ export default function HeroSection() {
               },
 
               "&:hover": {
-                bgcolor: "secondary.main",
+                bgcolor: slides[activeIndex].arrowHover,
                 transform: "scale(1.08)",
               },
-              zIndex: 2,
             }}
           >
             <ArrowBackIosNewIcon />
@@ -190,11 +200,11 @@ export default function HeroSection() {
             onClick={handleNext}
             sx={{
               position: "absolute",
-              right: { xs: -12, md: -28 }, // closer to image
+              right: { xs: -12, md: -28 },
               width: { md: 64 },
               height: { md: 64 },
-              bgcolor: "info.main",
-              color: "#fff",
+              bgcolor: slides[activeIndex].arrowBg,
+              color: slides[activeIndex].arrowIcon,
               boxShadow: 4,
               transition: "all 300ms ease",
 
@@ -203,10 +213,9 @@ export default function HeroSection() {
               },
 
               "&:hover": {
-                bgcolor: "secondary.main",
+                bgcolor: slides[activeIndex].arrowHover,
                 transform: "scale(1.08)",
               },
-              zIndex: 2,
             }}
           >
             <ArrowForwardIosIcon />
@@ -216,28 +225,62 @@ export default function HeroSection() {
         {/* ================= CTA ================= */}
         <Box textAlign="center" mt={6}>
           <Button
-            variant="contained"
             sx={{
-              mt: 2,
-              px: { xs: 6, md: 7 },
-              py: { xs: 1.5, md: 1.8 },
-              borderRadius: 999,
-              fontSize: { xs: "1rem", md: "1.3rem" },
-              fontWeight: 700,
+              position: "relative",
+
+              // 🔥 THIS is the key
+              py: { xs: 3, md: 3.5 }, // more top/bottom padding
+              px: { xs: 6, md: 9 },
+              minHeight: { xs: 80, md: 90 },
+
+              color: slides[activeIndex].buttonBg,
+              background: "transparent",
+              boxShadow: "none",
               textTransform: "none",
-              bgcolor: "info.main",
-              color: "primary.contrastText",
-              boxShadow: "0 6px 0 rgba(0,0,0,0.15)",
-              transition: "all 200ms ease",
+              fontWeight: 800,
+              fontSize: { xs: "1rem", md: "1.3rem" },
 
               "&:hover": {
-                bgcolor: "success.main",
+                color: slides[activeIndex].buttonHover,
                 transform: "translateY(-2px)",
-                boxShadow: "0 10px 0 rgba(0,0,0,0.15)",
               },
             }}
           >
-            Join as Store
+            {/* SVG Ribbon */}
+            <Box
+              component="svg"
+              viewBox="0 0 750 180"
+              preserveAspectRatio="xMidYMid meet"
+              sx={{
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+
+                width: "110%", // 🔥 controls ribbon thickness
+                height: "auto", // 🔥 CRITICAL: prevents vertical squish
+                maxHeight: "100%",
+
+                zIndex: -1,
+                pointerEvents: "none",
+              }}
+            >
+              <path
+                d="M740 160c-404-22.1-338.3-21.5-730 0l30-70-30-70c404 22.1 338.3 21.5 730 0l-30 70 30 70Z"
+                fill="currentColor"
+              />
+            </Box>
+
+            {/* Button Text */}
+            <Box
+              sx={{
+                position: "relative",
+                zIndex: 1,
+                color: slides[activeIndex].buttonText,
+              }}
+            >
+              Join as Store
+            </Box>
           </Button>
         </Box>
       </Container>
