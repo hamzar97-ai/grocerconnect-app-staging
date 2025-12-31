@@ -4,6 +4,7 @@ import { Box, Typography, TextField, Button } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LanguageIcon from "@mui/icons-material/Language";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 export default function ContactSection() {
   return (
@@ -74,7 +75,7 @@ export default function ContactSection() {
               fontWeight: 700,
               fontSize: {
                 xs: "clamp(32px, 10vw, 56px)",
-                md: "clamp(40px, 4.2vw, 96px)",
+                md: "clamp(40px, 4vw, 85px)",
               },
               lineHeight: 0.95,
               mb: 3,
@@ -93,7 +94,7 @@ export default function ContactSection() {
           <Typography
             sx={{
               fontFamily: "var(--font-jakarta)",
-              fontSize: { xs: "1.05rem", md: "1.2rem" },
+              fontSize: { xs: "1.05rem", md: "1.1rem" },
               lineHeight: 1.8,
               mb: 3,
               maxWidth: 520,
@@ -105,6 +106,7 @@ export default function ContactSection() {
             independent grocers buy smarter and compete with scale.
           </Typography>
 
+          {/* CONTACT BUTTONS */}
           {/* CONTACT BUTTONS */}
           {[
             {
@@ -122,12 +124,17 @@ export default function ContactSection() {
               text: "grocerconnect.ca",
               href: "https://grocerconnect.ca",
             },
+            {
+              icon: <AccessTimeIcon sx={{ fontSize: 28 }} />,
+              text: "Mon–Fri • 12:00 AM – 8:00 PM PST",
+              href: null, // not clickable
+            },
           ].map((item, i) => (
             <Box
               key={i}
-              component="a"
-              href={item.href}
-              target={item.href.startsWith("http") ? "_blank" : undefined}
+              component={item.href ? "a" : "div"}
+              href={item.href || undefined}
+              target={item.href?.startsWith("http") ? "_blank" : undefined}
               rel="noopener noreferrer"
               sx={{
                 display: "flex",
@@ -136,19 +143,19 @@ export default function ContactSection() {
                 backgroundColor: "#fff",
                 color: "#000",
                 px: 3,
-                py: 1.6,
+                py: 1.4,
                 borderRadius: "999px",
-                mb: 1.5,
+                mb: 1.3,
 
-                /* 🔑 MOBILE FIX */
                 width: { xs: "100%", sm: "fit-content" },
                 maxWidth: "100%",
                 overflow: "hidden",
 
                 fontFamily: "var(--font-jakarta)",
                 fontWeight: 700,
-                fontSize: { xs: "0.9rem", md: "1.5rem" },
+                fontSize: { xs: "0.9rem", md: "1.2rem" },
                 textDecoration: "none",
+                cursor: item.href ? "pointer" : "default",
               }}
             >
               {item.icon}
@@ -161,7 +168,7 @@ export default function ContactSection() {
             sx={{
               mt: 4,
               fontFamily: "var(--font-jakarta)",
-              fontSize: { xs: "1.05rem", md: "1.5rem" },
+              fontSize: { xs: "1.05rem", md: "1.3rem" },
               fontWeight: 600,
             }}
           >

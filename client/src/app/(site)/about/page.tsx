@@ -34,65 +34,48 @@ import { useEffect, useRef, useState } from "react";
 /* ================= TEAM DATA ================= */
 const teamMembers = [
   {
-    name: "Alex Morgan",
-    role: "Founder & CEO",
+    id: 1,
+    name: "Muhammad Kamran Riaz",
+    role: "Chief Operating Officer",
     gender: "male",
-    description:
-      "Driving GrocerConnect’s mission to empower independent grocers through innovation.",
     socials: {
-      linkedin: "#",
-      twitter: "#",
+      linkedin: null,
     },
   },
   {
-    name: "Sarah Lee",
-    role: "Operations Lead",
+    id: 2,
+    name: "Naveed Mehmood",
+    role: "Head of Projects",
+    gender: "male",
+    socials: {
+      linkedin: null,
+    },
+  },
+  {
+    id: 3,
+    name: "Atika Atif",
+    role: "Head of Marketing",
     gender: "female",
-    description: "Ensuring smooth operations and building strong partnerships.",
     socials: {
-      linkedin: "#",
+      linkedin: null,
     },
   },
   {
-    name: "David Patel",
-    role: "Technology Lead",
+    id: 4,
+    name: "Khawaja Osman Ali",
+    role: "Head of Finance",
     gender: "male",
-    description:
-      "Building scalable, secure technology that powers local businesses.",
     socials: {
-      linkedin: "#",
-      github: "#",
+      linkedin: null,
     },
   },
   {
-    name: "Alex Morgan",
-    role: "Founder & CEO",
-    gender: "male",
-    description:
-      "Driving GrocerConnect’s mission to empower independent grocers through innovation.",
-    socials: {
-      linkedin: "#",
-      twitter: "#",
-    },
-  },
-  {
-    name: "Sarah Lee",
-    role: "Operations Lead",
+    id: 5,
+    name: "Samira Sohail Saadan",
+    role: "Chief Product Officer",
     gender: "female",
-    description: "Ensuring smooth operations and building strong partnerships.",
     socials: {
-      linkedin: "#",
-    },
-  },
-  {
-    name: "David Patel",
-    role: "Technology Lead",
-    gender: "male",
-    description:
-      "Building scalable, secure technology that powers local businesses.",
-    socials: {
-      linkedin: "#",
-      github: "#",
+      linkedin: null,
     },
   },
 ];
@@ -150,6 +133,7 @@ function TeamFlipCard({ member }: any) {
         </Box>
 
         {/* BACK */}
+        {/* BACK */}
         <Box
           sx={{
             position: "absolute",
@@ -166,26 +150,46 @@ function TeamFlipCard({ member }: any) {
             justifyContent: "center",
           }}
         >
-          <Typography variant="h6" fontWeight={700}>
+          {/* NAME */}
+          <Typography
+            variant="h6"
+            fontWeight={700}
+            sx={{ letterSpacing: "0.02em" }}
+          >
+            {member.name}
+          </Typography>
+
+          {/* DESIGNATION */}
+          <Typography
+            sx={{
+              opacity: 0.85,
+              fontSize: "0.95rem",
+              mb: 2,
+            }}
+          >
             {member.role}
           </Typography>
 
-          <Typography sx={{ mt: 1, mb: 3, opacity: 0.9 }}>
-            {member.description}
-          </Typography>
+          {/* DESCRIPTION (optional) */}
+          {member.description && (
+            <Typography sx={{ mb: 3, opacity: 0.9 }}>
+              {member.description}
+            </Typography>
+          )}
 
+          {/* SOCIAL ICONS */}
           <Box>
-            {member.socials.linkedin && (
+            {member.socials?.linkedin && (
               <IconButton href={member.socials.linkedin} sx={{ color: "#fff" }}>
                 <LinkedInIcon />
               </IconButton>
             )}
-            {member.socials.twitter && (
+            {member.socials?.twitter && (
               <IconButton href={member.socials.twitter} sx={{ color: "#fff" }}>
                 <TwitterIcon />
               </IconButton>
             )}
-            {member.socials.github && (
+            {member.socials?.github && (
               <IconButton href={member.socials.github} sx={{ color: "#fff" }}>
                 <GitHubIcon />
               </IconButton>

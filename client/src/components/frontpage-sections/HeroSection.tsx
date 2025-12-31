@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Box, Container, Typography, IconButton, Button } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import SparkleSVG from "@/components/SparkleSVG";
+import MichaButtonSVG from "@/components/MichaButtonSVG";
 
 /**
  * Slides configuration
@@ -12,25 +14,38 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
  * - background color
  */
 const slides = [
+  // ================= YELLOW BACKGROUND =================
   {
     image: "/assets/images/2152003889.jpg",
     bg: "secondary.main", // Yellow background
-    arrowBg: "success.main", // Green circle
-    arrowIcon: "success.contrastText", // 👈 OR use "success.main" if you want green icon
-    arrowHover: "info.main",
-    buttonBg: "success.main", // Green ribbon
-    buttonText: "success.contrastText",
-    buttonHover: "info.main",
+
+    // Arrows
+    arrowBg: "info.main", // Purple
+    arrowIcon: "info.contrastText", // White icon
+    arrowHover: "primary.main", // Red on hover
+
+    // Button (SVG ribbon uses currentColor)
+    buttonBg: "info.main", // Purple ribbon
+    buttonText: "info.contrastText", // White text
+    buttonHover: "primary.main", // Red on hover
   },
+
+  // ================= GREEN BACKGROUND =================
   {
     image: "/assets/images/369.jpg",
-    bg: "success.main",
-    arrowBg: "secondary.main",
-    arrowIcon: "success.main",
-    arrowHover: "info.main",
-    buttonBg: "secondary.main",
-    buttonText: "success.main",
-    buttonHover: "info.main",
+    bg: "success.main", // Green background
+
+    // Arrows
+    arrowBg: "secondary.main", // Yellow
+    arrowIcon: "#2d8c40", // ✅ Green text/icon
+    arrowHover: "#2d8c40", // Green hover bg
+    arrowHoverIcon: "secondary.main", // ✅ Yellow on hover
+
+    // Button
+    buttonBg: "secondary.main", // Yellow ribbon
+    buttonText: "#2d8c40", // ✅ Green text
+    buttonHover: "#2d8c40", // Green hover bg
+    buttonHoverText: "secondary.main", // ✅ Yellow text on hover
   },
 ];
 
@@ -109,23 +124,57 @@ export default function HeroSection() {
         }}
       />
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+        {/* Sparkle SVG */}
         {/* ================= HEADING ================= */}
-        <Typography
-          component="h1"
-          textAlign="center"
+        <Box
           sx={{
-            fontSize: {
-              xs: "2.8rem",
-              sm: "3.8rem",
-              md: "clamp(36px, 6.0vw, 100px)",
-            },
-            lineHeight: 0.9,
+            position: "relative",
+            display: "table", // 👈 key change
+            mx: "auto", // 👈 centers the heading
+            textAlign: "center",
           }}
         >
-          <Box component="span" sx={stickerStyles}>
-            Grocer, Together We Grow
+          {/* Sparkle BACKGROUND */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+
+              width: { xs: 50, md: 70 },
+              aspectRatio: "101 / 87",
+
+              transform: "translate(-40%, -60%)", // 🎯 top-left offset
+
+              color: slides[activeIndex].arrowBg,
+              opacity: 0.9,
+
+              zIndex: 0,
+              pointerEvents: "none",
+            }}
+          >
+            <SparkleSVG />
           </Box>
-        </Typography>
+
+          {/* Heading text */}
+          <Typography
+            component="h1"
+            sx={{
+              position: "relative",
+              zIndex: 1, // 👈 text above sparkle
+              fontSize: {
+                xs: "2.8rem",
+                sm: "3.8rem",
+                md: "clamp(36px, 6vw, 100px)",
+              },
+              lineHeight: 0.9,
+            }}
+          >
+            <Box component="span" sx={stickerStyles}>
+              Grocer, Together We Grow
+            </Box>
+          </Typography>
+        </Box>
 
         {/* ================= SLIDER AREA ================= */}
         <Box
@@ -142,7 +191,7 @@ export default function HeroSection() {
             onClick={handlePrev}
             sx={{
               position: "absolute",
-              left: { xs: -12, md: -28 },
+              left: { xs: -12, md: 150 },
               width: { md: 64 },
               height: { md: 64 },
               bgcolor: slides[activeIndex].arrowBg,
@@ -156,6 +205,7 @@ export default function HeroSection() {
 
               "&:hover": {
                 bgcolor: slides[activeIndex].arrowHover,
+                color: slides[activeIndex].arrowHoverIcon,
                 transform: "scale(1.08)",
               },
             }}
@@ -200,7 +250,7 @@ export default function HeroSection() {
             onClick={handleNext}
             sx={{
               position: "absolute",
-              right: { xs: -12, md: -28 },
+              right: { xs: -12, md: 150 },
               width: { md: 64 },
               height: { md: 64 },
               bgcolor: slides[activeIndex].arrowBg,
@@ -214,6 +264,7 @@ export default function HeroSection() {
 
               "&:hover": {
                 bgcolor: slides[activeIndex].arrowHover,
+                color: slides[activeIndex].arrowHoverIcon,
                 transform: "scale(1.08)",
               },
             }}
@@ -225,58 +276,72 @@ export default function HeroSection() {
         {/* ================= CTA ================= */}
         <Box textAlign="center" mt={6}>
           <Button
+            disableRipple
+            disableFocusRipple
+            disableTouchRipple
             sx={{
               position: "relative",
-
-              // 🔥 THIS is the key
-              py: { xs: 3, md: 3.5 }, // more top/bottom padding
+              py: { xs: 3, md: 3.5 },
               px: { xs: 6, md: 9 },
               minHeight: { xs: 80, md: 90 },
 
-              color: slides[activeIndex].buttonBg,
-              background: "transparent",
+              backgroundColor: "transparent",
               boxShadow: "none",
               textTransform: "none",
+
               fontWeight: 800,
               fontSize: { xs: "1rem", md: "1.3rem" },
 
+              /* 🔥 CRITICAL: kill MUI background everywhere */
               "&:hover": {
-                color: slides[activeIndex].buttonHover,
+                backgroundColor: "transparent",
                 transform: "translateY(-2px)",
+              },
+              "&:active": {
+                backgroundColor: "transparent",
+              },
+              "&.Mui-focusVisible": {
+                backgroundColor: "transparent",
               },
             }}
           >
-            {/* SVG Ribbon */}
+            {/* SVG BACKGROUND */}
             <Box
-              component="svg"
-              viewBox="0 0 750 180"
-              preserveAspectRatio="xMidYMid meet"
               sx={{
                 position: "absolute",
+                inset: 0,
+                width: "115%",
+                height: "100%",
                 left: "50%",
                 top: "50%",
                 transform: "translate(-50%, -50%)",
-
-                width: "110%", // 🔥 controls ribbon thickness
-                height: "auto", // 🔥 CRITICAL: prevents vertical squish
-                maxHeight: "100%",
-
                 zIndex: -1,
                 pointerEvents: "none",
+
+                /* SVG color only */
+                color: slides[activeIndex].buttonBg,
+                transition: "color 300ms ease",
+
+                ".MuiButton-root:hover &": {
+                  color: slides[activeIndex].buttonHover,
+                },
+
+                filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.25))",
               }}
             >
-              <path
-                d="M740 160c-404-22.1-338.3-21.5-730 0l30-70-30-70c404 22.1 338.3 21.5 730 0l-30 70 30 70Z"
-                fill="currentColor"
-              />
+              <MichaButtonSVG />
             </Box>
 
-            {/* Button Text */}
+            {/* TEXT */}
             <Box
               sx={{
                 position: "relative",
                 zIndex: 1,
                 color: slides[activeIndex].buttonText,
+
+                ".MuiButton-root:hover &": {
+                  color: slides[activeIndex].buttonHoverText,
+                },
               }}
             >
               Join as Store

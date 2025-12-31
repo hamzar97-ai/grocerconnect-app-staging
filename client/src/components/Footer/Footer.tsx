@@ -95,7 +95,10 @@ export default function Footer() {
         {/* COMPANY */}
         <FooterColumn
           title="Company"
-          links={[{ label: "Privacy Policy" }, { label: "Terms of Service" }]}
+          links={[
+            { label: "Privacy Policy", href: "/privacy-policy" },
+            { label: "Terms of Service" },
+          ]}
         />
 
         {/* HOME */}
