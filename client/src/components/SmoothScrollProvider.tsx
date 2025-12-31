@@ -3,6 +3,12 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 
+declare global {
+  interface Window {
+    lenis?: Lenis;
+  }
+}
+
 export default function SmoothScrollProvider({
   children,
 }: {
@@ -15,22 +21,17 @@ export default function SmoothScrollProvider({
       smoothWheel: true,
     });
 
+    window.lenis = lenis; // ✅ IMPORTANT
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
 
-    // 🔥 VERY IMPORTANT
-    const onReady = () => {
-      lenis.resize();
-    };
-
-    document.addEventListener("page:ready", onReady);
-
     return () => {
-      document.removeEventListener("page:ready", onReady);
       lenis.destroy();
+      delete window.lenis;
     };
   }, []);
 

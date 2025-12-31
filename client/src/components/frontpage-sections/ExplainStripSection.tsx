@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 
 const rows = [
   {
-    text: "Not Just Stores",
+    text: "Independent, Not Alone",
     bg: "#EF3A3A",
     color: "#FFFFFF",
     hoverBg: "#C62828",

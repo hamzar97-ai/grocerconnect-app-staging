@@ -32,15 +32,22 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 
 const topBarLinks = ["Technical Assistance Center", "Foundation"];
 
 const navLinks = [
-  // { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-  { label: "Membership", href: "/membership" },
+  { label: "Contact" }, // 🔑 NO href
+  { label: "Membership", href: "#" },
+  { label: "How It Works", href: "#" },
 ];
+
+const contactScrollOptions = {
+  offset: -90,
+  duration: 2.6, // 👈 controls speed (2–2.4 is ideal)
+  easing: (t: number) => 1 - Math.pow(1 - t, 3), // smooth ease-out
+};
 
 // Styled components - KEEPING 0.8 opacity
 const AnimatedDrawer = styled(Drawer)(({ theme }) => ({
@@ -81,6 +88,7 @@ const StyledListItemButton = styled(ListItemButton)<any>(({ theme }) => ({
     fontFamily: "var(--font-jakarta)", // ✅ MOBILE MENU FONT
     fontWeight: 500,
     transition: "all 0.3s ease",
+    textTransform: "capitalize",
   },
 
   "&:hover": {
@@ -106,6 +114,8 @@ const StyledListItemButton = styled(ListItemButton)<any>(({ theme }) => ({
 }));
 
 export default function Header() {
+  const router = useRouter();
+  const pathname = usePathname();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [open, setOpen] = useState(false);
@@ -135,16 +145,26 @@ export default function Header() {
       <AppBar
         position="fixed"
         sx={{
-          backgroundColor: theme.palette.error.main,
+          backgroundColor: theme.palette.primary.main,
           top: 0,
-          height: 72,
+          py: { lg: 1.5, xl: 2 },
           boxShadow: isFixed ? 4 : 0,
           transition: "box-shadow 300ms ease",
           zIndex: theme.zIndex.drawer,
         }}
       >
         <Container maxWidth="xl">
-          <Toolbar sx={{ justifyContent: "space-between", minHeight: 64 }}>
+          <Toolbar
+            sx={{
+              justifyContent: "space-between",
+              minHeight: {
+                xs: 56,
+                lg: 60, // ✅ desktop
+                xl: 60, // ✅ large desktop
+              },
+              alignItems: "center",
+            }}
+          >
             {/* LOGO - Already has homepage link ✅ */}
             <Typography
               variant="h6"
@@ -158,9 +178,10 @@ export default function Header() {
                 fontFamily: "var(--font-fredoka)",
                 fontSize: {
                   xs: "1.2rem",
-                  sm: "1.6rem",
-                  md: "2rem", // 900–1199 (includes 1024)
-                  lg: "2.8rem", // ≥1200 (true desktop)
+                  sm: "1.5rem",
+                  md: "1.8rem",
+                  lg: "2rem", // 👈 compact desktop
+                  xl: "2.6rem", // 👈 big screens only
                 },
               }}
             >
@@ -169,21 +190,56 @@ export default function Header() {
 
             {/* DESKTOP NAV */}
             {!isMobile && (
-              <Box display="flex" alignItems="center" gap={3}>
+              <Box
+                display="flex"
+                alignItems="center"
+                gap={{ lg: 1.25, xl: 2 }}
+                sx={{
+                  whiteSpace: "nowrap",
+                  minWidth: 0, // 🔑 allows flex shrink
+                }}
+              >
                 {navLinks.map((link) => (
                   <Button
                     key={link.label}
-                    component={Link}
-                    href={link.href}
                     color="inherit"
+                    onClick={(e: React.MouseEvent) => {
+                      if (link.label !== "Contact") return;
+
+                      e.preventDefault();
+
+                      // If already on home → scroll
+                      if (pathname === "/") {
+                        window.lenis?.scrollTo(
+                          "#contact",
+                          contactScrollOptions
+                        );
+                      }
+                      // If on another page → go home, then scroll
+                      else {
+                        router.push("/");
+
+                        setTimeout(() => {
+                          window.lenis?.scrollTo(
+                            "#contact",
+                            contactScrollOptions
+                          );
+                        }, 600);
+                      }
+                    }}
+                    component={link.href ? Link : "button"}
+                    href={link.href}
                     sx={{
                       fontWeight: 600,
                       fontFamily: "var(--font-jakarta)",
+                      textTransform: "capitalize",
+                      px: { lg: 0.75, xl: 0.2 },
+                      py: { lg: 0.4, xl: 0.2 },
                       fontSize: {
                         xs: "0.9rem",
-                        md: "1rem", // 1024px
-                        lg: "1.2rem",
-                        xl: "1.4rem",
+                        md: "0.95rem",
+                        lg: "1.05rem", // 👈 compact desktop
+                        xl: "1.25rem", // 👈 wide screens
                       },
                       position: "relative",
                       "&::after": {
@@ -219,18 +275,12 @@ export default function Header() {
                     textTransform: "none",
                     borderRadius: 3,
                     fontSize: {
-                      md: "1.1rem",
-                      lg: "1.3rem", // ⬅ reduce slightly
-                      xl: "1.5rem",
+                      md: "1rem",
+                      lg: "1.1rem", // 👈 compact desktop
+                      xl: "1.35rem", // 👈 wide screens
                     },
-                    py: {
-                      lg: 0.75,
-                      xl: 1.2,
-                    },
-                    px: {
-                      lg: 1.5,
-                      xl: 2.5,
-                    },
+                    px: { lg: 1.25, xl: 2.25 },
+                    py: { lg: 0.45, xl: 0.7 },
                     boxShadow: `0 4px 12px ${alpha(
                       theme.palette.secondary.main,
                       0.3
@@ -260,23 +310,25 @@ export default function Header() {
                     textTransform: "none",
                     borderRadius: 3,
                     fontSize: {
-                      md: "1.1rem",
-                      lg: "1.3rem",
-                      xl: "1.5rem",
+                      md: "1rem",
+                      lg: "1.1rem", // 👈 compact desktop
+                      xl: "1.35rem", // 👈 wide screens
                     },
-                    py: {
-                      lg: 0.6,
-                      xl: 1,
-                    },
-                    px: {
-                      lg: 1.2,
-                      xl: 2,
-                    },
-                    borderColor: theme.palette.warning.main,
-                    color: theme.palette.warning.main,
+                    px: { lg: 1.25, xl: 2.25 },
+                    py: { lg: 0.45, xl: 0.7 },
+
+                    // ✅ YELLOW from theme
+                    borderColor: theme.palette.secondary.main,
+                    color: theme.palette.secondary.main,
+
                     "&:hover": {
-                      backgroundColor: alpha(theme.palette.warning.main, 0.1),
-                      borderColor: theme.palette.warning.dark,
+                      backgroundColor: theme.palette.secondary.main,
+                      color: theme.palette.text.primary,
+                      borderColor: theme.palette.secondary.main,
+                      boxShadow: `0 4px 12px ${alpha(
+                        theme.palette.secondary.main,
+                        0.4
+                      )}`,
                     },
                   }}
                 >
@@ -285,18 +337,24 @@ export default function Header() {
                 <IconButton
                   onClick={() => setSearchOpen(true)}
                   sx={{
-                    color: theme.palette.warning.main,
+                    color: theme.palette.secondary.main,
                     transition: "transform 0.3s ease",
                     "&:hover": {
                       transform: "scale(1.1)",
-                      backgroundColor: alpha(theme.palette.warning.main, 0.15),
+                      backgroundColor: alpha(theme.palette.secondary.main, 0.2),
                     },
+                    p: { lg: 0.5, xl: 0.75 }, // 🔥 BIG FIX
+                    flexShrink: 0,
                   }}
                 >
                   <SearchIcon
                     sx={{
-                      color: theme.palette.warning.main,
-                      fontSize: { xs: "1.2rem", md: "1.8rem", lg: "2.1rem" },
+                      color: theme.palette.secondary.main,
+                      fontSize: {
+                        md: "1.6rem",
+                        lg: "1.8rem",
+                        xl: "2.1rem",
+                      },
                     }}
                   />
                 </IconButton>
@@ -404,9 +462,31 @@ export default function Header() {
                     {navLinks.map((link) => (
                       <ListItem key={link.label} disablePadding>
                         <StyledListItemButton
-                          component={Link}
+                          component={link.href ? Link : "button"}
                           href={link.href}
-                          onClick={handleDrawerClose}
+                          onClick={() => {
+                            handleDrawerClose();
+
+                            if (link.label !== "Contact") return;
+
+                            if (pathname === "/") {
+                              setTimeout(() => {
+                                window.lenis?.scrollTo(
+                                  "#contact",
+                                  contactScrollOptions
+                                );
+                              }, 300);
+                            } else {
+                              router.push("/");
+
+                              setTimeout(() => {
+                                window.lenis?.scrollTo(
+                                  "#contact",
+                                  contactScrollOptions
+                                );
+                              }, 800);
+                            }
+                          }}
                         >
                           <ListItemIcon>
                             <ChevronRightIcon />

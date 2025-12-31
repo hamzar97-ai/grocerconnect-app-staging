@@ -109,17 +109,18 @@ export default function FlavorShowcaseSection() {
             <Typography
               sx={{
                 mt: 3,
+                fontFamily: "var(--font-passion)",
                 fontSize: {
                   xs: "1.2rem",
-                  md: "1.4rem", // ⬅ 900–1023
-                  lg: "1.6rem",
+                  md: "1.4rem",
+                  lg: "1.9rem",
                 },
                 letterSpacing: {
                   xs: "0.06em",
                   md: "0.08em",
                   lg: "0.12em",
                 },
-                fontWeight: 900,
+                fontWeight: 700,
                 color: flavor.color,
               }}
             >
@@ -131,28 +132,21 @@ export default function FlavorShowcaseSection() {
               className="flavor-desc"
               sx={{
                 mt: 2,
+                fontFamily: "var(--font-jakarta)",
                 fontSize: {
                   xs: "0.9rem",
-                  md: "1rem", // ⬅ compact desktop
+                  md: "1rem",
                   lg: "1.1rem",
                 },
-                lineHeight: {
-                  xs: 1.6,
-                  md: 1.55,
-                  lg: 1.7,
-                },
+                lineHeight: 1.7,
                 maxWidth: 260,
                 mx: "auto",
                 color: "#333",
-
-                // 👇 Mobile: always visible
                 opacity: { xs: 1, md: 0 },
                 transform: { xs: "none", md: "translateY(10px)" },
-
                 transition: {
                   md: "opacity 280ms ease, transform 280ms ease",
                 },
-
                 minHeight: 70,
                 pointerEvents: "none",
               }}

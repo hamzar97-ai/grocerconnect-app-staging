@@ -4,28 +4,28 @@ import { Box, Typography } from "@mui/material";
 
 const flavors = [
   {
-    title: "HERBAL INFUSIONS",
-    bg: "#7E57C2",
+    title: "Western Canada",
+    bg: "#7E57C2", // Purple
     hoverBg: "#6A4CB3",
-    color: "#FFEB3B",
+    color: "#FFEB3B", // Yellow text
   },
   {
-    title: "FRESH & FRUITY",
-    bg: "#F8A1A4",
+    title: "Ontario",
+    bg: "#F8A1A4", // Pink
     hoverBg: "#F48B90",
-    color: "#D32F2F",
+    color: "#EB373E", // Red text
   },
   {
-    title: "CITRUS KICKS",
-    bg: "#F9A825",
+    title: "Atlantic Provinces",
+    bg: "#F9A825", // Orange
     hoverBg: "#F57F17",
-    color: "#1B5E20",
+    color: "#2E7D32", // Green text
   },
   {
-    title: "EVERYDAY GOODNESS",
-    bg: "#FFF176",
+    title: "Northern Canada",
+    bg: "#FFF176", // Yellow
     hoverBg: "#FFEE58",
-    color: "#E91E63",
+    color: "#E91E63", // Pink text
   },
 ];
 
@@ -70,22 +70,15 @@ export default function FlavorStripSection() {
         >
           <Typography
             sx={{
-              whiteSpace: "pre-line",
-              fontFamily: "var(--font-fredoka)",
-              fontWeight: 900,
-              fontSize: {
-                xs: "1.3rem",
-                sm: "1.6rem",
-                md: "1.8rem", // ⬅ 900–1023 (compact)
-                lg: "2.1rem", // ⬅ desktop
-              },
-              letterSpacing: {
-                xs: "0.06em",
-                md: "0.05em",
-                lg: "0.08em",
-              },
-              color: flavor.color,
+              fontFamily: "var(--font-be-vietnam)",
+              fontSize: "clamp(20px, 1.565vw, 42px)",
+              lineHeight: 1.3,
               textTransform: "uppercase",
+              textAlign: "center",
+              fontWeight: 600, // closest match to typical Be Vietnam headings
+              letterSpacing: "0.04em",
+              color: flavor.color,
+              whiteSpace: "pre-line",
             }}
           >
             {flavor.title}
