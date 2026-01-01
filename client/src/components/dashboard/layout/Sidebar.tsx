@@ -1,62 +1,57 @@
-import {
-  Box,
-  Typography,
-  Divider,
-  List,
-  ListItemButton,
-  ListItemText,
-} from "@mui/material";
+"use client";
+
+import { Box, List, ListItemButton, ListItemText } from "@mui/material";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const navItems = [
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "Stores", href: "/dashboard/stores" },
+  { label: "Suppliers", href: "/dashboard/suppliers" },
+  { label: "Reports", href: "/dashboard/reports" },
+  { label: "Settings", href: "/dashboard/settings" },
+];
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
   return (
     <Box
       sx={{
-        width: 260,
-        bgcolor: "#F1F8F4", // soft green tint
-        borderRight: "1px solid #e0e0e0",
-        display: "flex",
-        flexDirection: "column",
+        width: 240,
+        borderRight: "1px solid #e6e6e6",
+        bgcolor: "#F4FAF6",
         p: 2,
       }}
     >
-      {/* Brand */}
-      <Typography
-        variant="h6"
-        fontWeight={800}
-        color="primary"
-        sx={{ letterSpacing: 0.3 }}
-      >
-        GrocerConnect
-      </Typography>
+      <List>
+        {navItems.map((item) => {
+          const isActive =
+            pathname === item.href || pathname.startsWith(item.href + "/");
 
-      <Divider sx={{ my: 2 }} />
-
-      <List disablePadding>
-        <ListItemButton
-          selected
-          sx={{
-            borderRadius: 2,
-            mb: 0.5,
-          }}
-        >
-          <ListItemText primary="Dashboard" />
-        </ListItemButton>
-
-        <ListItemButton sx={{ borderRadius: 2, mb: 0.5 }}>
-          <ListItemText primary="Stores" />
-        </ListItemButton>
-
-        <ListItemButton sx={{ borderRadius: 2, mb: 0.5 }}>
-          <ListItemText primary="Suppliers" />
-        </ListItemButton>
-
-        <ListItemButton sx={{ borderRadius: 2, mb: 0.5 }}>
-          <ListItemText primary="Reports" />
-        </ListItemButton>
-
-        <ListItemButton sx={{ borderRadius: 2 }}>
-          <ListItemText primary="Settings" />
-        </ListItemButton>
+          return (
+            <ListItemButton
+              key={item.href}
+              component={Link}
+              href={item.href}
+              sx={{
+                borderRadius: 2,
+                mb: 1,
+                bgcolor: isActive ? "#E6F4EA" : "transparent",
+                "&:hover": {
+                  bgcolor: "#E6F4EA",
+                },
+              }}
+            >
+              <ListItemText
+                primary={item.label}
+                primaryTypographyProps={{
+                  fontWeight: isActive ? 600 : 500,
+                }}
+              />
+            </ListItemButton>
+          );
+        })}
       </List>
     </Box>
   );
