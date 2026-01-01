@@ -278,6 +278,7 @@ export default function HeroSection() {
           <Button
             disableRipple
             disableFocusRipple
+            href="/onboarding"
             disableTouchRipple
             sx={{
               position: "relative",
