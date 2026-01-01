@@ -147,7 +147,7 @@ export default function BringPeopleTogetherSection() {
             sx={{
               position: "absolute",
               bottom: { xs: -24, sm: -32, md: -60 },
-              left: { xs: -24, sm: -32, md: -60 },
+              left: { xs: 0, sm: -32, md: -60 },
               width: { xs: 110, sm: 140, md: 170 },
               height: { xs: 110, sm: 140, md: 170 },
               cursor: "pointer",
@@ -194,7 +194,7 @@ export default function BringPeopleTogetherSection() {
             sx={{
               position: "absolute",
               bottom: { xs: -24, sm: -32, md: -60 },
-              right: { xs: -24, sm: -32, md: -60 },
+              right: { xs: -0, sm: -32, md: -60 },
               width: { xs: 120, sm: 155, md: 190 },
               height: { xs: 120, sm: 155, md: 190 },
               cursor: "pointer",
