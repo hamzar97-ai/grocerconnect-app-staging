@@ -130,7 +130,7 @@ export default function FaqSection() {
           sx={{
             position: "absolute",
             top: { xs: "50%", md: "50%" },
-            left: { xs: "0px", md: "5%" },
+            left: { xs: "10px", md: "5%" },
             width: { xs: "60px", md: "100px" },
             height: "auto",
             animation: "spin 10s linear infinite",
@@ -155,7 +155,7 @@ export default function FaqSection() {
           sx={{
             position: "absolute",
             bottom: { xs: "0px", md: "70px" },
-            right: { xs: "-40px", md: "0%" },
+            right: { xs: "-0px", md: "0%" },
             width: { xs: "120px", md: "200px" },
             height: "auto",
             animation: "spinReverse 10s linear infinite",

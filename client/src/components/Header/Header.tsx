@@ -242,19 +242,9 @@ export default function Header() {
                         xl: "1.25rem", // 👈 wide screens
                       },
                       position: "relative",
-                      "&::after": {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        left: "50%",
-                        width: 0,
-                        height: "2px",
-                        backgroundColor: theme.palette.secondary.main,
-                        transition: "all 0.3s ease",
-                        transform: "translateX(-50%)",
-                      },
-                      "&:hover::after": {
-                        width: "100%",
+                      "&:hover": {
+                        color: theme.palette.secondary.main, // ✅ YELLOW
+                        backgroundColor: "transparent", // keeps it clean
                       },
                     }}
                   >
@@ -544,6 +534,7 @@ export default function Header() {
                       fullWidth
                       variant="contained"
                       color="secondary"
+                      href="/onboarding"
                       startIcon={<GroupAddIcon />}
                       onClick={handleDrawerClose}
                       sx={{
@@ -575,6 +566,7 @@ export default function Header() {
                     <Button
                       fullWidth
                       variant="outlined"
+                      href="/login"
                       startIcon={<PersonOutlineIcon />}
                       onClick={handleDrawerClose}
                       sx={{
