@@ -52,11 +52,16 @@ export default function LoginForm() {
       setLoading(true);
       setErrors({});
 
-      // 🔒 API call placeholder
-      await new Promise((res) => setTimeout(res, 1200));
+      // ⏳ ADD THIS LINE (FAKE API DELAY)
+      await new Promise((resolve) => setTimeout(resolve, 1200));
 
-      console.log("Login success", form);
-    } catch {
+      // ✅ HARDCODED LOGIN CHECK
+      if (form.email === "test@test.com" && form.password === "test123") {
+        router.push("/dashboard");
+        return;
+      }
+
+      // ❌ fallback (invalid credentials)
       setErrors({
         general: "Invalid email or password. Please try again.",
       });
@@ -114,7 +119,12 @@ export default function LoginForm() {
         onClick={handleSubmit}
         sx={{ mt: 1, height: 48 }}
       >
-        {loading ? <CircularProgress size={24} color="inherit" /> : "Log in"}
+        <Box display="flex" alignItems="center" gap={1}>
+          {loading && <CircularProgress size={18} color="inherit" />}
+          <Typography fontWeight={600}>
+            {loading ? "Logging in..." : "Log in"}
+          </Typography>
+        </Box>
       </Button>
 
       {/* FOOTER LINKS */}
