@@ -12,7 +12,7 @@ interface ImageMarqueeProps {
 
 export default function ImageMarquee({
   images,
-  height = 160,
+  height = 170,
   speed = 40,
   background,
 }: ImageMarqueeProps) {
@@ -70,6 +70,8 @@ export default function ImageMarquee({
         sx={{
           display: "flex",
           width: "max-content",
+          alignItems: "center",
+          height: "100%",
         }}
       >
         {images.map((src, i) => (
@@ -99,8 +101,8 @@ function MarqueeItem({ src }: { src: string }) {
       alt=""
       className="marquee-item"
       sx={{
-        width: { xs: 50, sm: 60, md: 133 },
-        height: { xs: 50, sm: 60, md: 133 },
+        width: { xs: 50, sm: 60, md: 125 },
+        height: { xs: 50, sm: 60, md: 125 },
         marginRight: "20px",
         flexShrink: 0,
       }}
