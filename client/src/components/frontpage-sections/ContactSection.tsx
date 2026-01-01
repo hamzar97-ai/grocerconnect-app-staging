@@ -5,6 +5,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LanguageIcon from "@mui/icons-material/Language";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import MichaButtonSVG from "@/components/MichaButtonSVG";
 
 export default function ContactSection() {
   return (
@@ -237,21 +238,69 @@ export default function ContactSection() {
             />
 
             <Button
+              type="submit"
+              disableRipple
+              disableFocusRipple
+              disableTouchRipple
               sx={{
-                mt: 1,
-                backgroundColor: "#EF3B3B",
-                color: "#FFD400",
+                position: "relative",
+                overflow: "visible", // ✅ CRITICAL
+                py: { xs: 3, md: 2 },
+                px: { xs: 6, md: 6 },
+                minHeight: 80,
+
+                backgroundColor: "transparent",
+                boxShadow: "none",
+                textTransform: "none",
+
                 fontFamily: "var(--font-fredoka)",
                 fontWeight: 700,
                 fontSize: "1.2rem",
-                borderRadius: "999px",
-                py: 1.6,
-                "&:hover": {
-                  backgroundColor: "#E22F2F",
-                },
+
+                "&:hover": { backgroundColor: "transparent" },
+                "&:active": { backgroundColor: "transparent" },
+                "&.Mui-focusVisible": { backgroundColor: "transparent" },
               }}
             >
-              Submit
+              {/* SVG RIBBON */}
+              <Box
+                sx={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "115%",
+                  height: "100%",
+                  left: "50%",
+                  top: "50%",
+                  transform: "translate(-50%, -50%) scaleX(1)",
+                  zIndex: 0, // ✅ NOT negative
+                  pointerEvents: "none",
+
+                  color: "#EF3B3B", // 🔴 RED
+
+                  transition: "transform 500ms ease, color 300ms ease",
+
+                  ".MuiButton-root:hover &": {
+                    transform: "translate(-50%, -50%) scaleX(0.85)",
+                    color: "#E22F2F",
+                  },
+
+                  filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.25))",
+                }}
+              >
+                <MichaButtonSVG />
+              </Box>
+
+              {/* TEXT */}
+              <Box
+                sx={{
+                  position: "relative",
+                  zIndex: 1, // ✅ ABOVE SVG
+                  color: "#FFD400",
+                  fontSize: { xs: "1.25rem", md: "1.6rem" },
+                }}
+              >
+                Submit
+              </Box>
             </Button>
           </Box>
         </Box>
