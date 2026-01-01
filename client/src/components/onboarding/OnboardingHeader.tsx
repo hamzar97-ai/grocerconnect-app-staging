@@ -62,7 +62,7 @@ export default function OnboardingHeader() {
       <Dialog
         open={open}
         onClose={handleClose}
-        maxWidth="xs"
+        maxWidth="sm"
         fullWidth
         PaperProps={{
           sx: {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, TextField, Typography, MenuItem, Button } from "@mui/material";
+import { Box, TextField, Typography, Button } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -17,43 +17,16 @@ export default function StepTwo({
   onNext,
   onBack,
 }: StepTwoProps) {
-  const [errors, setErrors] = useState<{
-    fullName?: string;
-    email?: string;
-    phone?: string;
-    role?: string;
-  }>({});
+  const [error, setError] = useState<string | null>(null);
 
   const handleContinue = () => {
-    const newErrors: typeof errors = {};
-
-    if (!data.fullName.trim()) {
-      newErrors.fullName = "Please tell us who we should contact";
+    if (!data.address?.trim()) {
+      setError("Please enter your store address");
+      return;
     }
 
-    if (!data.email.trim()) {
-      newErrors.email = "We’ll need an email to reach you";
-    } else if (!/^\S+@\S+\.\S+$/.test(data.email)) {
-      newErrors.email = "That doesn’t look like a valid email";
-    }
-
-    const cleanedPhone = data.phone.replace(/\s/g, "");
-
-    if (!cleanedPhone) {
-      newErrors.phone = "A phone number helps if we need to reach you quickly";
-    } else if (!/^\+?\d{8,15}$/.test(cleanedPhone)) {
-      newErrors.phone = "Enter a valid international phone number";
-    }
-
-    if (!data.role) {
-      newErrors.role = "Select the role that best fits";
-    }
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      onNext();
-    }
+    setError(null);
+    onNext();
   };
 
   return (
@@ -76,86 +49,33 @@ export default function StepTwo({
           fontWeight={700}
           sx={{ mb: 1, fontSize: { xs: "1.8rem", md: "2.5rem" } }}
         >
-          Who should we contact?
+          Where is your store located?
         </Typography>
 
         <Typography color="text.secondary" sx={{ mb: 4 }}>
-          This will be the primary person managing the store account.
+          This helps us understand your business location.
         </Typography>
 
         <Box display="flex" flexDirection="column" gap={3}>
           <TextField
-            label="Full Name"
-            placeholder="e.g. John Smith"
+            label="Store Address"
+            placeholder="e.g. 123 Main Street, Toronto"
             fullWidth
-            value={data.fullName}
-            error={Boolean(errors.fullName)}
-            helperText={errors.fullName}
-            onChange={(e) => setData({ ...data, fullName: e.target.value })}
+            value={data.address || ""}
+            error={Boolean(error)}
+            helperText={error}
+            onChange={(e) => setData({ ...data, address: e.target.value })}
           />
-
-          <TextField
-            label="Email Address"
-            placeholder="e.g. john@store.com"
-            type="email"
-            fullWidth
-            value={data.email}
-            error={Boolean(errors.email)}
-            helperText={errors.email}
-            onChange={(e) => setData({ ...data, email: e.target.value })}
-          />
-
-          <TextField
-            label="Phone Number"
-            placeholder="e.g. +1 555 123 4567"
-            fullWidth
-            value={data.phone}
-            error={Boolean(errors.phone)}
-            helperText={errors.phone}
-            inputProps={{
-              inputMode: "tel", // mobile numeric keypad
-              maxLength: 16, // + + 15 digits
-            }}
-            onChange={(e) => {
-              const value = e.target.value;
-
-              // Allow only +, digits, and spaces
-              if (/^[+\d\s]*$/.test(value)) {
-                setData({ ...data, phone: value });
-              }
-            }}
-          />
-
-          <TextField
-            select
-            label="Role"
-            fullWidth
-            value={data.role}
-            error={Boolean(errors.role)}
-            helperText={errors.role}
-            onChange={(e) => setData({ ...data, role: e.target.value })}
-          >
-            <MenuItem value="supplier">Supplier</MenuItem>
-            <MenuItem value="manager">Store Manager</MenuItem>
-            <MenuItem value="admin">Administrator</MenuItem>
-          </TextField>
 
           {/* ACTIONS */}
           <Box
             sx={{
               display: "flex",
-              alignItems: "center",
               justifyContent: "space-between",
-              gap: 2,
               mt: 3,
             }}
           >
-            <Button
-              variant="outlined"
-              size="large"
-              onClick={onBack}
-              sx={{ px: 4 }}
-            >
+            <Button variant="outlined" size="large" onClick={onBack}>
               Back
             </Button>
 
@@ -194,8 +114,8 @@ export default function StepTwo({
           }}
         >
           <Image
-            src="/assets/images/12083363.png"
-            alt="Contact details illustration"
+            src="/assets/images/11667077.png"
+            alt="Store location illustration"
             width={400}
             height={400}
             style={{ width: "100%", height: "auto" }}
