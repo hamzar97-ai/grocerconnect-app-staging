@@ -1,224 +1,308 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
-import PrintIcon from "@mui/icons-material/Print";
 import EmailIcon from "@mui/icons-material/Email";
+import LanguageIcon from "@mui/icons-material/Language";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import MichaButtonSVG from "@/components/MichaButtonSVG";
 
 export default function ContactSection() {
-  const sectionRef = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.25 }
-    );
-
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    /* 🔴 RED BACKGROUND SECTION */
+    /* OUTER BEIGE BACKGROUND */
     <Box
-      ref={sectionRef}
+      id="contact"
       sx={{
-        backgroundColor: "#D32F2F",
+        position: "relative",
+        backgroundColor: "#FDECEC",
         backgroundImage: `
-          radial-gradient(rgba(0, 0, 0, 0.35) 1px, transparent 1px),
-          radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px)
+          radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+          radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px)
         `,
         backgroundSize: "16px 16px, 32px 32px",
         backgroundPosition: "0 0, 8px 8px",
-        py: { xs: 12, md: 16 },
-        overflowX: "hidden",
-        width: "100%",
+        py: { xs: 4, md: 4 },
+        overflow: "hidden",
+        scrollMarginTop: "50px",
       }}
     >
-      {/* 🟡 GRID CONTAINER */}
+      {/* INNER SECTION */}
       <Box
         sx={{
-          maxWidth: 1400,
+          maxWidth: 1700,
           mx: "auto",
-          width: "100%",
-          boxSizing: "border-box",
-          overflowX: "hidden",
+          px: { xs: 2, md: "10%" },
+          position: "relative",
+          zIndex: 2,
 
-          display: "grid",
-          gridTemplateColumns: { xs: "1fr", md: "1.1fr 0.9fr" },
-          gap: { xs: 6, md: 8 },
-          px: { xs: 2, md: 4 },
-          alignItems: "stretch",
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: { xs: 6, md: 0 },
+
+          /* FULL-BLEED RED (DESKTOP ONLY) */
+          "&::before": {
+            content: '""',
+            display: { xs: "none", md: "block" },
+            position: "absolute",
+            top: 48,
+            left: "calc(50% - 50vw)",
+            width: "100vw",
+            height: "88%",
+            backgroundColor: "#EB373E",
+            zIndex: -1,
+          },
         }}
       >
-        {/* 🟢 LEFT CARD */}
+        {/* LEFT TEXT */}
         <Box
           sx={{
-            width: "100%",
-            maxWidth: "calc(100vw - 32px)",
-            boxSizing: "border-box",
-
-            backgroundColor: "#43A047 !important",
+            width: { xs: "100%", md: "45%" },
             color: "#fff",
-            borderRadius: { xs: "20px", sm: "32px" },
-            p: { xs: 3, sm: 5, md: 7 },
-            boxShadow: "0 30px 70px rgba(0,0,0,0.25)",
+            py: { xs: 4, md: 6 },
 
-            opacity: visible ? 1 : 0,
-            transform: visible
-              ? "translate(0)"
-              : { xs: "translateY(40px)", md: "translateX(-80px)" },
-            transition:
-              "opacity 900ms ease, transform 900ms cubic-bezier(.22,.61,.36,1)",
+            /* MOBILE/TABLET RED */
+            backgroundColor: { xs: "#EB373E", md: "transparent" },
+            borderRadius: { xs: "24px", md: 0 },
+            px: { xs: 3, md: 0 },
           }}
         >
+          {/* HEADING */}
           <Typography
+            component="h2"
             sx={{
-              fontSize: { xs: "2.2rem", sm: "2.6rem", md: "3.4rem" },
-              fontWeight: 900,
+              fontFamily: "var(--font-passion)",
+              fontWeight: 700,
+              fontSize: {
+                xs: "clamp(32px, 10vw, 56px)",
+                md: "clamp(40px, 4vw, 85px)",
+              },
+              lineHeight: 0.95,
               mb: 3,
-              textShadow: "0 4px 0 rgba(0,0,0,0.25)",
+              color: "#000",
+              WebkitTextStroke: "0.25em #fff",
+              paintOrder: "stroke fill",
+              filter:
+                "drop-shadow(0px clamp(2px, 1vw, 10px) clamp(1px, 0.2vw, 5px) rgba(0,0,0,0.55))",
+              px: "0.25em",
             }}
           >
-            Let’s Connect
+            Get in Touch
           </Typography>
 
-          <Typography sx={{ fontSize: "1.05rem", lineHeight: 1.7, mb: 5 }}>
-            Have questions or want to collaborate with the National Grocers
-            Association? Reach out — we’d love to hear from you.
+          {/* DESCRIPTION */}
+          <Typography
+            sx={{
+              fontFamily: "var(--font-jakarta)",
+              fontSize: { xs: "1.05rem", md: "1.1rem" },
+              lineHeight: 1.8,
+              mb: 3,
+              maxWidth: 520,
+            }}
+          >
+            Ready to strengthen your buying power?
+            <br />
+            Join GrocerConnect and become part of a network built to help
+            independent grocers buy smarter and compete with scale.
           </Typography>
 
+          {/* CONTACT BUTTONS */}
+          {/* CONTACT BUTTONS */}
           {[
             {
-              icon: <LocationOnIcon />,
-              text: (
-                <>
-                  601 Pennsylvania Ave, NW
-                  <br />
-                  Suite 375N
-                  <br />
-                  Washington, D.C. 20004
-                </>
-              ),
+              icon: <PhoneIcon sx={{ fontSize: 28 }} />,
+              text: "+1 647 632 9295",
+              href: "tel:+16476329295",
             },
-            { icon: <PhoneIcon />, text: "(202) 938 2570" },
-            { icon: <PrintIcon />, text: "(202) 938 2574" },
-            { icon: <EmailIcon />, text: "admin@nationalgrocers.org" },
+            {
+              icon: <EmailIcon sx={{ fontSize: 28 }} />,
+              text: "contact@grocerconnect.ca",
+              href: "mailto:contact@grocerconnect.ca",
+            },
+            {
+              icon: <LanguageIcon sx={{ fontSize: 28 }} />,
+              text: "grocerconnect.ca",
+              href: "https://grocerconnect.ca",
+            },
+            {
+              icon: <AccessTimeIcon sx={{ fontSize: 28 }} />,
+              text: "Mon–Fri • 12:00 AM – 8:00 PM PST",
+              href: null, // not clickable
+            },
           ].map((item, i) => (
             <Box
               key={i}
-              sx={{
+              component={item.href ? "a" : "div"}
+              href={item.href || undefined}
+              target={item.href?.startsWith("http") ? "_blank" : undefined}
+              rel="noopener noreferrer"
+              sx={(theme) => ({
                 display: "flex",
-                gap: 2,
-                alignItems: "flex-start",
-                p: 2.5,
-                mb: 2,
-                borderRadius: "18px",
-                backgroundColor: "rgba(255,255,255,0.08)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                backdropFilter: "blur(6px)",
-                fontWeight: 600,
-              }}
+                alignItems: "center",
+                gap: 1.3,
+
+                backgroundColor: "#fff",
+                color: theme.palette.text.primary,
+
+                px: 3,
+                py: 1.4,
+                borderRadius: "999px",
+                mb: 1.3,
+
+                width: { xs: "100%", sm: "fit-content" },
+                maxWidth: "100%",
+                overflow: "hidden",
+
+                fontFamily: "var(--font-jakarta)",
+                fontWeight: 700,
+                fontSize: { xs: "0.9rem", md: "1.2rem" },
+                textDecoration: "none",
+
+                cursor: item.href ? "pointer" : "default",
+
+                transition: "color 0.25s ease",
+
+                "& svg": {
+                  transition: "color 0.25s ease",
+                },
+
+                /* 🔴 Hover for ALL rows (including working hours) */
+                "&:hover": {
+                  color: theme.palette.primary.main,
+                  "& svg": {
+                    color: theme.palette.primary.main,
+                  },
+                },
+              })}
             >
               {item.icon}
-              <Typography>{item.text}</Typography>
+              {item.text}
             </Box>
           ))}
+
+          {/* ADDRESS */}
+          <Typography
+            sx={{
+              mt: 4,
+              fontFamily: "var(--font-jakarta)",
+              fontSize: { xs: "1.05rem", md: "1.3rem" },
+              fontWeight: 600,
+            }}
+          >
+            7070E Farrell Rd SE
+            <br />
+            Calgary, AB T2H 0T2
+          </Typography>
         </Box>
 
-        {/* ⚪ RIGHT CARD */}
+        {/* FORM */}
         <Box
           sx={{
-            width: "100%",
-            maxWidth: "calc(100vw - 32px)",
-            boxSizing: "border-box",
-
+            width: { xs: "100%", md: "50%" },
             backgroundColor: "#fff",
-            borderRadius: { xs: "20px", sm: "32px" },
-            p: { xs: 3, sm: 5, md: 6 },
-            boxShadow: "0 30px 80px rgba(0,0,0,0.18)",
-
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-
-            opacity: visible ? 1 : 0,
-            transform: visible
-              ? "translate(0)"
-              : { xs: "translateY(40px)", md: "translateX(80px)" },
-            transition:
-              "opacity 900ms ease 120ms, transform 900ms cubic-bezier(.22,.61,.36,1)",
+            borderRadius: { xs: "24px", md: "30px" },
+            p: "clamp(20px, 3vw, 65px)",
+            boxShadow: "0px 12px 40px rgba(0,0,0,0.15)",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "2rem",
-              fontWeight: 900,
-              mb: 1,
-              color: "#111",
-            }}
-          >
-            Send Us a Message
-          </Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+            {["Name", "Email", "Phone Number", "City", "Country"].map(
+              (label) => (
+                <TextField
+                  key={label}
+                  placeholder={label}
+                  fullWidth
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      backgroundColor: "#FFF1F1",
+                      borderRadius: "14px",
+                    },
+                    "& fieldset": { border: "none" },
+                  }}
+                />
+              )
+            )}
 
-          <Typography
-            sx={{
-              color: "#666",
-              fontSize: "0.95rem",
-              mt: { xs: 0, sm: -2 },
-              mb: 2,
-            }}
-          >
-            Fill out the form and our team will get back to you shortly.
-          </Typography>
+            <TextField
+              placeholder="Message"
+              multiline
+              rows={5}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  backgroundColor: "#FFF1F1",
+                  borderRadius: "14px",
+                },
+                "& fieldset": { border: "none" },
+              }}
+            />
 
-          <Box>
-            {["Name", "Email", "Phone", "Message"].map((label, i) => (
-              <TextField
-                key={i}
-                fullWidth
-                placeholder={label}
-                multiline={label === "Message"}
-                rows={label === "Message" ? 4 : 1}
+            <Button
+              type="submit"
+              disableRipple
+              disableFocusRipple
+              disableTouchRipple
+              sx={{
+                position: "relative",
+                overflow: "visible", // ✅ CRITICAL
+                py: { xs: 3, md: 2 },
+                px: { xs: 6, md: 6 },
+                minHeight: 80,
+
+                backgroundColor: "transparent",
+                boxShadow: "none",
+                textTransform: "none",
+
+                fontFamily: "var(--font-fredoka)",
+                fontWeight: 700,
+                fontSize: "1.2rem",
+
+                "&:hover": { backgroundColor: "transparent" },
+                "&:active": { backgroundColor: "transparent" },
+                "&.Mui-focusVisible": { backgroundColor: "transparent" },
+              }}
+            >
+              {/* SVG RIBBON */}
+              <Box
                 sx={{
-                  mb: 3,
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "16px",
-                    backgroundColor: "#FFF4F4",
-                  },
-                }}
-              />
-            ))}
-          </Box>
+                  position: "absolute",
+                  inset: 0,
+                  width: "115%",
+                  height: "100%",
+                  left: "50%",
+                  top: "50%",
+                  transform: "translate(-50%, -50%) scaleX(1)",
+                  zIndex: 0, // ✅ NOT negative
+                  pointerEvents: "none",
 
-          <Button
-            fullWidth
-            sx={{
-              mt: 2,
-              py: 1.6,
-              borderRadius: "20px",
-              fontSize: "1.1rem",
-              fontWeight: 900,
-              textTransform: "uppercase",
-              backgroundColor: "#E53935",
-              color: "#fff",
-              boxShadow: "0 6px 0 #9B1C1C",
-              "&:hover": {
-                backgroundColor: "#D32F2F",
-                transform: "translateY(-2px)",
-              },
-            }}
-          >
-            Send Message
-          </Button>
+                  color: "#EF3B3B", // 🔴 RED
+
+                  transition: "transform 500ms ease, color 300ms ease",
+
+                  ".MuiButton-root:hover &": {
+                    transform: "translate(-50%, -50%) scaleX(0.85)",
+                    color: "#E22F2F",
+                  },
+
+                  filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.25))",
+                }}
+              >
+                <MichaButtonSVG />
+              </Box>
+
+              {/* TEXT */}
+              <Box
+                sx={{
+                  position: "relative",
+                  zIndex: 1, // ✅ ABOVE SVG
+                  color: "#FFD400",
+                  fontSize: { xs: "1.25rem", md: "1.6rem" },
+                }}
+              >
+                Submit
+              </Box>
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Box>

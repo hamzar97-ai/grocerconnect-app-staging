@@ -37,7 +37,7 @@ export default function FlavorShowcaseSection() {
         backgroundSize: "16px 16px, 32px 32px",
         backgroundPosition: "0 0, 8px 8px",
 
-        py: { xs: 12, md: 16 },
+        py: { xs: 12, md: 18 },
       }}
     >
       <Box
@@ -45,7 +45,11 @@ export default function FlavorShowcaseSection() {
           maxWidth: 1400,
           mx: "auto",
           display: "grid",
-          gridTemplateColumns: { xs: "1fr", md: "repeat(4, 1fr)" },
+          gridTemplateColumns: {
+            xs: "1fr", // mobile
+            md: "repeat(2, 1fr)", // tablets & 1024px
+            lg: "repeat(4, 1fr)", // large desktop
+          },
           gap: { xs: 4, md: 4 },
           alignItems: "flex-end",
         }}
@@ -72,8 +76,16 @@ export default function FlavorShowcaseSection() {
             {/* IMAGE WRAPPER */}
             <Box
               sx={{
-                width: 250,
-                height: 380, // same height for all
+                width: {
+                  xs: 250,
+                  md: 260, // ⬅ 900–1023
+                  lg: 300, // ⬅ desktop
+                },
+                height: {
+                  xs: 380,
+                  md: 400, // ⬅ compact desktop
+                  lg: 460,
+                },
                 mx: "auto",
                 borderRadius: 4,
                 overflow: "hidden",
@@ -97,8 +109,18 @@ export default function FlavorShowcaseSection() {
             <Typography
               sx={{
                 mt: 3,
-                fontWeight: 900,
-                letterSpacing: 1,
+                fontFamily: "var(--font-passion)",
+                fontSize: {
+                  xs: "1.2rem",
+                  md: "1.4rem",
+                  lg: "1.9rem",
+                },
+                letterSpacing: {
+                  xs: "0.06em",
+                  md: "0.08em",
+                  lg: "0.12em",
+                },
+                fontWeight: 700,
                 color: flavor.color,
               }}
             >
@@ -110,20 +132,21 @@ export default function FlavorShowcaseSection() {
               className="flavor-desc"
               sx={{
                 mt: 2,
-                fontSize: "0.9rem",
-                lineHeight: 1.6,
+                fontFamily: "var(--font-jakarta)",
+                fontSize: {
+                  xs: "0.9rem",
+                  md: "1rem",
+                  lg: "1.1rem",
+                },
+                lineHeight: 1.7,
                 maxWidth: 260,
                 mx: "auto",
                 color: "#333",
-
-                // 👇 Mobile: always visible
                 opacity: { xs: 1, md: 0 },
                 transform: { xs: "none", md: "translateY(10px)" },
-
                 transition: {
                   md: "opacity 280ms ease, transform 280ms ease",
                 },
-
                 minHeight: 70,
                 pointerEvents: "none",
               }}

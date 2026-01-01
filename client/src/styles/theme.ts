@@ -5,55 +5,50 @@ const theme = createTheme({
     mode: "light",
 
     primary: {
-      main: "#2F9E44", // Fresh Green
-      contrastText: "#ffffff",
+      main: "#EB373E", // Exact MiCha Red
+      contrastText: "#FFFFFF",
     },
 
     secondary: {
-      main: "#F08C00", // Citrus Orange
-      contrastText: "#ffffff",
+      main: "#FBEF43", // Exact MiCha Yellow
+      contrastText: "#1E1E1E",
     },
 
     success: {
-      main: "#20C997", // Mint
-    },
-
-    warning: {
-      main: "#FFD43B", // Lemon
-    },
-
-    error: {
-      main: "#E03131", // Berry Red
+      main: "#6DB54E", // Exact MiCha Green
+      contrastText: "#FFFFFF",
     },
 
     info: {
-      main: "#7048E8", // Lavender
+      main: "#7F4E9F", // Exact MiCha Purple
+      contrastText: "#FFFFFF",
     },
 
     background: {
-      default: "#F8F9FA",
+      default: "#FBEF43", // Used heavily as section background
       paper: "#FFFFFF",
     },
 
     text: {
-      primary: "#212529",
-      secondary: "#495057",
+      primary: "#1E1E1E",
+      secondary: "#4A4A4A",
     },
   },
 
   typography: {
-    fontFamily: `"Inter", "Roboto", "Arial", sans-serif`,
-    h1: { fontWeight: 700 },
-    h2: { fontWeight: 700 },
-    h3: { fontWeight: 600 },
+    fontFamily: `"Poppins", "Inter", "Roboto", "Arial", sans-serif`,
+    h1: { fontWeight: 800 },
+    h2: { fontWeight: 800 },
+    h3: { fontWeight: 700 },
     button: {
-      textTransform: "none",
-      fontWeight: 600,
+      textTransform: "uppercase",
+      fontWeight: 700,
+      letterSpacing: "0.04em",
     },
   },
 
   shape: {
-    borderRadius: 10,
+    borderRadius: 16, // matches rounded playful UI
   },
 });
 

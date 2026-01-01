@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, TextField, Typography, MenuItem, Button } from "@mui/material";
+import { Box, TextField, Typography, Button } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -12,24 +12,26 @@ interface StepOneProps {
 
 export default function StepOne({ data, setData, onNext }: StepOneProps) {
   const [errors, setErrors] = useState<{
-    storeName?: string;
-    storeType?: string;
-    monthlyVolume?: string;
+    businessName?: string;
+    ownerName?: string;
+    email?: string;
   }>({});
 
   const handleContinue = () => {
     const newErrors: typeof errors = {};
 
-    if (!data.storeName.trim()) {
-      newErrors.storeName = "Please enter your store’s name";
+    if (!data.businessName?.trim()) {
+      newErrors.businessName = "Please enter your business name";
     }
 
-    if (!data.storeType) {
-      newErrors.storeType = "Select the type that best describes your store";
+    if (!data.ownerName?.trim()) {
+      newErrors.ownerName = "Please enter the owner’s name";
     }
 
-    if (!data.monthlyVolume) {
-      newErrors.monthlyVolume = "This helps us tailor recommendations for you";
+    if (!data.email?.trim()) {
+      newErrors.email = "Email address is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(data.email)) {
+      newErrors.email = "Please enter a valid email address";
     }
 
     setErrors(newErrors);
@@ -59,55 +61,44 @@ export default function StepOne({ data, setData, onNext }: StepOneProps) {
           fontWeight={700}
           sx={{ mb: 1, fontSize: { xs: "1.8rem", md: "2.5rem" } }}
         >
-          Tell us about your store
+          Let’s get started
         </Typography>
 
         <Typography color="text.secondary" sx={{ mb: 4 }}>
-          Just the basics — this will only take a minute.
+          Tell us a bit about your business to begin.
         </Typography>
 
         <Box display="flex" flexDirection="column" gap={3}>
           <TextField
-            label="Store Name"
-            placeholder="e.g. Fresh Mart"
+            label="Business Name"
+            placeholder="e.g. Fresh Mart Ltd"
             fullWidth
-            value={data.storeName}
-            error={Boolean(errors.storeName)}
-            helperText={errors.storeName}
-            onChange={(e) => setData({ ...data, storeName: e.target.value })}
+            value={data.businessName || ""}
+            error={Boolean(errors.businessName)}
+            helperText={errors.businessName}
+            onChange={(e) => setData({ ...data, businessName: e.target.value })}
           />
 
           <TextField
-            select
-            label="Store Type"
+            label="Owner Name"
+            placeholder="e.g. John Smith"
             fullWidth
-            value={data.storeType}
-            error={Boolean(errors.storeType)}
-            helperText={errors.storeType}
-            onChange={(e) => setData({ ...data, storeType: e.target.value })}
-          >
-            <MenuItem value="grocery">Grocery Store</MenuItem>
-            <MenuItem value="convenience">Convenience Store</MenuItem>
-            <MenuItem value="supermarket">Supermarket</MenuItem>
-            <MenuItem value="other">Other</MenuItem>
-          </TextField>
+            value={data.ownerName || ""}
+            error={Boolean(errors.ownerName)}
+            helperText={errors.ownerName}
+            onChange={(e) => setData({ ...data, ownerName: e.target.value })}
+          />
 
           <TextField
-            select
-            label="Monthly Purchasing Volume"
+            label="Email Address"
+            placeholder="e.g. john@freshmart.com"
+            type="email"
             fullWidth
-            value={data.monthlyVolume}
-            error={Boolean(errors.monthlyVolume)}
-            helperText={errors.monthlyVolume}
-            onChange={(e) =>
-              setData({ ...data, monthlyVolume: e.target.value })
-            }
-          >
-            <MenuItem value="lt10k">Less than $10,000</MenuItem>
-            <MenuItem value="10k-50k">$10,000 – $50,000</MenuItem>
-            <MenuItem value="50k-100k">$50,000 – $100,000</MenuItem>
-            <MenuItem value="gt100k">More than $100,000</MenuItem>
-          </TextField>
+            value={data.email || ""}
+            error={Boolean(errors.email)}
+            helperText={errors.email}
+            onChange={(e) => setData({ ...data, email: e.target.value })}
+          />
 
           <Button
             size="large"
@@ -144,7 +135,7 @@ export default function StepOne({ data, setData, onNext }: StepOneProps) {
         >
           <Image
             src="/assets/images/12468696.png"
-            alt="Store onboarding illustration"
+            alt="Business onboarding illustration"
             width={400}
             height={400}
             style={{ width: "100%", height: "auto" }}

@@ -2,8 +2,29 @@
 
 import { Box, Typography, Link, Stack } from "@mui/material";
 import NextLink from "next/link";
+import { useRouter, usePathname } from "next/navigation";
+
+const contactScrollOptions = {
+  offset: -90,
+  duration: 2.6, // 👈 slower, smooth scroll
+  easing: (t: number) => 1 - Math.pow(1 - t, 3), // ease-out
+};
 
 export default function Footer() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleContactClick = () => {
+    if (pathname === "/") {
+      window.lenis?.scrollTo("#contact", contactScrollOptions);
+    } else {
+      router.push("/");
+
+      setTimeout(() => {
+        window.lenis?.scrollTo("#contact", contactScrollOptions);
+      }, 700);
+    }
+  };
   return (
     <Box
       component="footer"
@@ -35,26 +56,39 @@ export default function Footer() {
       >
         {/* LOGO COLUMN */}
         <Box>
-          <Box component={NextLink} href="/" sx={{ display: "inline-block" }}>
-            <Box
-              component="img"
-              src="/assets/images/NGA-logo.png"
-              alt="National Grocers Association"
-              sx={{ width: 180, mb: 3 }}
-            />
-          </Box>
+          {/* LOGO - Already has homepage link ✅ */}
+          <Typography
+            variant="h6"
+            fontWeight={700}
+            component={Link}
+            href="/"
+            sx={{
+              color: "inherit",
+              textDecoration: "none",
+              cursor: "pointer",
+              fontFamily: "var(--font-fredoka)",
+              fontSize: {
+                xs: "1.2rem",
+                sm: "1.5rem",
+                md: "1.8rem",
+                lg: "2rem", // 👈 compact desktop
+                xl: "2.6rem", // 👈 big screens only
+              },
+            }}
+          >
+            GrocerConnect
+          </Typography>
 
           <Typography
             sx={{
-              fontSize: "1.05rem",
+              fontSize: { xs: "1.05rem", md: "1.3rem" },
+              lineHeight: { xs: 1.6, md: 1.7 },
               fontWeight: 700,
-              lineHeight: 1.6,
               color: "#111",
               maxWidth: 260,
             }}
           >
-            Supporting independent grocers nationwide and strengthening
-            communities through collaboration and advocacy.
+            Power in Numbers – Connecting Retailers and Suppliers
           </Typography>
         </Box>
 
@@ -62,8 +96,8 @@ export default function Footer() {
         <FooterColumn
           title="Company"
           links={[
-            { label: "Privacy Policy", href: "" },
-            { label: "Terms of Service", href: "" },
+            { label: "Privacy Policy", href: "/privacy-policy" },
+            { label: "Terms of Service", href: "/terms-of-service" },
           ]}
         />
 
@@ -71,21 +105,32 @@ export default function Footer() {
         <FooterColumn
           title="Home"
           links={[
-            { label: "About Grocer Connect", href: "/about" },
-            { label: "Membership", href: "/membership" },
+            { label: "About GrocerConnect", href: "/about" },
+            { label: "Membership", href: "#" },
             { label: "Join GrocerConnect", href: "/onboarding" },
             { label: "Login", href: "/login" },
-            { label: "Contact", href: "/contact" },
+            { label: "Contact" },
           ]}
+          onContactClick={handleContactClick}
         />
 
+        {/* CONNECT */}
         {/* CONNECT */}
         <FooterColumn
           title="Connect"
           links={[
-            { label: "Instagram", href: "#" },
-            { label: "LinkedIn", href: "#" },
-            { label: "Facebook", href: "#" },
+            {
+              label: "Instagram",
+              href: "https://www.instagram.com/GrocerConnectCanada",
+            },
+            {
+              label: "LinkedIn",
+              href: "https://www.linkedin.com/company/grocerconnectcanada",
+            },
+            {
+              label: "Facebook",
+              href: "https://www.facebook.com/GrocerConnectCanada",
+            },
           ]}
         />
       </Box>
@@ -97,7 +142,7 @@ export default function Footer() {
             textAlign: "center",
             color: "#fff",
             fontWeight: 700,
-            fontSize: "0.95rem",
+            fontSize: { xs: "0.95rem", md: "1.1rem" },
           }}
         >
           © Copyright by Grocer Connect. All rights reserved.
@@ -112,32 +157,47 @@ export default function Footer() {
 function FooterColumn({
   title,
   links,
+  onContactClick,
 }: {
   title: string;
-  links: { label: string; href: string }[];
+  links: { label: string; href?: string }[];
+  onContactClick?: () => void;
 }) {
   return (
     <Box>
       <Typography
         sx={{
-          fontSize: "1.2rem",
+          fontSize: { xs: "1.2rem", md: "1.9rem" },
+          fontFamily: "var(--font-passion)",
+          letterSpacing: "0.03em",
           fontWeight: 900,
           mb: 2.5,
           color: "#111",
+          mt: { xs: 0, md: 2 },
         }}
       >
         {title}
       </Typography>
 
-      <Stack spacing={1.8}>
+      <Stack spacing={1.8} alignItems="flex-start">
         {links.map((link) => (
           <Link
             key={link.label}
-            component={NextLink}
+            component={link.href ? NextLink : "button"}
             href={link.href}
+            onClick={() => {
+              if (link.label === "Contact") {
+                onContactClick?.();
+              }
+            }}
             underline="none"
             sx={{
-              fontSize: "1.05rem",
+              background: "none",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+              fontFamily: { xs: "var(--font-jakarta)" },
+              fontSize: { xs: "1.05rem", md: "1.25rem" },
               fontWeight: 700,
               color: "#111",
               transition: "all 250ms ease",

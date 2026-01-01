@@ -4,25 +4,25 @@ import { Box, Typography } from "@mui/material";
 
 const rows = [
   {
-    text: "Not Just Stores",
+    text: "Independent, Not Alone",
     bg: "#EF3A3A",
     color: "#FFFFFF",
-    hoverBg: "#C62828",
-    hoverColor: "#FFF176",
+    hoverBg: "#F29396",
+    hoverColor: "#EB373E",
   },
   {
     text: "A Connected Grocery Network",
-    bg: "#7E57C2",
-    color: "#FFF176",
-    hoverBg: "#5E35B1",
-    hoverColor: "#FFFFFF",
+    bg: "#7F4E9F",
+    color: "#FBEF43",
+    hoverBg: "#FBEF43",
+    hoverColor: "#7F4E9F",
   },
   {
     text: "Built to Grow Together",
-    bg: "#7CB342",
-    color: "#2E7D32",
-    hoverBg: "#558B2F",
-    hoverColor: "#FFFFFF",
+    bg: "#6DB54E",
+    color: "#2D8C40",
+    hoverBg: "#2D8C40",
+    hoverColor: "#6DB54E",
   },
 ];
 
@@ -51,15 +51,17 @@ export default function ExplainStripSection() {
         >
           <Typography
             sx={{
+              fontFamily: "var(--font-passion)",
               fontWeight: 900,
               letterSpacing: "3px",
-              textTransform: "capitalize",
+              textTransform: "Uppercase",
               textShadow: "0 6px 0 rgba(0,0,0,0.15)",
               fontSize: {
                 xs: "1.6rem", // mobile
-                sm: "3.4rem", // tablets
-                md: "4.8rem", // desktop
-                lg: "5.6rem", // large screens
+                sm: "3.2rem", // tablets
+                md: "4.1rem", // ⬅ 900–1023 (compact desktop)
+                lg: "5.2rem", // ⬅ desktop
+                xl: "5.9rem", // ⬅ large screens
               },
               lineHeight: 1.05,
               px: { xs: 1, md: 0 },

@@ -19,12 +19,13 @@ body {
 }
 
 /* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+html,
+body {
+  scroll-behavior: auto;
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -39,4 +40,4 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #b71c1c;
-}
+} */
