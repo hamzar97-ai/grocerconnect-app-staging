@@ -10,17 +10,40 @@ import FaqSection from "@/components/frontpage-sections/FaqSection";
 // import TextMarqueeSection from "@/components/frontpage-sections/TextMarqueeSection";
 import BringPeopleTogetherSection from "@/components/frontpage-sections/BringPeopleTogetherSection";
 import ContactSection from "@/components/frontpage-sections/ContactSection";
+// import ImageMarquee from "@/components/marquee/ImageMarquee";
 
 export default function Home() {
+  // const marqueeImages = [
+  //   "/assets/images/grocerconnect-1.png",
+  //   "/assets/images/grocerconnect-2.png",
+  //   "/assets/images/grocerconnect-3.png",
+  //   "/assets/images/grocerconnect-4.png",
+  //   "/assets/images/grocerconnect-5.png",
+  // ];
   return (
     <>
       <HeroSection />
 
+      {/* MARQUEE BETWEEN SECTIONS */}
+      {/* <Box sx={{ position: "relative", zIndex: 5 }}>
+        <Box
+          sx={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: { xs: -40, sm: -50, md: -70 },
+            pointerEvents: "none",
+          }}
+        >
+          <ImageMarquee images={marqueeImages} height={160} speed={60} />
+        </Box>
+      </Box> */}
       {/* STACKED SECTIONS */}
       <Box
         sx={{
           position: "relative",
           backgroundColor: "primary.main",
+          pt: "0px", // 👈 REQUIRED
           // backgroundImage:
           //   "radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)",
           // backgroundSize: "20px 20px",

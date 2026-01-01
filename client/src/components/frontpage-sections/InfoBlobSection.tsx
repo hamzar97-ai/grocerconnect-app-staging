@@ -321,16 +321,12 @@ export default function InfoBlobSection({
           <Typography
             sx={{
               fontFamily: "var(--font-jakarta)",
-              fontSize: {
-                xs: "1rem",
-                md: "1.25rem",
-                lg: "1.5rem",
-              },
+              fontSize: "clamp(14px, 1.15vw, 28px)",
               lineHeight: {
                 xs: 1.6,
                 md: 1.55,
               },
-              fontWeight: 500,
+              fontWeight: 700,
               color: textColor,
               maxWidth: 520,
             }}

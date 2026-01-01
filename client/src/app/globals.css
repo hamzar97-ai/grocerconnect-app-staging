@@ -25,7 +25,7 @@ body {
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -40,4 +40,4 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #b71c1c;
-}
+} */
