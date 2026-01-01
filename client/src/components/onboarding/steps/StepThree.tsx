@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, TextField, Typography, MenuItem, Button } from "@mui/material";
+import { Box, TextField, Typography, Button } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -11,21 +11,6 @@ interface StepThreeProps {
   onFinish: () => void;
 }
 
-const CANADIAN_CITIES = [
-  "Toronto",
-  "Vancouver",
-  "Montreal",
-  "Calgary",
-  "Edmonton",
-  "Ottawa",
-  "Mississauga",
-  "Brampton",
-  "Hamilton",
-  "Waterloo",
-  "Kitchener",
-  "Guelph",
-];
-
 export default function StepThree({
   data,
   setData,
@@ -33,31 +18,28 @@ export default function StepThree({
   onFinish,
 }: StepThreeProps) {
   const [errors, setErrors] = useState<{
-    address?: string;
-    city?: string;
-    postalCode?: string;
-    communication?: string;
+    phone?: string;
+    registeredName?: string;
+    tradingName?: string;
   }>({});
 
   const handleFinish = () => {
     const newErrors: typeof errors = {};
 
-    if (!data.address?.trim()) {
-      newErrors.address = "Please enter your store address";
+    const cleanedPhone = data.phone?.replace(/\s/g, "");
+
+    if (!cleanedPhone) {
+      newErrors.phone = "Please enter a telephone number";
+    } else if (!/^\+?\d{8,15}$/.test(cleanedPhone)) {
+      newErrors.phone = "Enter a valid phone number";
     }
 
-    if (!data.city) {
-      newErrors.city = "Please select your city";
+    if (!data.registeredName?.trim()) {
+      newErrors.registeredName = "Registered business name is required";
     }
 
-    if (!data.postalCode?.trim()) {
-      newErrors.postalCode = "Postal code is required";
-    } else if (!/^[A-Z]\d[A-Z][ -]?\d[A-Z]\d$/i.test(data.postalCode)) {
-      newErrors.postalCode = "Enter a valid Canadian postal code";
-    }
-
-    if (!data.communication) {
-      newErrors.communication = "Please choose a preferred contact method";
+    if (!data.tradingName?.trim()) {
+      newErrors.tradingName = "Trading name is required";
     }
 
     setErrors(newErrors);
@@ -87,70 +69,54 @@ export default function StepThree({
           fontWeight={700}
           sx={{ mb: 1, fontSize: { xs: "1.8rem", md: "2.5rem" } }}
         >
-          Almost done 🎉
+          Final details
         </Typography>
 
         <Typography color="text.secondary" sx={{ mb: 4 }}>
-          Just a few final details to complete your setup.
+          We just need a few final details to complete your setup.
         </Typography>
 
         <Box display="flex" flexDirection="column" gap={3}>
           <TextField
-            label="Store Address"
+            label="Telephone Number"
+            placeholder="e.g. +1 555 123 4567"
             fullWidth
-            value={data.address}
-            error={Boolean(errors.address)}
-            helperText={errors.address}
-            onChange={(e) => setData({ ...data, address: e.target.value })}
+            value={data.phone || ""}
+            error={Boolean(errors.phone)}
+            helperText={errors.phone}
+            inputProps={{
+              inputMode: "tel",
+              maxLength: 16,
+            }}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^[+\d\s]*$/.test(value)) {
+                setData({ ...data, phone: value });
+              }
+            }}
           />
 
           <TextField
-            select
-            label="City"
+            label="Registered Business Name"
+            placeholder="e.g. Fresh Mart Holdings Ltd"
             fullWidth
-            value={data.city}
-            error={Boolean(errors.city)}
-            helperText={errors.city}
-            onChange={(e) => setData({ ...data, city: e.target.value })}
-          >
-            {CANADIAN_CITIES.map((city) => (
-              <MenuItem key={city} value={city}>
-                {city}
-              </MenuItem>
-            ))}
-          </TextField>
-
-          <TextField label="Country" value="Canada" disabled fullWidth />
-
-          <TextField
-            label="Postal Code"
-            placeholder="e.g. M5V 3L9"
-            fullWidth
-            value={data.postalCode}
-            error={Boolean(errors.postalCode)}
-            helperText={errors.postalCode}
+            value={data.registeredName || ""}
+            error={Boolean(errors.registeredName)}
+            helperText={errors.registeredName}
             onChange={(e) =>
-              setData({
-                ...data,
-                postalCode: e.target.value.toUpperCase(),
-              })
+              setData({ ...data, registeredName: e.target.value })
             }
           />
 
           <TextField
-            select
-            label="Preferred Communication"
+            label="Trading Name"
+            placeholder="e.g. Fresh Mart"
             fullWidth
-            value={data.communication}
-            error={Boolean(errors.communication)}
-            helperText={errors.communication}
-            onChange={(e) =>
-              setData({ ...data, communication: e.target.value })
-            }
-          >
-            <MenuItem value="email">Email</MenuItem>
-            <MenuItem value="phone">Phone</MenuItem>
-          </TextField>
+            value={data.tradingName || ""}
+            error={Boolean(errors.tradingName)}
+            helperText={errors.tradingName}
+            onChange={(e) => setData({ ...data, tradingName: e.target.value })}
+          />
 
           {/* ACTIONS */}
           <Box
@@ -194,7 +160,7 @@ export default function StepThree({
         >
           <Image
             src="/assets/images/11667077.png"
-            alt="Finish setup illustration"
+            alt="Final details illustration"
             width={400}
             height={400}
             style={{ width: "100%", height: "auto" }}
