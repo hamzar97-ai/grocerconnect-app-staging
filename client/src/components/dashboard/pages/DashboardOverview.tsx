@@ -1,32 +1,42 @@
-import { Box, Typography } from "@mui/material";
-import StatsCard from "../widgets/StatsCard";
+"use client";
+
+import { Typography, Box } from "@mui/material";
+import { useState } from "react";
+import StoresTable from "../tables/StoresTable";
+import OrdersTable from "@/components/dashboard/tables/OrdersTable";
 
 export default function DashboardOverview() {
+  const [userRole] = useState<"admin" | "store">("store");
+
   return (
-    <>
-      <Typography variant="h4" fontWeight={700} mb={3}>
-        Dashboard Overview
-      </Typography>
+    <Box>
+      {userRole === "admin" && (
+        <>
+          <Typography variant="h4" fontWeight={700} mb={2}>
+            Grocery Stores
+          </Typography>
 
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "1fr",
-            sm: "1fr 1fr",
-            md: "repeat(4, 1fr)",
-          },
-          gap: 3,
-        }}
-      >
-        <StatsCard label="Total Stores" value={1204} color="primary" />
+          <Typography variant="body2" color="text.secondary" mb={3}>
+            List of grocery stores registered on the platform
+          </Typography>
 
-        <StatsCard label="Active Suppliers" value={142} color="success" />
+          <StoresTable />
+        </>
+      )}
 
-        <StatsCard label="Pending Approvals" value={18} color="warning" />
+      {userRole === "store" && (
+        <>
+          <Typography variant="h4" fontWeight={700} mb={2}>
+            My Orders
+          </Typography>
 
-        <StatsCard label="Active Subscriptions" value="98%" color="info" />
-      </Box>
-    </>
+          <Typography variant="body2" color="text.secondary" mb={3}>
+            Orders you have placed with suppliers
+          </Typography>
+
+          <OrdersTable />
+        </>
+      )}
+    </Box>
   );
 }

@@ -15,10 +15,15 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useState } from "react";
+import { useUserRole } from "@/components/dashboard/common/useUserRole";
+import { useRouter } from "next/navigation";
 
 export default function Topbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const router = useRouter();
+
+  const userRole = useUserRole();
 
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -30,14 +35,17 @@ export default function Topbar() {
 
   const handleEditProfile = () => {
     handleClose();
-    // later: router.push("/dashboard/profile")
-    console.log("Edit Profile");
+    console.log("Edit profile clicked");
   };
 
   const handleLogout = () => {
     handleClose();
-    // later: clear auth + redirect
-    console.log("Logout");
+
+    // Clear mock auth data
+    localStorage.removeItem("userRole");
+
+    // Redirect to homepage
+    router.push("/");
   };
 
   return (
@@ -56,7 +64,16 @@ export default function Topbar() {
         </Typography>
 
         {/* Right profile */}
-        <Box>
+        <Box display="flex" alignItems="center" gap={1}>
+          {/* Role label */}
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            {userRole === "admin" ? "Admin" : "Grocery Store"}
+          </Typography>
+
           <IconButton onClick={handleOpen}>
             <Avatar
               sx={{
@@ -64,9 +81,10 @@ export default function Topbar() {
                 width: 36,
                 height: 36,
                 fontSize: 14,
+                fontWeight: 600,
               }}
             >
-              A
+              {userRole === "admin" ? "A" : "S"}
             </Avatar>
           </IconButton>
 
@@ -77,14 +95,20 @@ export default function Topbar() {
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             transformOrigin={{ vertical: "top", horizontal: "right" }}
           >
+            <MenuItem disabled>
+              <Typography variant="body2" fontWeight={600}>
+                {userRole === "admin" ? "Admin Account" : "Store Account"}
+              </Typography>
+            </MenuItem>
+
+            <Divider />
+
             <MenuItem onClick={handleEditProfile}>
               <ListItemIcon>
                 <PersonIcon fontSize="small" />
               </ListItemIcon>
               Edit Profile
             </MenuItem>
-
-            <Divider />
 
             <MenuItem onClick={handleLogout} sx={{ color: "error.main" }}>
               <ListItemIcon>
