@@ -1,8 +1,27 @@
 "use client";
 
-import { Box, TextField, Typography, Button } from "@mui/material";
+import { Box, TextField, Typography, Button, MenuItem } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
+
+/**
+ * Canadian provinces & territories
+ */
+const CANADIAN_PROVINCES = [
+  "Alberta",
+  "British Columbia",
+  "Manitoba",
+  "New Brunswick",
+  "Newfoundland and Labrador",
+  "Nova Scotia",
+  "Ontario",
+  "Prince Edward Island",
+  "Quebec",
+  "Saskatchewan",
+  "Northwest Territories",
+  "Nunavut",
+  "Yukon",
+];
 
 interface StepTwoProps {
   data: any;
@@ -20,12 +39,24 @@ export default function StepTwo({
   const [error, setError] = useState<string | null>(null);
 
   const handleContinue = () => {
-    if (!data.address?.trim()) {
-      setError("Please enter your store address");
+    if (
+      !data.storeAddress?.trim() ||
+      !data.city?.trim() ||
+      !data.province?.trim() ||
+      !data.postalCode?.trim()
+    ) {
+      setError("Please fill in all required address fields");
       return;
     }
 
     setError(null);
+
+    // Ensure country is always Canada
+    setData({
+      ...data,
+      country: "Canada",
+    });
+
     onNext();
   };
 
@@ -57,15 +88,67 @@ export default function StepTwo({
         </Typography>
 
         <Box display="flex" flexDirection="column" gap={3}>
+          {/* Store Address */}
           <TextField
             label="Store Address"
-            placeholder="e.g. 123 Main Street, Toronto"
+            placeholder="123 Main Street"
             fullWidth
-            value={data.address || ""}
-            error={Boolean(error)}
-            helperText={error}
-            onChange={(e) => setData({ ...data, address: e.target.value })}
+            required
+            value={data.storeAddress || ""}
+            onChange={(e) => setData({ ...data, storeAddress: e.target.value })}
           />
+
+          {/* City & Province */}
+          <Box
+            display="grid"
+            gridTemplateColumns={{ xs: "1fr", sm: "1fr 1fr" }}
+            gap={2}
+          >
+            <TextField
+              label="City"
+              placeholder="Toronto"
+              required
+              value={data.city || ""}
+              onChange={(e) => setData({ ...data, city: e.target.value })}
+            />
+
+            <TextField
+              select
+              label="Province / Territory"
+              required
+              value={data.province || ""}
+              onChange={(e) => setData({ ...data, province: e.target.value })}
+            >
+              {CANADIAN_PROVINCES.map((province) => (
+                <MenuItem key={province} value={province}>
+                  {province}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+
+          {/* Postal Code & Country */}
+          <Box
+            display="grid"
+            gridTemplateColumns={{ xs: "1fr", sm: "1fr 1fr" }}
+            gap={2}
+          >
+            <TextField
+              label="Postal Code"
+              placeholder="A1A 1A1"
+              required
+              value={data.postalCode || ""}
+              onChange={(e) => setData({ ...data, postalCode: e.target.value })}
+            />
+
+            <TextField label="Country" value="Canada" disabled />
+          </Box>
+
+          {error && (
+            <Typography color="error" variant="body2">
+              {error}
+            </Typography>
+          )}
 
           {/* ACTIONS */}
           <Box

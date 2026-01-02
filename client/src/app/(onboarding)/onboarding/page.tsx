@@ -30,7 +30,7 @@ export default function OnboardingPage() {
     password: "",
 
     phone: "",
-    address: "",
+    storeAddress: "",
     city: "",
     country: "Canada",
     postalCode: "",
