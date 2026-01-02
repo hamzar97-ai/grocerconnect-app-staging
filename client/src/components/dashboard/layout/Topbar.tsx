@@ -17,7 +17,6 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useState } from "react";
 import { useUserRole } from "@/components/dashboard/common/useUserRole";
 import { useRouter } from "next/navigation";
-import { authService } from "@/services/auth.service";
 
 export default function Topbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -39,24 +38,9 @@ export default function Topbar() {
     console.log("Edit profile clicked");
   };
 
-  const handleLogout = async () => {
-    handleClose();
-
-    try {
-      await authService.logout();
-    } catch (err) {
-      // even if backend fails, logout locally
-      console.warn("Logout API failed, clearing session locally");
-    } finally {
-      // 🔥 Clear auth everywhere
-      localStorage.removeItem("auth_token");
-      localStorage.removeItem("userRole");
-
-      document.cookie = "auth_token=; Max-Age=0; path=/";
-      document.cookie = "userRole=; Max-Age=0; path=/";
-
-      router.push("/");
-    }
+  const handleLogout = () => {
+    localStorage.clear();
+    router.push("/login");
   };
 
   return (
