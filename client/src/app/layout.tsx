@@ -9,9 +9,9 @@ import {
 } from "next/font/google";
 import ThemeRegistry from "@/components/ThemeRegistry";
 import PageLoader from "@/components/PageLoader";
+import { SnackbarProvider } from "@/components/dashboard/common/SnackbarProvider";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import ScrollToTop from "@/components/ScrollToTop";
-
 export const metadata: Metadata = {
   title: "GrocerConnect",
   description: "GrocerConnect frontend application",
@@ -53,24 +53,26 @@ export default function RootLayout({
         style={{ overflowX: "hidden" }}
       >
         <ThemeRegistry>
-          <SmoothScrollProvider>
-            <PageLoader />
-            <ScrollToTop />
+          <SnackbarProvider>
+            <SmoothScrollProvider>
+              <PageLoader />
+              <ScrollToTop />
 
-            {/* 🔑 SINGLE LENIS SCROLL FLOW */}
-            <div id="lenis-scroll-content">
-              {children}
+              {/* 🔑 SINGLE LENIS SCROLL FLOW */}
+              <div id="lenis-scroll-content">
+                {children}
 
-              {/* 🔑 SCROLL BUFFER (INSIDE FLOW) */}
-              <div
-                aria-hidden
-                style={{
-                  height: "0vh",
-                  pointerEvents: "none",
-                }}
-              />
-            </div>
-          </SmoothScrollProvider>
+                {/* 🔑 SCROLL BUFFER (INSIDE FLOW) */}
+                <div
+                  aria-hidden
+                  style={{
+                    height: "0vh",
+                    pointerEvents: "none",
+                  }}
+                />
+              </div>
+            </SmoothScrollProvider>
+          </SnackbarProvider>
         </ThemeRegistry>
       </body>
     </html>

@@ -55,8 +55,21 @@ export default function LoginForm() {
       // ⏳ ADD THIS LINE (FAKE API DELAY)
       await new Promise((resolve) => setTimeout(resolve, 1200));
 
-      // ✅ HARDCODED LOGIN CHECK
-      if (form.email === "test@test.com" && form.password === "test123") {
+      // ✅ HARDCODED TEST LOGINS
+      if (
+        form.email === "admin@grocerconnect.com" &&
+        form.password === "admin123"
+      ) {
+        localStorage.setItem("userRole", "admin");
+        router.push("/dashboard");
+        return;
+      }
+
+      if (
+        form.email === "store@grocerconnect.com" &&
+        form.password === "store123"
+      ) {
+        localStorage.setItem("userRole", "store");
         router.push("/dashboard");
         return;
       }
