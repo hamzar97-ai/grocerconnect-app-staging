@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   IconButton,
@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function OnboardingHeader() {
   const router = useRouter();

@@ -9,9 +9,10 @@ import {
   IconButton,
   InputAdornment,
 } from "@mui/material";
-import { Visibility, VisibilityOff, ArrowBack } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { authService } from "@/services/auth.service";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -41,8 +42,6 @@ export default function LoginForm() {
 
     if (!form.password) {
       newErrors.password = "Please enter your password";
-    } else if (form.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
     }
 
     setErrors(newErrors);
@@ -52,31 +51,31 @@ export default function LoginForm() {
       setLoading(true);
       setErrors({});
 
-      // ⏳ ADD THIS LINE (FAKE API DELAY)
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      const response = await authService.loginStore(form);
 
-      // ✅ HARDCODED TEST LOGINS
-      if (
-        form.email === "admin@grocerconnect.com" &&
-        form.password === "admin123"
-      ) {
-        localStorage.setItem("userRole", "admin");
-        router.push("/dashboard");
-        return;
+      const token = response.data?.data?.token;
+      const backendRole = response.data?.data?.user?.role;
+
+      if (!token || !backendRole) {
+        throw new Error("Invalid login response");
       }
 
-      if (
-        form.email === "store@grocerconnect.com" &&
-        form.password === "store123"
-      ) {
-        localStorage.setItem("userRole", "store");
-        router.push("/dashboard");
-        return;
-      }
+      // 🔁 MAP BACKEND ROLE → FRONTEND ROLE
+      const userRole = backendRole === "ADMIN" ? "admin" : "store";
 
-      // ❌ fallback (invalid credentials)
+      // ✅ STORE AUTH (for middleware + UI)
+      document.cookie = `auth_token=${token}; path=/`;
+      document.cookie = `userRole=${userRole}; path=/`;
+
+      localStorage.setItem("auth_token", token);
+      localStorage.setItem("userRole", userRole);
+
+      router.push("/dashboard");
+    } catch (err: any) {
       setErrors({
-        general: "Invalid email or password. Please try again.",
+        general:
+          err?.response?.data?.message ||
+          "Invalid email or password. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -115,7 +114,6 @@ export default function LoginForm() {
               <IconButton
                 onClick={() => setShowPassword((prev) => !prev)}
                 edge="end"
-                aria-label="toggle password visibility"
               >
                 {showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
@@ -132,29 +130,11 @@ export default function LoginForm() {
         onClick={handleSubmit}
         sx={{ mt: 1, height: 48 }}
       >
-        <Box display="flex" alignItems="center" gap={1}>
-          {loading && <CircularProgress size={18} color="inherit" />}
-          <Typography fontWeight={600}>
-            {loading ? "Logging in..." : "Log in"}
-          </Typography>
-        </Box>
+        {loading ? <CircularProgress size={22} color="inherit" /> : "Log in"}
       </Button>
 
-      {/* FOOTER LINKS */}
       <Box textAlign="center" mt={1}>
         <Typography variant="body2" color="text.secondary">
-          Forgot your password?{" "}
-          <Typography
-            component="span"
-            color="primary.main"
-            fontWeight={600}
-            sx={{ cursor: "pointer" }}
-          >
-            Reset it
-          </Typography>
-        </Typography>
-
-        <Typography variant="body2" color="text.secondary" mt={1}>
           Don’t have an account?{" "}
           <Typography
             component="span"

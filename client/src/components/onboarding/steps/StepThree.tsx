@@ -1,8 +1,9 @@
 "use client";
 
-import { Box, TextField, Typography, Button } from "@mui/material";
+import { Box, TextField, Typography, Button, Alert } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
+import { authService } from "@/services/auth.service";
 
 interface StepThreeProps {
   data: any;
@@ -23,10 +24,11 @@ export default function StepThree({
     tradingName?: string;
   }>({});
 
-  const handleFinish = () => {
-    const newErrors: typeof errors = {};
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
-    const cleanedPhone = data.phone?.replace(/\s/g, "");
+  const handleFinish = async () => {
+    const newErrors: typeof errors = {};
 
     if (!data.phone) {
       newErrors.phone = "Please enter a telephone number";
@@ -43,22 +45,44 @@ export default function StepThree({
     }
 
     setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
 
-    if (Object.keys(newErrors).length === 0) {
+    try {
+      setLoading(true);
+      setApiError(null);
+
+      await authService.signup({
+        email: data.email,
+        password: data.password,
+        fullName: data.ownerName,
+        phoneNumber: data.phone,
+        businessName: data.businessName,
+        businessReg: data.registeredName,
+        tradingName: data.tradingName,
+        storeAddress: data.address,
+      });
+
+      // ✅ success → go to verification step
       onFinish();
+    } catch (err: any) {
+      setApiError(
+        err?.response?.data?.message ||
+          "Something went wrong. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   const formatCanadaPhone = (value: string) => {
-    // Keep only digits
     let digits = value.replace(/\D/g, "");
 
-    // If user types 1 first, ignore it (since +1 is fixed)
+    // Remove leading 1 if user types it
     if (digits.startsWith("1")) {
       digits = digits.slice(1);
     }
 
-    // Limit to 10 digits (Canadian local number)
+    // Limit to 10 digits
     digits = digits.slice(0, 10);
 
     if (digits.length === 0) return "+1 (";
@@ -93,7 +117,7 @@ export default function StepThree({
           variant="h3"
           color="primary.main"
           fontWeight={700}
-          sx={{ mb: 1, fontSize: { xs: "1.8rem", md: "2.5rem" } }}
+          sx={{ mb: 1 }}
         >
           Final details
         </Typography>
@@ -101,6 +125,12 @@ export default function StepThree({
         <Typography color="text.secondary" sx={{ mb: 4 }}>
           We just need a few final details to complete your setup.
         </Typography>
+
+        {apiError && (
+          <Alert severity="error" sx={{ mb: 3 }}>
+            {apiError}
+          </Alert>
+        )}
 
         <Box display="flex" flexDirection="column" gap={3}>
           <TextField
@@ -110,9 +140,7 @@ export default function StepThree({
             value={data.phone || ""}
             error={Boolean(errors.phone)}
             helperText={errors.phone}
-            inputProps={{
-              inputMode: "tel",
-            }}
+            inputProps={{ inputMode: "tel" }}
             onChange={(e) => {
               const formatted = formatCanadaPhone(e.target.value);
               setData({ ...data, phone: formatted });
@@ -121,7 +149,6 @@ export default function StepThree({
 
           <TextField
             label="Registered Business Name"
-            placeholder="e.g. Fresh Mart Holdings Ltd"
             fullWidth
             value={data.registeredName || ""}
             error={Boolean(errors.registeredName)}
@@ -133,7 +160,6 @@ export default function StepThree({
 
           <TextField
             label="Trading Name"
-            placeholder="e.g. Fresh Mart"
             fullWidth
             value={data.tradingName || ""}
             error={Boolean(errors.tradingName)}
@@ -141,14 +167,7 @@ export default function StepThree({
             onChange={(e) => setData({ ...data, tradingName: e.target.value })}
           />
 
-          {/* ACTIONS */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              mt: 3,
-            }}
-          >
+          <Box display="flex" justifyContent="space-between" mt={3}>
             <Button variant="outlined" size="large" onClick={onBack}>
               Back
             </Button>
@@ -158,37 +177,24 @@ export default function StepThree({
               size="large"
               sx={{ px: 5 }}
               onClick={handleFinish}
+              disabled={loading}
             >
-              Finish setup
+              {loading ? "Submitting..." : "Finish setup"}
             </Button>
           </Box>
         </Box>
       </Box>
 
-      {/* RIGHT — ILLUSTRATION */}
+      {/* RIGHT — IMAGE */}
       <Box
-        sx={{
-          display: { xs: "none", md: "flex" },
-          justifyContent: "center",
-        }}
+        sx={{ display: { xs: "none", md: "flex" }, justifyContent: "center" }}
       >
-        <Box
-          sx={{
-            width: "100%",
-            maxWidth: 360,
-            borderRadius: 6,
-            overflow: "hidden",
-            boxShadow: "0 30px 80px rgba(0,0,0,0.15)",
-          }}
-        >
-          <Image
-            src="/assets/images/11667077.png"
-            alt="Final details illustration"
-            width={400}
-            height={400}
-            style={{ width: "100%", height: "auto" }}
-          />
-        </Box>
+        <Image
+          src="/assets/images/11667077.png"
+          alt="Final details"
+          width={400}
+          height={400}
+        />
       </Box>
     </Box>
   );
