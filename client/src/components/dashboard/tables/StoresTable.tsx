@@ -19,7 +19,6 @@ import stores from "@/mock/stores";
 export default function StoresTable() {
   const [selectedStore, setSelectedStore] = useState<any>(null);
   const [openDrawer, setOpenDrawer] = useState(false);
-
   const [confirmType, setConfirmType] = useState<"approve" | "reject" | null>(
     null
   );
@@ -29,28 +28,38 @@ export default function StoresTable() {
       <Box sx={{ overflowX: "auto" }}>
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell>
-                <strong>Store Name</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Location</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Status</strong>
-              </TableCell>
-              <TableCell>
-                <strong>Subscription</strong>
-              </TableCell>
-              <TableCell align="right">
-                <strong>Actions</strong>
-              </TableCell>
+            <TableRow
+              sx={{
+                bgcolor: "#F3F4F6",
+                "& th": {
+                  fontWeight: 700,
+                  fontSize: "0.75rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                  color: "text.secondary",
+                  borderBottom: "1px solid #E5E7EB",
+                  py: 2,
+                },
+              }}
+            >
+              <TableCell>Store Name</TableCell>
+              <TableCell>Location</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Subscription</TableCell>
+              <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
             {stores.map((store) => (
-              <TableRow key={store.id} hover>
+              <TableRow
+                key={store.id}
+                hover
+                sx={{
+                  "& td": { py: 2 },
+                  "&:hover": { bgcolor: "#F9FAFB" },
+                }}
+              >
                 <TableCell>{store.name}</TableCell>
                 <TableCell>{store.location}</TableCell>
                 <TableCell>
@@ -98,7 +107,6 @@ export default function StoresTable() {
         confirmColor={confirmType === "approve" ? "success" : "error"}
         onConfirm={() => {
           console.log(confirmType, selectedStore);
-          // later → API call
         }}
         onClose={() => setConfirmType(null)}
       />

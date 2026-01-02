@@ -8,19 +8,36 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        minHeight: "100vh",
+        bgcolor: "#e7e7e7ff", // ✅ MiCha Yellow
+      }}
+    >
       {/* Sidebar */}
       <Sidebar />
 
-      {/* Main content area */}
+      {/* Main content */}
       <Box
         sx={{
           flexGrow: 1,
-          bgcolor: "#F8F9FA",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
+        {/* Topbar */}
         <Topbar />
-        <Box sx={{ p: 3 }}>{children}</Box>
+
+        {/* Page content */}
+        <Box
+          sx={{
+            p: { xs: 2, md: 4 },
+            flexGrow: 1,
+          }}
+        >
+          {children}
+        </Box>
       </Box>
     </Box>
   );
