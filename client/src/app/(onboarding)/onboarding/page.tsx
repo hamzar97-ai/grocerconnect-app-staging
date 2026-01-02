@@ -24,20 +24,19 @@ export default function OnboardingPage() {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const [formData, setFormData] = useState({
-    storeName: "",
-    storeType: "",
-    monthlyVolume: "",
-
-    fullName: "",
+    businessName: "",
+    ownerName: "",
     email: "",
-    phone: "",
-    role: "",
+    password: "",
 
+    phone: "",
     address: "",
     city: "",
     country: "Canada",
     postalCode: "",
-    communication: "",
+
+    registeredName: "",
+    tradingName: "",
   });
 
   const STEPS = [

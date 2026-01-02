@@ -15,6 +15,7 @@ export default function StepOne({ data, setData, onNext }: StepOneProps) {
     businessName?: string;
     ownerName?: string;
     email?: string;
+    password?: string;
   }>({});
 
   const handleContinue = () => {
@@ -32,6 +33,10 @@ export default function StepOne({ data, setData, onNext }: StepOneProps) {
       newErrors.email = "Email address is required";
     } else if (!/^\S+@\S+\.\S+$/.test(data.email)) {
       newErrors.email = "Please enter a valid email address";
+    }
+
+    if (!data.password || data.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
     }
 
     setErrors(newErrors);
@@ -98,6 +103,14 @@ export default function StepOne({ data, setData, onNext }: StepOneProps) {
             error={Boolean(errors.email)}
             helperText={errors.email}
             onChange={(e) => setData({ ...data, email: e.target.value })}
+          />
+
+          <TextField
+            label="Password"
+            type="password"
+            fullWidth
+            value={data.password || ""}
+            onChange={(e) => setData({ ...data, password: e.target.value })}
           />
 
           <Button

@@ -39,9 +39,8 @@ export default function Topbar() {
   };
 
   const handleLogout = () => {
-    handleClose();
-    localStorage.removeItem("userRole");
-    router.push("/");
+    localStorage.clear();
+    router.push("/login");
   };
 
   return (
