@@ -40,31 +40,46 @@ export default function Topbar() {
 
   const handleLogout = () => {
     handleClose();
-
-    // Clear mock auth data
     localStorage.removeItem("userRole");
-
-    // Redirect to homepage
     router.push("/");
   };
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       elevation={0}
       sx={{
-        bgcolor: "white",
-        borderBottom: "1px solid #e6e6e6",
+        bgcolor: "background.paper",
+        borderBottom: "1px solid #E5E7EB",
       }}
     >
-      <Toolbar sx={{ justifyContent: "space-between" }}>
+      <Toolbar
+        sx={{
+          minHeight: 64,
+          px: { xs: 2, sm: 4 },
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         {/* Left title */}
-        <Typography variant="h6" fontWeight={700} color="text.primary">
+        <Typography
+          variant="h6"
+          fontWeight={800}
+          sx={{ letterSpacing: "-0.3px", color: "#333" }}
+        >
           Dashboard
         </Typography>
 
         {/* Right profile */}
-        <Box display="flex" alignItems="center" gap={1}>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={1.5}
+          sx={{
+            pl: 2,
+            borderLeft: "1px solid #E5E7EB",
+          }}
+        >
           {/* Role label */}
           <Typography
             variant="body2"
@@ -81,7 +96,7 @@ export default function Topbar() {
                 width: 36,
                 height: 36,
                 fontSize: 14,
-                fontWeight: 600,
+                fontWeight: 700,
               }}
             >
               {userRole === "admin" ? "A" : "S"}
@@ -94,6 +109,14 @@ export default function Topbar() {
             onClose={handleClose}
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             transformOrigin={{ vertical: "top", horizontal: "right" }}
+            PaperProps={{
+              sx: {
+                mt: 1,
+                minWidth: 200,
+                borderRadius: 2,
+                boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.08)",
+              },
+            }}
           >
             <MenuItem disabled>
               <Typography variant="body2" fontWeight={600}>
@@ -103,14 +126,17 @@ export default function Topbar() {
 
             <Divider />
 
-            <MenuItem onClick={handleEditProfile}>
+            <MenuItem onClick={handleEditProfile} sx={{ py: 1.2 }}>
               <ListItemIcon>
                 <PersonIcon fontSize="small" />
               </ListItemIcon>
               Edit Profile
             </MenuItem>
 
-            <MenuItem onClick={handleLogout} sx={{ color: "error.main" }}>
+            <MenuItem
+              onClick={handleLogout}
+              sx={{ color: "error.main", py: 1.2 }}
+            >
               <ListItemIcon>
                 <LogoutIcon fontSize="small" color="error" />
               </ListItemIcon>

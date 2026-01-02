@@ -10,9 +10,17 @@ export default function DashboardOverview() {
 
   return (
     <Box>
+      {/* ADMIN VIEW */}
       {userRole === "admin" && (
-        <>
-          <Typography variant="h4" fontWeight={700} mb={2}>
+        <Box
+          sx={{
+            bgcolor: "background.paper",
+            borderRadius: 3,
+            p: { xs: 2, md: 4 },
+            boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
+          }}
+        >
+          <Typography variant="h4" fontWeight={700} mb={1}>
             Grocery Stores
           </Typography>
 
@@ -21,12 +29,20 @@ export default function DashboardOverview() {
           </Typography>
 
           <StoresTable />
-        </>
+        </Box>
       )}
 
+      {/* STORE VIEW */}
       {userRole === "store" && (
-        <>
-          <Typography variant="h4" fontWeight={700} mb={2}>
+        <Box
+          sx={{
+            bgcolor: "background.paper",
+            borderRadius: 3,
+            p: { xs: 2, md: 4 },
+            boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
+          }}
+        >
+          <Typography variant="h4" fontWeight={700} mb={1}>
             My Orders
           </Typography>
 
@@ -35,7 +51,7 @@ export default function DashboardOverview() {
           </Typography>
 
           <OrdersTable />
-        </>
+        </Box>
       )}
     </Box>
   );
