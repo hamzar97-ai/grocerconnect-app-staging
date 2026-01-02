@@ -150,7 +150,7 @@ export default function ContactSection() {
                 borderRadius: "999px",
                 mb: 1.3,
 
-                width: { xs: "100%", sm: "fit-content" },
+                width: { xs: "100%", sm: "300", md: "450px" },
                 maxWidth: "100%",
                 overflow: "hidden",
 

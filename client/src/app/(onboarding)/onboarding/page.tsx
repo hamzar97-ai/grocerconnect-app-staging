@@ -42,8 +42,8 @@ export default function OnboardingPage() {
 
   const STEPS = [
     { id: 1, label: "Store details" },
-    { id: 2, label: "Contact person" },
-    { id: 3, label: "Location & preferences" },
+    { id: 2, label: "Location & preferences" },
+    { id: 3, label: "Contact person" },
     { id: 4, label: "Verification" },
   ];
 

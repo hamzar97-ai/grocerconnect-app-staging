@@ -28,10 +28,10 @@ export default function StepThree({
 
     const cleanedPhone = data.phone?.replace(/\s/g, "");
 
-    if (!cleanedPhone) {
+    if (!data.phone) {
       newErrors.phone = "Please enter a telephone number";
-    } else if (!/^\+?\d{8,15}$/.test(cleanedPhone)) {
-      newErrors.phone = "Enter a valid phone number";
+    } else if (!isValidCanadaPhone(data.phone)) {
+      newErrors.phone = "Enter a valid Canadian phone number";
     }
 
     if (!data.registeredName?.trim()) {
@@ -47,6 +47,32 @@ export default function StepThree({
     if (Object.keys(newErrors).length === 0) {
       onFinish();
     }
+  };
+
+  const formatCanadaPhone = (value: string) => {
+    // Keep only digits
+    let digits = value.replace(/\D/g, "");
+
+    // If user types 1 first, ignore it (since +1 is fixed)
+    if (digits.startsWith("1")) {
+      digits = digits.slice(1);
+    }
+
+    // Limit to 10 digits (Canadian local number)
+    digits = digits.slice(0, 10);
+
+    if (digits.length === 0) return "+1 (";
+    if (digits.length <= 3) return `+1 (${digits}`;
+    if (digits.length <= 6)
+      return `+1 (${digits.slice(0, 3)}) ${digits.slice(3)}`;
+
+    return `+1 (${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(
+      6
+    )}`;
+  };
+
+  const isValidCanadaPhone = (value: string) => {
+    return /^\+1 \(\d{3}\) \d{3}-\d{4}$/.test(value);
   };
 
   return (
@@ -79,20 +105,17 @@ export default function StepThree({
         <Box display="flex" flexDirection="column" gap={3}>
           <TextField
             label="Telephone Number"
-            placeholder="e.g. +1 555 123 4567"
+            placeholder="+1 (416) 555-1234"
             fullWidth
             value={data.phone || ""}
             error={Boolean(errors.phone)}
             helperText={errors.phone}
             inputProps={{
               inputMode: "tel",
-              maxLength: 16,
             }}
             onChange={(e) => {
-              const value = e.target.value;
-              if (/^[+\d\s]*$/.test(value)) {
-                setData({ ...data, phone: value });
-              }
+              const formatted = formatCanadaPhone(e.target.value);
+              setData({ ...data, phone: formatted });
             }}
           />
 
