@@ -1,12 +1,48 @@
-import { Box } from "@mui/material";
+"use client";
+
+import { Box, CircularProgress } from "@mui/material";
 import Sidebar from "@/components/dashboard/layout/Sidebar";
 import Topbar from "@/components/dashboard/layout/Topbar";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem("auth_token");
+    const role = localStorage.getItem("userRole");
+
+    if (!token || !role) {
+      router.replace("/login");
+      return;
+    }
+
+    setCheckingAuth(false);
+  }, [router]);
+
+  // ⏳ Prevent UI flash while checking auth
+  if (checkingAuth) {
+    return (
+      <Box
+        sx={{
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          bgcolor: "#e7e7e7ff", // keep theme background
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <Box
       sx={{

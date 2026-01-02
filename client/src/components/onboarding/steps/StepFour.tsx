@@ -31,7 +31,7 @@ export default function StepFour({ email }: StepFourProps) {
      ========================= */
   const handleVerifyOtp = async () => {
     if (otp.length !== 6) {
-      setError("Please enter the 6-digit OTP");
+      setError("Please enter the 6-digit verification code");
       return;
     }
 
@@ -44,17 +44,16 @@ export default function StepFour({ email }: StepFourProps) {
         otp: Number(otp),
       });
 
-      localStorage.setItem("userRole", "store");
-
       setVerified(true);
 
-      // Redirect to dashboard after success
+      // ✅ After verification → go to login
       setTimeout(() => {
-        router.push("/dashboard");
-      }, 1500);
+        router.push("/login");
+      }, 2000);
     } catch (err: any) {
       setError(
-        err?.response?.data?.message || "Invalid OTP. Please try again."
+        err?.response?.data?.message ||
+          "Invalid verification code. Please try again."
       );
     } finally {
       setLoading(false);
@@ -73,7 +72,7 @@ export default function StepFour({ email }: StepFourProps) {
     } catch (err: any) {
       setError(
         err?.response?.data?.message ||
-          "Failed to resend OTP. Please try again."
+          "Failed to resend code. Please try again."
       );
     } finally {
       setResending(false);
@@ -81,7 +80,7 @@ export default function StepFour({ email }: StepFourProps) {
   };
 
   /* =========================
-     VERIFIED STATE
+     VERIFIED SUCCESS STATE
      ========================= */
   if (verified) {
     return (
@@ -91,11 +90,15 @@ export default function StepFour({ email }: StepFourProps) {
         />
 
         <Typography variant="h3" fontWeight={700} mb={1}>
-          Account verified!
+          Account verified 🎉
+        </Typography>
+
+        <Typography color="text.secondary" sx={{ mb: 2 }}>
+          Your email has been successfully verified.
         </Typography>
 
         <Typography color="text.secondary">
-          Redirecting you to dashboard...
+          Redirecting you to the login page…
         </Typography>
       </Box>
     );
@@ -121,7 +124,7 @@ export default function StepFour({ email }: StepFourProps) {
       )}
 
       <TextField
-        label="OTP Code"
+        label="Verification code"
         placeholder="123456"
         fullWidth
         value={otp}
@@ -137,7 +140,11 @@ export default function StepFour({ email }: StepFourProps) {
         onClick={handleVerifyOtp}
         sx={{ height: 48 }}
       >
-        {loading ? <CircularProgress size={22} color="inherit" /> : "Verify"}
+        {loading ? (
+          <CircularProgress size={22} color="inherit" />
+        ) : (
+          "Verify email"
+        )}
       </Button>
 
       <Box mt={3}>
@@ -146,7 +153,7 @@ export default function StepFour({ email }: StepFourProps) {
         </Typography>
 
         <Button variant="text" onClick={handleResendOtp} disabled={resending}>
-          {resending ? "Resending..." : "Resend OTP"}
+          {resending ? "Resending..." : "Resend code"}
         </Button>
       </Box>
     </Box>
