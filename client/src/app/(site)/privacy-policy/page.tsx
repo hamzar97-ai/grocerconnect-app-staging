@@ -6,44 +6,44 @@ import DottedSection from "@/components/DottedSection";
 export default function PrivacyPolicyPage() {
   return (
     <Box>
-      {/* ================= HERO ================= */}
-      <Box
-        sx={{
-          backgroundColor: "primary.main",
-          color: "#fff",
-          py: { xs: 8, md: 16 },
-          textAlign: "center",
-        }}
-      >
-        <Container>
-          <Typography
-            variant="h2"
-            sx={{
-              fontFamily: "var(--font-passion)",
-              mb: 2,
-              fontSize: { xs: "2.5rem", md: "4.5rem" },
-              letterSpacing: "0.02em",
-            }}
-          >
-            Privacy Policy
-          </Typography>
-
-          <Typography
-            sx={{
-              maxWidth: 750,
-              mx: "auto",
-              fontSize: { xs: "1.1rem", md: "1.25rem" },
-              fontFamily: "var(--font-jakarta)",
-            }}
-          >
-            How GrocerConnect collects, uses, and protects your information.
-          </Typography>
-        </Container>
-      </Box>
-
       {/* ✅ SAME BACKGROUND AS ABOUT PAGE */}
       <DottedSection>
-        <Container maxWidth="md" sx={{ py: { xs: 6, md: 10 } }}>
+        <Container sx={{ py: { xs: 8, md: 20 }, pb: { xs: 8, md: 2 } }}>
+          <Box sx={{ textAlign: "center", mb: 6 }}>
+            <Typography
+              component="h1"
+              sx={{
+                fontFamily: "var(--font-passion)",
+                fontWeight: 700,
+                fontSize: {
+                  xs: "clamp(28px, 10vw, 150px)",
+                  md: "clamp(28px, 5.5vw, 150px)",
+                },
+                lineHeight: 1,
+                color: "#000",
+                WebkitTextStroke: "0.2em #fff",
+                paintOrder: "stroke fill",
+                filter:
+                  "drop-shadow(0px clamp(2px, 1vw, 10px) clamp(1px, 0.2vw, 5px) rgba(0,0,0,0.55))",
+                px: "0.25em",
+              }}
+            >
+              Privacy Policy
+            </Typography>
+
+            <Typography
+              sx={{
+                mt: 3,
+                maxWidth: 750,
+                mx: "auto",
+                fontSize: { xs: "1.05rem", md: "1.2rem" },
+                fontFamily: "var(--font-jakarta)",
+                color: "text.secondary",
+              }}
+            >
+              How GrocerConnect collects, uses, and protects your information.
+            </Typography>
+          </Box>
           <Typography
             sx={{
               fontFamily: "var(--font-jakarta)",

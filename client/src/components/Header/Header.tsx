@@ -34,7 +34,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 
-const topBarLinks = ["Technical Assistance Center", "Foundation"];
+// const topBarLinks = ["Technical Assistance Center", "Foundation"];
 
 const navLinks = [
   { label: "About", href: "/about" },
@@ -374,7 +374,7 @@ export default function Header() {
                   onClose={handleDrawerClose}
                 >
                   {/* Menu Header with Logo - Now with homepage link */}
-                  <MenuHeader sx={{ pb: 9, pt: 2 }}>
+                  <MenuHeader sx={{ pb: 4, pt: 2 }}>
                     <Box
                       component={Link}
                       href="/"
@@ -496,7 +496,7 @@ export default function Header() {
                   <Divider sx={{ mx: 2, my: 1 }} />
 
                   {/* Quick Links */}
-                  <Box sx={{ px: 2, mt: 2 }}>
+                  {/* <Box sx={{ px: 2, mt: 2 }}>
                     <Typography
                       variant="caption"
                       sx={{
@@ -508,9 +508,9 @@ export default function Header() {
                     >
                       Quick Links
                     </Typography>
-                  </Box>
+                  </Box> */}
 
-                  <List sx={{ px: 1 }}>
+                  {/* <List sx={{ px: 1 }}>
                     {topBarLinks.map((text) => (
                       <ListItem key={text} disablePadding>
                         <StyledListItemButton onClick={handleDrawerClose}>
@@ -526,7 +526,7 @@ export default function Header() {
                         </StyledListItemButton>
                       </ListItem>
                     ))}
-                  </List>
+                  </List> */}
 
                   {/* Action Buttons - ADDED SOLID BACKGROUNDS */}
                   <Box sx={{ mt: 2, px: 2 }}>

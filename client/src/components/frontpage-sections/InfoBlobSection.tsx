@@ -192,7 +192,8 @@ export default function InfoBlobSection({
           sx={{
             width: {
               xs: "100%",
-              md: "52%", // same layout balance as Micha
+              md: "48%", // FIX
+              lg: "52%",
             },
             display: "flex",
             justifyContent: "center",
@@ -241,7 +242,15 @@ export default function InfoBlobSection({
         </Box>
 
         {/* TEXT */}
-        <Box sx={{ maxWidth: 560 }}>
+        <Box
+          sx={{
+            maxWidth: {
+              xs: "100%",
+              md: 480, // FIX: less squeeze at md
+              lg: 560,
+            },
+          }}
+        >
           {/* 🔒 Heading wrapper added (NO removal) */}
           <Box sx={{ position: "relative", display: "inline-block" }}>
             {/* 🌸 SVG BEHIND HEADING */}
@@ -285,7 +294,7 @@ export default function InfoBlobSection({
                 fontSize: {
                   xs: "2.2rem",
                   sm: "2.8rem",
-                  md: "4rem",
+                  md: "3.4rem",
                   lg: "4.8rem",
                 },
                 lineHeight: 1,
@@ -306,10 +315,14 @@ export default function InfoBlobSection({
                   fontSize: {
                     xs: "2.6rem",
                     sm: "3.4rem",
-                    md: "4.8rem",
+                    md: "4.1rem",
                     lg: "5.6rem",
                   },
-                  transform: "rotate(-6deg) translate(2%, -4%)",
+                  transform: {
+                    xs: "rotate(-4deg) translate(0%, 0%)",
+                    md: "rotate(-5deg) translate(1%, -2%)",
+                    lg: "rotate(-6deg) translate(2%, -4%)",
+                  },
                   transformOrigin: "top left",
                 }}
               >
